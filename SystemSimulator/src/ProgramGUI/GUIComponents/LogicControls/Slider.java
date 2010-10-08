@@ -20,13 +20,14 @@ public class Slider extends NullPanel implements ControlPoints {
     SystemSlider slider;
     JLabel label;
     SystemTextField field;
+    VisualLogicSystem.DataBlocks.Number num;
 
-    public Slider() {
+    public Slider(VisualLogicSystem.DataBlocks.Number n) {
 
-
+        num = n;
 
         this.slider = new SystemSlider();
-        this.label = new JLabel("Something to adjust");
+        this.label = new JLabel();
         this.field = new SystemTextField();
 
         this.setLayout(null);
@@ -35,6 +36,11 @@ public class Slider extends NullPanel implements ControlPoints {
         this.add(slider);
         this.add(label);
         this.add(field);
+
+        slider.setMinimum(n.getMin());
+        slider.setMaximum(n.getMax());
+        label.setText(num.getVariableName());
+
 
         //lay out components df HG
         slider.setBounds(10, 10, 180, 22);
@@ -75,9 +81,9 @@ public class Slider extends NullPanel implements ControlPoints {
         if (field.getCaret().isSelectionVisible()) {
             try {
                 int value = Integer.parseInt(field.getText());
-                if(value > -1){
+               
                 slider.setValue(value);
-                }
+                
             } catch (Exception e) {
             }
 
@@ -93,8 +99,12 @@ public class Slider extends NullPanel implements ControlPoints {
     }
 
     public static void main(String[] args) {
-        Slider s = new Slider();
-        Slider s2 = new Slider();
+
+
+        VisualLogicSystem.DataBlocks.Number n = new  VisualLogicSystem.DataBlocks.Number("lols",13,0,34);
+        VisualLogicSystem.DataBlocks.Number n2 = new  VisualLogicSystem.DataBlocks.Number("Something else",13,0,1234);
+        Slider s = new Slider(n);
+        Slider s2 = new Slider(n2);
         JFrame f = new JFrame();
 
         f.add(s);
