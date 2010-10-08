@@ -28,6 +28,8 @@ public class ForumUtils {
             }
             pass = hexString.toString();
 
+            user = user.toLowerCase();
+
             ResultSet set = SQLManager.executeQuery("SELECT * FROM forum_users WHERE username = '" + user + "' AND user_password = '" + pass + "'");
             ResultSetMetaData meta = set.getMetaData();
 
