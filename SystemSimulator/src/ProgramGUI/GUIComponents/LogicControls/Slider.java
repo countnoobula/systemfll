@@ -20,6 +20,8 @@ public class Slider extends NullPanel implements ControlPoints {
     SystemSlider slider;
     JLabel label;
     SystemTextField field;
+
+    //this is the actual number variable
     VisualLogicSystem.DataBlocks.Number num;
 
     public Slider(VisualLogicSystem.DataBlocks.Number n) {
