@@ -9,7 +9,7 @@ package VisualLogicSystem.DataBlocks;
  *
  * @author Dylan
  */
-public class Boolean {
+public class Boolean  extends DataObject{
 
     public Boolean(){
         

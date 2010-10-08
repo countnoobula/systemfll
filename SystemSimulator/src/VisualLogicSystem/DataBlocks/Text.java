@@ -9,7 +9,7 @@ package VisualLogicSystem.DataBlocks;
  *
  * @author Dylan
  */
-public class Text {
+public class Text extends DataObject {
 
     public Text(){
         

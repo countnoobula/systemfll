@@ -9,7 +9,7 @@ package VisualLogicSystem.DataBlocks;
  *
  * @author Dylan
  */
-public class Number {
+public class Number extends DataObject{
 
     public Number(){
         

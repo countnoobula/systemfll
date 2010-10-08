@@ -9,7 +9,7 @@ package VisualLogicSystem.DataBlocks;
  *
  * @author Dylan
  */
-public class Selection {
+public class Selection  extends DataObject{
 
     public Selection(){
         
