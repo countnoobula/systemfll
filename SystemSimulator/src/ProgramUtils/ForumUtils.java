@@ -2,15 +2,16 @@ package ProgramUtils;
 
 import java.sql.ResultSet;
 import ProgramUtils.SQLManager;
-import java.math.BigInteger;
 import java.security.MessageDigest;
+import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 
 public class ForumUtils {
+
     public ForumUtils() {
-        
     }
-    public static boolean login(String user, String pass) {
+
+    public static Object[] login(String user, String pass) {
         try {
             String password = pass;
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -18,9 +19,9 @@ public class ForumUtils {
             byte byteData[] = md.digest();
 
             StringBuffer hexString = new StringBuffer();
-            for (int i=0;i<byteData.length;i++) {
-    		String hex = Integer.toHexString(0xff & byteData[i]);
-   	     	if(hex.length()==1) {
+            for (int i = 0; i < byteData.length; i++) {
+                String hex = Integer.toHexString(0xff & byteData[i]);
+                if (hex.length() == 1) {
                     hexString.append('0');
                 }
                 hexString.append(hex);
@@ -28,17 +29,23 @@ public class ForumUtils {
             pass = hexString.toString();
 
             ResultSet set = SQLManager.executeQuery("SELECT * FROM forum_users WHERE username = '" + user + "' AND user_password = '" + pass + "'");
-            
-            if(set != null) {
+            ResultSetMetaData meta = set.getMetaData();
+
+            if (set != null) {
                 JOptionPane.showMessageDialog(null, "Successful Login");
-                return true;
+                int cols = meta.getColumnCount();
+                Object array[] = new Object[cols];
+                for (int i = 0; i < cols; i++) {
+                    array[i] = set.getObject(i + 1);
+                }
+                return array;
             } else {
                 JOptionPane.showMessageDialog(null, "Fail Login");
-                return false;
+                return null;
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e.toString());
         }
-        return false;
+        return null;
     }
 }
