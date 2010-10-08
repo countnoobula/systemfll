@@ -4,7 +4,7 @@ package VisualLogicSystem.DataBlocks;
  * This is a generic Data Block otherwise known as a variable
  * @author Dylan
  */
-public class DataObject {
+public abstract class DataObject {
 
     String variableName;
 
