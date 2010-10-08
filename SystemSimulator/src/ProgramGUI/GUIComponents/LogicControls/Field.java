@@ -1,7 +1,6 @@
 package ProgramGUI.GUIComponents.LogicControls;
 
 import ProgramGUI.GUIComponents.NullPanel;
-import ProgramGUI.GUIComponents.SystemSlider;
 import ProgramGUI.GUIComponents.SystemTextField;
 import VisualLogicSystem.DataBlocks.Text;
 import java.awt.Color;
@@ -10,11 +9,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.Document;
 
 public class Field extends NullPanel implements ControlPoints {
 

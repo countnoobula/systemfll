@@ -17,9 +17,7 @@ import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 import MainClasses.Main;
-import java.awt.Insets;
 
-import java.awt.Font;
 
 public class AuxPanelButton extends JButton {
 
