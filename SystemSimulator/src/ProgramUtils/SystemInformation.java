@@ -13,7 +13,7 @@ public class SystemInformation {
   public static boolean isMac() {
 
       String os = System.getProperty("os.name").toLowerCase();
-      //Mac
+      //mac
       return (os.indexOf("mac") >= 0);
 
   }

@@ -75,5 +75,4 @@ public class LogicBlockEngine {
         links.add(l);
     }
 
-
 }
