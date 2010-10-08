@@ -13,6 +13,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 public class Slider extends NullPanel implements ControlPoints {
 
@@ -41,28 +42,21 @@ public class Slider extends NullPanel implements ControlPoints {
         field.setBounds(195, 10, 40, 22);
 
         label.setForeground(Color.WHITE);
-        field.getDocument().addDocumentListener(new DocumentListener(){
+        field.getDocument().addDocumentListener(new DocumentListener() {
 
             public void insertUpdate(DocumentEvent e) {
-          
+                calculateIt(e);
             }
 
             public void removeUpdate(DocumentEvent e) {
-           
+                calculateIt(e);
             }
 
             public void changedUpdate(DocumentEvent e) {
-                try{
-                int value = Integer.parseInt("" + field.getText());
-                if (value > -1) {
-                    slider.setValue(value);
-                }
-                }
-                catch(java.lang.NumberFormatException error){
-                    slider.setValue(50);
-                }
+                calculateIt(e);
             }
         });
+
 
 
         slider.addChangeListener(new ChangeListener() {
@@ -71,6 +65,23 @@ public class Slider extends NullPanel implements ControlPoints {
                 field.setText("" + slider.getValue());
             }
         });
+
+    }
+    //method to called by the listener abstract methods
+
+    private void calculateIt(DocumentEvent documentEvent) {
+        Document type = documentEvent.getDocument();
+
+        if (field.getCaret().isSelectionVisible()) {
+            try {
+                int value = Integer.parseInt(field.getText());
+                if(value > -1){
+                slider.setValue(value);
+                }
+            } catch (Exception e) {
+            }
+
+        }
 
     }
 

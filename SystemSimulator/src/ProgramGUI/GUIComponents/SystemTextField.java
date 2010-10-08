@@ -71,11 +71,11 @@ public class SystemTextField extends JTextField {
 
         g2d.setPaint(gp2);
 
-        g2d.fillRoundRect(0, 0, this.getWidth() - 1, this.getHeight() - 1, 15,
-                          15);
+        g2d.fillRoundRect(0, 0, this.getWidth() - 1, this.getHeight() - 1, 10,
+                          10);
         g2d.setPaint(gp1);
-        g2d.drawRoundRect(0, 0, this.getWidth() - 1, this.getHeight() - 1, 15,
-                          15);
+        g2d.drawRoundRect(0, 0, this.getWidth() - 1, this.getHeight() - 1, 10,
+                          10);
         g2d.setColor(Color.LIGHT_GRAY);
         g2d.setFont(f1);
         super.paintComponent(g);
