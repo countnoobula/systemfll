@@ -9,7 +9,7 @@ import ProgramGUI.GUIComponents.SystemLabel;
 import ProgramGUI.GUIComponents.SystemPassField;
 import ProgramGUI.GUIComponents.SystemTextField;
 
-import ProgramUtils.SQLManager;
+import ProgramUtils.ForumUtils;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,8 +20,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import java.sql.ResultSet;
 
 import java.util.ArrayList;
 
@@ -96,9 +94,7 @@ public class PortalScreen extends GenericSystemPanel {
 
             bt1.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        ResultSet set =
-                            SQLManager.executeQuery("SELECT * FROM users");
-                        System.out.println("Executed Query");
+                        ForumUtils.login(field1.getText(), field2.getText());
                     }
                 });
             bt2.addActionListener(new ActionListener() {

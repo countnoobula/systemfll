@@ -15,7 +15,7 @@ import java.sql.SQLException;
  */
 public class SQLManager{
 
-    private static String url = ("jdbc:mysql://voidblog.com:3306/voidblo1_system");
+    private static String url = ("jdbc:mysql://voidblog.com:3306/voidblo1_forumsys");
     private static Connection con = null;
 
 
