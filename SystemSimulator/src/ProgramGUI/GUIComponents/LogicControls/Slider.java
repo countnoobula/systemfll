@@ -37,7 +37,7 @@ public class Slider extends NullPanel implements ControlPoints {
         this.add(label);
         this.add(field);
 
-        //lay out components df
+        //lay out components df HG
         slider.setBounds(10, 10, 180, 22);
         label.setBounds(245, 10, 140, 22);
         field.setBounds(195, 10, 40, 22);
