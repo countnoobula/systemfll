@@ -43,7 +43,7 @@ public class SystemTextField extends JTextField {
         f1 = new Font("Arial", 12, 12);
         this.setOpaque(false);
         this.setFont(f1);
-        this.setForeground(Color.LIGHT_GRAY);
+        this.setForeground(Color.WHITE);
         setBorder(BorderFactory.createEmptyBorder(3, 5, 3, 5));
     }
 
