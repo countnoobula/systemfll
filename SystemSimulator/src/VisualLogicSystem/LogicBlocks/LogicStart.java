@@ -20,7 +20,6 @@ public class LogicStart extends LogicBlock {
         super();
 
         super.data.add(new Text("Name","Untitled"));
-
         
         //add the rules 
         super.rects.add(new Rectangle(super.size - 10, 5, 10, 10));
