@@ -24,7 +24,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-
 public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     //GUI data
@@ -33,25 +32,20 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public Rectangle bounds;
     public BufferedImage bi;
     public int size = 50;
-    
-
     //ID data
     public int ID;
-
     //Connection DATA
     public ArrayList<Rectangle> rects;
     public ArrayList<Integer> connections;
     public ArrayList<LogicLink> nodes;
-
+    
     //Code stuffs
     public CodeBlock codeBlock;
-
 
     public int getID() {
         return ID;
 
     }
-
 
     public LogicBlock() {
 
@@ -60,37 +54,37 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         rects = new ArrayList<Rectangle>(0);
         nodes = new ArrayList<LogicLink>(0);
         connections = new ArrayList<Integer>(0);
-        
+
         codeBlock = new CodeBlock();
 
         bounds.setSize(size, size);
-        
-        
+
+
 
         //create a new buffered image
-        bi = new BufferedImage(size+10, size+10, BufferedImage.TYPE_INT_ARGB);
+        bi = new BufferedImage(size + 10, size + 10, BufferedImage.TYPE_INT_ARGB);
         g2d = bi.createGraphics();
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
-                             RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        
+                RenderingHints.VALUE_ANTIALIAS_ON);
+
+
 
         // a few grphics objects which are useful
         gp1 = new Color(20, 20, 20);
         gp2 = new Color(160, 160, 160);
         gp3 =
- new GradientPaint(size, 0, new Color(0, 0, 0, 100), size + 10, 0, new Color(0,
-                                                                             0,
-                                                                             0,
-                                                                             0));
+                new GradientPaint(size, 0, new Color(0, 0, 0, 100), size + 10, 0, new Color(0,
+                0,
+                0,
+                0));
         gp4 =
- new GradientPaint(0, size, new Color(0, 0, 0, 100), 0, size + 10, new Color(0,
-                                                                             0,
-                                                                             0,
-                                                                             0));
+                new GradientPaint(0, size, new Color(0, 0, 0, 100), 0, size + 10, new Color(0,
+                0,
+                0,
+                0));
         gp5 =
- new GradientPaint(size, size, new Color(0, 0, 0, 100), size + 5, size + 5,
-                   new Color(0, 0, 0, 0));
+                new GradientPaint(size, size, new Color(0, 0, 0, 100), size + 5, size + 5,
+                new Color(0, 0, 0, 0));
 
 
         drawBackground();
@@ -102,9 +96,9 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         nodes.add(link);
 
     }
-    
-    public BlockProperties getProperties(){
-      return new BlockProperties(this);
+
+    public BlockProperties getProperties() {
+        return new BlockProperties(this);
     }
 
     public LogicLink getLinks(int index) {
@@ -123,7 +117,6 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         return codeBlock;
     }
 
-
     public void drawBackground() {
 
         g2d.setPaint(gp1);
@@ -139,7 +132,6 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     }
 
-
     /**
      * Set the location of this object.
      * @param x
@@ -151,12 +143,11 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         this.bounds.setLocation(x, y);
     }
 
-
     public Rectangle getConnectionBoundReal(int index) {
-        return new Rectangle((int)(rects.get(index).getX() + bounds.getX()),
-                             (int)(rects.get(index).getY() + bounds.getY()),
-                             (int)(rects.get(index).getWidth()),
-                             (int)(rects.get(index).getHeight()));
+        return new Rectangle((int) (rects.get(index).getX() + bounds.getX()),
+                (int) (rects.get(index).getY() + bounds.getY()),
+                (int) (rects.get(index).getWidth()),
+                (int) (rects.get(index).getHeight()));
     }
 
     public Rectangle getConnectionBound(int index) {
@@ -164,11 +155,11 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     }
 
     public int getX() {
-        return (int)bounds.getX();
+        return (int) bounds.getX();
     }
 
     public int getY() {
-        return (int)bounds.getY();
+        return (int) bounds.getY();
     }
 
     public Rectangle getBounds() {
@@ -177,14 +168,11 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     private class LogicButtonUI extends BasicButtonUI {
 
-
         @Override
         public void paint(Graphics g, JComponent c) {
             g.drawImage(bi, 0, 0, null);
         }
-
     }
-
 
     public JButton getButton() {
         JButton temp = new JButton("");
@@ -195,7 +183,6 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         temp.addActionListener(new LogicBlockAddition(this));
         return temp;
     }
-
 
     public int getAmountBounds() {
         return rects.size();
@@ -209,5 +196,4 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-
 }
