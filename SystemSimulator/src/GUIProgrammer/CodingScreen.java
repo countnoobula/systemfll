@@ -13,7 +13,7 @@ import jsyntaxpane.DefaultSyntaxKit;
 public class CodingScreen extends GenericSystemPanel {
 
     JEditorPane edit;
-
+  
 
     public CodingScreen() {
 
