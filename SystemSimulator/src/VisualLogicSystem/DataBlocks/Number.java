@@ -11,7 +11,8 @@ package VisualLogicSystem.DataBlocks;
  */
 public class Number extends DataObject{
 
-    public Number(){
+    public Number(String s){
+        super(s);
         
     }
 

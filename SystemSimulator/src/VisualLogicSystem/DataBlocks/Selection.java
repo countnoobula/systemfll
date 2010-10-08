@@ -11,8 +11,8 @@ package VisualLogicSystem.DataBlocks;
  */
 public class Selection  extends DataObject{
 
-    public Selection(){
-        
+    public Selection(String s){
+        super(s);
     }
 
 }

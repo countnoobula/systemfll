@@ -9,10 +9,20 @@ package VisualLogicSystem.DataBlocks;
  *
  * @author Dylan
  */
-public class Boolean  extends DataObject{
+public class Boolean extends DataObject{
 
-    public Boolean(){
-        
+    boolean value;
+
+    public Boolean(String s){
+        super(s);
+        value = true;
+
+    }
+    public void setValue(boolean b){
+        value = b;
+    }
+    public boolean getValue(){
+        return value;
     }
 
 }
