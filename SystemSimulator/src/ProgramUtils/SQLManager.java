@@ -2,12 +2,10 @@ package ProgramUtils;
 
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
-
-
 import java.sql.DriverManager;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 
 /**
  *
@@ -26,7 +24,7 @@ public class SQLManager{
         
         try {
             try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
+               Class.forName( "com.mysql.jdbc.Driver" ).newInstance() ;
             } catch (InstantiationException ex) {
                 System.out.println("Cant find Driver Manager");
             } catch (IllegalAccessException ex) {
@@ -38,21 +36,24 @@ public class SQLManager{
         }
         try {
 
-            con =
- (Connection)DriverManager.getConnection(url, "voidblo1_shaun", "system");
+            con = (Connection) DriverManager.getConnection(url, "voidblo1_shaun", "system");
             Statement statement;
             statement = (Statement)con.createStatement();
             ResultSet set = statement.executeQuery("" + sql);
             //ResultSetMetaData metaData2 = set.getMetaData();
 
+            System.out.println("Worked");
+
 
             return set;
         } catch (SQLException ex) {
+            
+            System.out.println("oops");
             return null;
         }
 
     }
     public static void main(String args[]){
-        SQLManager.executeQuery("SELECT * FROM users");
+        SQLManager.executeQuery("SELECT * FROM forum_users;");
     }
 }
