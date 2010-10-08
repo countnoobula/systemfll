@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Dylan
+ * @author Dylan and Shaun
  */
 public class SQLManager{
 
