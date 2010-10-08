@@ -4,8 +4,6 @@ import java.awt.Color;
 
 import java.awt.Dimension;
 
-import com.sun.awt.AWTUtilities;
-
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
