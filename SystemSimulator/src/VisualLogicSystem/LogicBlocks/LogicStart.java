@@ -1,5 +1,6 @@
 package VisualLogicSystem.LogicBlocks;
 
+import VisualLogicSystem.DataBlocks.Text;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
@@ -17,17 +18,19 @@ public class LogicStart extends LogicBlock {
 
     public LogicStart() {
         super();
-        
+
+        super.data.add(new Text("Name","Untitled"));
+
         
         //add the rules 
         super.rects.add(new Rectangle(super.size - 10, 5, 10, 10));
         super.connections.add(1);    
         
         int x[] =
-        { (int)(size / 2), size, size, (int)(size / 2) - 6, (int)(size / 2) -
-          6, (int)(size / 2) };
+        { (size / 2), size, size, (size / 2) - 6, (size / 2) -
+          6, (size / 2)};
         int y[] =
-        { 0, 0, size, size, (int)(size / 2) + 3, (int)(size / 2) - 3 };
+        { 0, 0, size, size, (size / 2) + 3, (size / 2) - 3 };
         Polygon s1 = new Polygon(x, y, 6);
         g2d.setColor(new Color(192, 255, 0, 30));
         g2d.fill(s1);

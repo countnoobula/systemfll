@@ -7,8 +7,16 @@ package VisualLogicSystem.DataBlocks;
  */
 public class Text extends DataObject {
 
-    public Text(String s){
-        super(s);
+    String value;
+    public Text(String variableName,String value){
+        super(variableName);
+        this.value = value;
+    }
+    public String getValue(){
+        return value;
+    }
+    public void setValue(String value){
+        this.value = value;
     }
 
 }

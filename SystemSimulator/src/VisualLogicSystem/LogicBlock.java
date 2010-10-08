@@ -1,6 +1,7 @@
 package VisualLogicSystem;
 
 import ProgramGUI.GUIComponents.BlockProperties;
+import VisualLogicSystem.DataBlocks.DataObject;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,15 +10,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Paint;
-import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import java.util.ArrayList;
-
-
-import javax.imageio.ImageIO;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -38,13 +35,13 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public ArrayList<Rectangle> rects;
     public ArrayList<Integer> connections;
     public ArrayList<LogicLink> nodes;
+    public ArrayList<DataObject> data;
     
     //Code stuffs
     public CodeBlock codeBlock;
 
     public int getID() {
         return ID;
-
     }
 
     public LogicBlock() {
@@ -54,6 +51,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         rects = new ArrayList<Rectangle>(0);
         nodes = new ArrayList<LogicLink>(0);
         connections = new ArrayList<Integer>(0);
+        data = new ArrayList<DataObject>(0);
 
         codeBlock = new CodeBlock();
 
