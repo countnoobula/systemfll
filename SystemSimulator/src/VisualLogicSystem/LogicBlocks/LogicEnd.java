@@ -4,7 +4,6 @@ import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Polygon;
 
@@ -22,10 +21,10 @@ public class LogicEnd extends LogicBlock {
         super.connections.add(2);
            
         int x[] =
-        { (int)(size / 2), size, size, (int)(size / 2) - 6, (int)(size / 2) -
-          6, (int)(size / 2) };
+        { (size / 2), size, size, (size / 2) - 6, (size / 2) -
+          6, (size / 2)};
         int y[] =
-        { 0, 0, size, size, (int)(size / 2) + 3, (int)(size / 2) - 3 };
+        { 0, 0, size, size, (size / 2) + 3, (size / 2) - 3 };
         
         Polygon s1 = new Polygon(x, y, 6);
         g2d.setColor(new Color(255, 0, 0, 30));

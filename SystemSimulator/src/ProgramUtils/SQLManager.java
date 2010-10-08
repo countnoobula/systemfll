@@ -3,16 +3,11 @@ package ProgramUtils;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 
-import java.io.IOException;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
