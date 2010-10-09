@@ -3,9 +3,9 @@ package ProgramUtils;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.Statement;
 import java.sql.DriverManager;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 
 /**
  *
@@ -13,7 +13,7 @@ import java.sql.SQLException;
  */
 public class SQLManager{
 
-    private static String url = ("jdbc:mysql://voidblog.com:3306/voidblo1_forumsys");
+    private static String url = ("jdbc:mysql://voidblog.com:3306/voidblo1_pro");
     private static Connection con = null;
 
 
@@ -38,17 +38,14 @@ public class SQLManager{
 
             con = (Connection) DriverManager.getConnection(url, "voidblo1_shaun", "system");
             Statement statement;
-            statement = (Statement)con.createStatement();
+            statement = (Statement) con.createStatement();
             ResultSet set = statement.executeQuery("" + sql);
-            //ResultSetMetaData metaData2 = set.getMetaData();
-
-            System.out.println("Worked");
 
 
             return set;
         } catch (SQLException ex) {
             
-            System.out.println("oops");
+            System.out.println("SQL did not work");
             return null;
         }
 

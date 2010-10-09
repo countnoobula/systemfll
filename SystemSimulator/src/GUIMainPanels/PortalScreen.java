@@ -9,7 +9,7 @@ import ProgramGUI.GUIComponents.SystemLabel;
 import ProgramGUI.GUIComponents.SystemPassField;
 import ProgramGUI.GUIComponents.SystemTextField;
 
-import ProgramUtils.ForumUtils;
+import ProgramUtils.LoginUtils;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -94,7 +94,7 @@ public class PortalScreen extends GenericSystemPanel {
 
             bt1.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        ForumUtils.login(field1.getText(), field2.getText());
+                        LoginUtils.login(field1.getText(), field2.getText());
                     }
                 });
             bt2.addActionListener(new ActionListener() {
