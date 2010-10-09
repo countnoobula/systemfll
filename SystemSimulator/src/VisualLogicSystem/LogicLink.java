@@ -12,12 +12,15 @@ import java.awt.Polygon;
 
 public class LogicLink implements Cloneable {
 
-
     ArrayList<Point> points;
     LogicBlock start;
     LogicBlock end;
     int startConnection;
     int endConnection;
+
+    public LogicBlock getEnd() {
+        return end;
+    }
 
     public LogicLink() {
 
@@ -44,7 +47,7 @@ public class LogicLink implements Cloneable {
     }
 
     public void addPoint(double x, double y) {
-        points.add(new Point((int)x, (int)y));
+        points.add(new Point((int) x, (int) y));
     }
 
     public int getAmountOfAnchors() {
@@ -55,7 +58,6 @@ public class LogicLink implements Cloneable {
         points.set(id, p);
 
     }
-    
 
     public void removeAnchor(int i) {
         points.remove(i);
@@ -63,22 +65,21 @@ public class LogicLink implements Cloneable {
 
     public Shape getVirtualAnchor(int i) {
         return new Ellipse2D.Double(points.get(i).getX() - 5,
-                                    points.get(i).getY() - 5, 10, 10);
+                points.get(i).getY() - 5, 10, 10);
     }
-
 
     public boolean getLineBoundaries(int x1, int y1) {
         int size = 10;
-        int min = (int)(size / 2);
+        int min = (int) (size / 2);
 
         if (points.size() == 0) {
             //Insert 1 between the 2 logic blocks
-            if (lineRectangleIntersect((int)start.getConnectionBoundReal(startConnection).getCenterX(),
-                                       (int)start.getConnectionBoundReal(startConnection).getCenterY(),
-                                       (int)end.getConnectionBoundReal(endConnection).getCenterX(),
-                                       (int)end.getConnectionBoundReal(endConnection).getCenterY(),
-                                       x1 - min, y1 - min, size, size) ==
-                true) {
+            if (lineRectangleIntersect((int) start.getConnectionBoundReal(startConnection).getCenterX(),
+                    (int) start.getConnectionBoundReal(startConnection).getCenterY(),
+                    (int) end.getConnectionBoundReal(endConnection).getCenterX(),
+                    (int) end.getConnectionBoundReal(endConnection).getCenterY(),
+                    x1 - min, y1 - min, size, size)
+                    == true) {
 
                 points.add(new Point(x1, y1));
                 return true;
@@ -86,25 +87,24 @@ public class LogicLink implements Cloneable {
             }
         } else {
             //Insert 1 at the beginning
-            if (lineRectangleIntersect((int)start.getConnectionBoundReal(startConnection).getCenterX(),
-                                       (int)start.getConnectionBoundReal(startConnection).getCenterY(),
-                                       (int)points.get(0).getX(),
-                                       (int)points.get(0).getY(), x1 - min,
-                                       y1 - min, size, size) == true) {
+            if (lineRectangleIntersect((int) start.getConnectionBoundReal(startConnection).getCenterX(),
+                    (int) start.getConnectionBoundReal(startConnection).getCenterY(),
+                    (int) points.get(0).getX(),
+                    (int) points.get(0).getY(), x1 - min,
+                    y1 - min, size, size) == true) {
 
                 points.add(0, new Point(x1, y1));
                 return true;
 
-            }
-            //Insert 1 at the end
-            else if (lineRectangleIntersect((int)end.getConnectionBoundReal(endConnection).getCenterX(),
-                                            (int)end.getConnectionBoundReal(endConnection).getCenterY(),
-                                            (int)points.get(points.size() -
-                                                            1).getX(),
-                                            (int)points.get(points.size() -
-                                                            1).getY(),
-                                            x1 - min, y1 - min, size, size) ==
-                     true) {
+            } //Insert 1 at the end
+            else if (lineRectangleIntersect((int) end.getConnectionBoundReal(endConnection).getCenterX(),
+                    (int) end.getConnectionBoundReal(endConnection).getCenterY(),
+                    (int) points.get(points.size()
+                    - 1).getX(),
+                    (int) points.get(points.size()
+                    - 1).getY(),
+                    x1 - min, y1 - min, size, size)
+                    == true) {
 
                 points.add(new Point(x1, y1));
                 return true;
@@ -112,12 +112,12 @@ public class LogicLink implements Cloneable {
             //haha, so it is one in the middle
             for (int i = 0; i < points.size() - 1; i++) {
                 //Insert 1 at the beginning
-                if (lineRectangleIntersect((int)points.get(i).getX(),
-                                           (int)points.get(i).getY(),
-                                           (int)points.get(i + 1).getX(),
-                                           (int)points.get(i + 1).getY(),
-                                           x1 - min, y1 - min, size, size) ==
-                    true) {
+                if (lineRectangleIntersect((int) points.get(i).getX(),
+                        (int) points.get(i).getY(),
+                        (int) points.get(i + 1).getX(),
+                        (int) points.get(i + 1).getY(),
+                        x1 - min, y1 - min, size, size)
+                        == true) {
 
                     points.add(i + 1, new Point(x1, y1));
                     return true;
@@ -132,12 +132,10 @@ public class LogicLink implements Cloneable {
         return false;
     }
 
-
     // Code from Seb Lee-Delisle:
     // http://sebleedelisle.com/2009/05/super-fast-trianglerectangle-intersection-test/
-
     boolean lineRectangleIntersect(float x1, float y1, float x2, float y2,
-                                   float rx, float ry, float rw, float rh) {
+            float rx, float ry, float rw, float rh) {
 
         float topIntersection;
         float bottomIntersection;
@@ -152,8 +150,7 @@ public class LogicLink implements Cloneable {
         if (m > 0) {
             topIntersection = (m * rx + c);
             bottomIntersection = (m * (rx + rw) + c);
-        }
-        // Otherwise it's on the right
+        } // Otherwise it's on the right
         else {
             topIntersection = (m * (rx + rw) + c);
             bottomIntersection = (m * rx + c);
@@ -176,11 +173,10 @@ public class LogicLink implements Cloneable {
         botOverlap =
                 bottomIntersection < bottomPoint ? bottomIntersection : bottomPoint;
 
-        return (topOverlap < botOverlap) &&
-            (!((botOverlap < ry) || (topOverlap > ry + rh)));
+        return (topOverlap < botOverlap)
+                && (!((botOverlap < ry) || (topOverlap > ry + rh)));
 
     }
-
 
     /**
      * Paints the links
@@ -189,58 +185,68 @@ public class LogicLink implements Cloneable {
     public void paintLinks(Graphics2D g2d) {
 
         if (points.size() > 0) {
-            g2d.drawLine((int)start.getConnectionBoundReal(startConnection).getCenterX(),
-                         (int)start.getConnectionBoundReal(startConnection).getCenterY(),
-                         (int)points.get(0).getX(), (int)points.get(0).getY());
+            g2d.drawLine((int) start.getConnectionBoundReal(startConnection).getCenterX(),
+                    (int) start.getConnectionBoundReal(startConnection).getCenterY(),
+                    (int) points.get(0).getX(), (int) points.get(0).getY());
 
         }
         for (int i = 1; i < points.size(); i++) {
-            g2d.drawLine((int)points.get(i - 1).getX(),
-                         (int)points.get(i - 1).getY(),
-                         (int)points.get(i).getX(), (int)points.get(i).getY());
+            g2d.drawLine((int) points.get(i - 1).getX(),
+                    (int) points.get(i - 1).getY(),
+                    (int) points.get(i).getX(), (int) points.get(i).getY());
         }
 
         if (end != null & points.size() > 0) {
-            g2d.drawLine((int)end.getConnectionBoundReal(endConnection).getCenterX(),
-                         (int)end.getConnectionBoundReal(endConnection).getCenterY(),
-                         (int)points.get(points.size() - 1).getX(),
-                         (int)points.get(points.size() - 1).getY());
+            g2d.drawLine((int) end.getConnectionBoundReal(endConnection).getCenterX(),
+                    (int) end.getConnectionBoundReal(endConnection).getCenterY(),
+                    (int) points.get(points.size() - 1).getX(),
+                    (int) points.get(points.size() - 1).getY());
 
         } else if (end != null & points.size() == 0) {
-            g2d.drawLine((int)start.getConnectionBoundReal(startConnection).getCenterX(),
-                         (int)start.getConnectionBoundReal(startConnection).getCenterY(),
-                         (int)end.getConnectionBoundReal(endConnection).getCenterX(),
-                         (int)end.getConnectionBoundReal(endConnection).getCenterY());
+            g2d.drawLine((int) start.getConnectionBoundReal(startConnection).getCenterX(),
+                    (int) start.getConnectionBoundReal(startConnection).getCenterY(),
+                    (int) end.getConnectionBoundReal(endConnection).getCenterX(),
+                    (int) end.getConnectionBoundReal(endConnection).getCenterY());
 
         }
 
     }
-    public boolean killTheLink(Point p,int size){
-       int min = (int)(size/2);
-      for (int i = 0; i < points.size() - 1; i++) {
-          //Insert 1 at the beginning
-          if (lineRectangleIntersect((int)points.get(i).getX(),
-                                     (int)points.get(i).getY(),
-                                     (int)points.get(i + 1).getX(),
-                                     (int)points.get(i + 1).getY(),
-                                       (float)p.getX() - min, (float)p.getY() - min,
-                    size, size) ==
-              true) {
 
-              return true;
+    public boolean killTheLink(Point p, int size) {
+        int min = (int) (size / 2);
+        for (int i = 0; i < points.size() - 1; i++) {
+            //Insert 1 at the beginning
+            if (lineRectangleIntersect((int) points.get(i).getX(),
+                    (int) points.get(i).getY(),
+                    (int) points.get(i + 1).getX(),
+                    (int) points.get(i + 1).getY(),
+                    (float) p.getX() - min, (float) p.getY() - min,
+                    size, size)
+                    == true) {
 
-          }
-      }
-      return false;
+                return true;
+
+            }
+        }
+        return false;
     }
-    
-    
+
+    public void removeBlock(LogicBlock b) {
+        if (b.equals(start)) {
+            start = null;
+
+        } else if (b.equals(end)) {
+            end = null;
+        }
+
+
+    }
 
     public void paintAnchors(Graphics2D g2d) {
 
         for (int i = 0; i < points.size(); i++) {
-            g2d.fillOval((int)points.get(i).getX() - 5,
-                         (int)points.get(i).getY() - 5, 10, 10);
+            g2d.fillOval((int) points.get(i).getX() - 5,
+                    (int) points.get(i).getY() - 5, 10, 10);
         }
 
 

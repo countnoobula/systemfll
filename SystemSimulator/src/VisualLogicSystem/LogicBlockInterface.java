@@ -2,7 +2,6 @@ package VisualLogicSystem;
 
 import java.awt.Image;
 
-import java.util.ArrayList;
 
 import java.awt.Rectangle;
 
@@ -27,8 +26,6 @@ public interface LogicBlockInterface {
    * @return
    */
   int getAmountBounds();
-  
-  String getCompileCode();
 
 
 }

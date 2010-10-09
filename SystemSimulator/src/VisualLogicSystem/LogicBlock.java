@@ -52,7 +52,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         connections = new ArrayList<Integer>(0);
         data = new ArrayList<DataObject>(0);
 
-        codeBlock = new CodeBlock();
+        codeBlock = new CodeBlock(this);
 
         bounds.setSize(size, size);
 
@@ -87,11 +87,19 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         drawBackground();
 
 
+}
+
+    public ArrayList<LogicLink> getNodes() {
+        return nodes;
     }
+
 
     public void addLink(LogicLink link) {
         nodes.add(link);
 
+    }
+    public void removeLink(LogicLink l){
+        nodes.remove(l);
     }
 
     public BlockProperties getProperties() {

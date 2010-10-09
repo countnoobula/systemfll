@@ -1,27 +1,19 @@
 package VisualLogicSystem.LogicBlocks;
 
-import VisualLogicSystem.LogicBlock;
 
 import VisualLogicSystem.LogicLibrary;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 
-import java.util.List;
 
 import java.net.URL;
 
-import java.security.CodeSource;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 import java.io.InputStream;
 
@@ -53,6 +45,7 @@ public class Library extends LogicLibrary {
 */
         super.library.add(new LogicStart());
         super.library.add(new LogicEnd());
+        super.library.add(new LogicTest());
 
         /**
        * this.getClass().getProtectionDomain().getCodeSource()

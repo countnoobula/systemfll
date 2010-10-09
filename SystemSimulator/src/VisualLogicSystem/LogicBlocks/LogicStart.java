@@ -1,12 +1,10 @@
 package VisualLogicSystem.LogicBlocks;
 
-import GUIProgrammer.VisualLogic;
 import VisualLogicSystem.DataBlocks.*;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Polygon;
 
@@ -15,17 +13,27 @@ import java.awt.Polygon;
  */
 public class LogicStart extends LogicBlock {
 
-    String programName = "";
 
     public LogicStart() {
         super();
 
+
+        String compileCode = "import lejos.nxt.*;\n" +
+            "      \n"
+            + "\n//Author: #1#" +
+            "      \npublic class #2# {\n" +
+            "        public static void main (String[] args) {\n\n";
+
+
+        super.data.add(new Text("Author","Dylan"));
         super.data.add(new Text("Name","Program"));
-        super.data.add(new VisualLogicSystem.DataBlocks.Number("Something",0,0,100));
+        
         
         //add the rules 
         super.rects.add(new Rectangle(super.size - 10, 5, 10, 10));
-        super.connections.add(1);    
+        super.connections.add(1);
+
+        super.codeBlock.setCompileCode(compileCode);
         
         int x[] =
         { (size / 2), size, size, (size / 2) - 6, (size / 2) -
@@ -44,13 +52,5 @@ public class LogicStart extends LogicBlock {
         g2d.drawString("Start", 3, 11);
     }
 
-    public String getCompileCode() {
-
-        return "import lejos.nxt.*;\n" +
-            "      \n" +
-            "      public class " + programName + " {\n" +
-            "        public static void main (String[] args) {\n";
-
-    }
 
 }
