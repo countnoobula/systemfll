@@ -49,7 +49,7 @@ public class BlockProperties extends JPanel {
         //400 34
         this.setLayout(new FlowLayout());
         this.setPreferredSize(new Dimension(400, 34 * data.size() + 55));
-        this.add(bt);
+        
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i) instanceof VisualLogicSystem.DataBlocks.Number) {
                 this.add(new Slider((Number) data.get(i)));
@@ -58,6 +58,7 @@ public class BlockProperties extends JPanel {
                 this.add(new Field((Text) data.get(i)));
             }
         }
+        this.add(bt);
 
 
     }
@@ -68,7 +69,7 @@ public class BlockProperties extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-
+        
         g2d.setPaint(gp1);
         g2d.fillRoundRect(0, 0, getWidth() - 10, getHeight() - 10,15,15);
         g2d.setPaint(Color.GRAY);

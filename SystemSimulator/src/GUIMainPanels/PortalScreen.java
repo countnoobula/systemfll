@@ -29,9 +29,9 @@ public class PortalScreen extends GenericSystemPanel {
 
     private CenterLogin panel_1;
     private CenterRegistration panel_2;
-    
     GridBagConstraints gc;
     Main m;
+
     public PortalScreen(Main m2) {
         super();
         this.m = m2;
@@ -67,7 +67,7 @@ public class PortalScreen extends GenericSystemPanel {
 
         public CenterLogin() {
             this.setLayout(null);
-            
+
             field1 = new SystemTextField();
             field2 = new SystemPassField();
 
@@ -93,36 +93,56 @@ public class PortalScreen extends GenericSystemPanel {
             bt2.setBounds(195, 110, 85, 22);
 
             bt1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        LoginUtils.login(field1.getText(), field2.getText());
+
+                public void actionPerformed(ActionEvent e) {
+
+                    Object p[] = LoginUtils.login(field1.getText(), field2.getPassword());
+                    if (p != null) {
+                        if (m.getPrefs().getBoolean("rememberUsername",
+                                true) == true) {
+                            m.getPrefs().put("username", field1.getText());
+
+                        }
+                        if (m.getPrefs().getBoolean("rememberPassword",
+                                true) == true) {
+                            String password = "";
+                            for (int i = 0; i < field2.getPassword().length; i++) {
+                                password = password + field2.getPassword()[i];
+                            }
+                            m.getPrefs().put("password", password);
+                        }
+
+
                     }
-                });
+
+                }
+            });
             bt2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        panel_1.setVisible(false);
-                        panel_2.setVisible(true);
-                    }
-                });
-            
-            field1.setText(m.getPrefs().get("username",""));
-            field2.setText(m.getPrefs().get("password",""));
+
+                public void actionPerformed(ActionEvent e) {
+                    panel_1.setVisible(false);
+                    panel_2.setVisible(true);
+                }
+            });
+
+            field1.setText(m.getPrefs().get("username", ""));
+            field2.setText(m.getPrefs().get("password", ""));
             this.setPreferredSize(new Dimension(300, 140));
-            
-        }
-        public String getUsername(){
-          return field1.getText();
-          
-        }
-        public String getPassword(){
-          String temp = "";
-          for(int i = 0;i < field2.getPassword().length;i++){
-            temp+=field2.getPassword()[i];
-          }
-                return temp;
-        }
-        
 
+        }
 
+        public String getUsername() {
+            return field1.getText();
+
+        }
+
+        public String getPassword() {
+            String temp = "";
+            for (int i = 0; i < field2.getPassword().length; i++) {
+                temp += field2.getPassword()[i];
+            }
+            return temp;
+        }
     }
 
     private class CenterRegistration extends NullPanel {
@@ -202,16 +222,18 @@ public class PortalScreen extends GenericSystemPanel {
             bt2.setBounds(120, 340, 100, 22);
 
             bt1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        panel_2.setVisible(false);
-                        panel_1.setVisible(true);
-                    }
-                });
+
+                public void actionPerformed(ActionEvent e) {
+                    panel_2.setVisible(false);
+                    panel_1.setVisible(true);
+                }
+            });
             bt2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println("Register for an account");
-                    }
-                });
+
+                public void actionPerformed(ActionEvent e) {
+                    System.out.println("Register for an account");
+                }
+            });
 
 
         }

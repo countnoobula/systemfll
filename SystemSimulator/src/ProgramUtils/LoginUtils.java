@@ -21,9 +21,12 @@ public class LoginUtils {
      * @param pass the password of the user
      * @return An array of information regarding the user such as id, name, surname email etc..
      */
-    public static Object[] login(String user, String pass) {
+    public static Object[] login(String user, char pass[]) {
 
-        String password = pass;
+        String password = "";
+        for(int i = 0;i < pass.length;i++){
+            password = password+pass[i];
+        }
 
         //All data is stored as MD5 on the servers
         MessageDigest md = null;
@@ -46,10 +49,10 @@ public class LoginUtils {
         }
 
 
-        pass = hexString.toString();
+        password = hexString.toString();
         user = user.toLowerCase();
 
-        ResultSet set = SQLManager.executeQuery("SELECT * FROM users WHERE user = '" + user + "' AND pass = '" + pass + "'");
+        ResultSet set = SQLManager.executeQuery("SELECT * FROM users WHERE user = '" + user + "' AND pass = '" + password + "'");
         ResultSetMetaData meta = null;
 
 

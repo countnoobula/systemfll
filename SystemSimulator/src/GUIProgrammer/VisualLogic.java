@@ -629,7 +629,7 @@ public class VisualLogic extends GenericSystemPanel {
                     i++) {
                 m.getEngineDepo().getLogicEngine().getLink(i).paintLinks(big);
             }
-            big.setPaint(gp7);
+            big.setPaint(Color.WHITE);
 
             //draw all the anchors
             for (int i = 0;
