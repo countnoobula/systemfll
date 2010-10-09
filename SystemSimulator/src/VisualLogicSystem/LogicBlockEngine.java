@@ -90,7 +90,7 @@ public class LogicBlockEngine {
                         addNextBlock(block1, b2, b.getNodes().get(i));
                         
                     }
-                    if (block2.equals(b)) {
+                    if (!block2.equals(b)) {
                         b2.add(block1);
                         System.out.println("added a block");
                         addNextBlock(block2, b2, b.getNodes().get(i));
@@ -138,10 +138,21 @@ public class LogicBlockEngine {
     }
 
     public void removeBlock(LogicBlock b) {
-        for (int i = 0; i < b.getLinksArraySize(); i++) {
-            b.getLinks(i).getStart().removeLink(b.getLinks(i));
-            b.getLinks(i).getEnd().removeLink(b.getLinks(i));
-            links.remove(b.getLinks(i));
+
+        //returns 2
+        int length = b.getLinksArraySize();
+        
+        for (int i = 0; i < length; i++) {
+
+            LogicLink temp = b.getLinks(0);
+ 
+            temp.getStart().removeLink(temp);
+            temp.getEnd().removeLink(temp);
+
+            b.removeLink(temp);
+            
+            links.remove(temp);
+            
            
         }
 
