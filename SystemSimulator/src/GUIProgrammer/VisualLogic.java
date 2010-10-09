@@ -420,7 +420,7 @@ public class VisualLogic extends GenericSystemPanel {
                                 i++) {
                             if (m.getEngineDepo().getLogicEngine().getLink(i).killTheLink(e.getPoint(),
                                     10)) {
-                                m.getEngineDepo().getLogicEngine().removeLink(i);
+                                m.getEngineDepo().getLogicEngine().removeLink(m.getEngineDepo().getLogicEngine().getLink(i));
                                 reAdjust();
 
 

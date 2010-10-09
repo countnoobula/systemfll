@@ -1,5 +1,6 @@
 package ProgramGUI.GUIComponents;
 
+import ProgramGUI.GUIComponents.LogicControls.ControlPoints;
 import ProgramGUI.GUIComponents.LogicControls.Field;
 import ProgramGUI.GUIComponents.LogicControls.Slider;
 import VisualLogicSystem.DataBlocks.DataObject;
@@ -17,6 +18,7 @@ import java.awt.Graphics2D;
 
 import java.awt.Paint;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
@@ -34,11 +36,22 @@ public class BlockProperties extends JPanel {
         gp1 = new GradientPaint(0, 0, new Color(0, 0, 0, 0),
                 0, 40, new Color(0, 0, 0, 180));
         data = bl.getData();
+        bt.addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent e) {
+                for(int i = 0;i< data.size();i++){
+                   ((ControlPoints) getComponents()[i]).encodeData();
+
+                }
+            }
+        });
 
         ConstructUpPanel();
     }
     public void attatchActionListener(ActionListener e){
+        
         bt.addActionListener(e);
+        
     }
 
 

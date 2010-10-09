@@ -167,10 +167,6 @@ public class LogicBlockEngine {
 
     }
 
-    public void removeLink(int i) {
-        links.remove(i);
-    }
-
     public int getBlockArraySize() {
         return blocks.size();
     }

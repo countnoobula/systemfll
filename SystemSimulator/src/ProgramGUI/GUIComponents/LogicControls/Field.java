@@ -43,14 +43,10 @@ public class Field extends NullPanel implements ControlPoints {
 
 
     }
-
-
-    public Object getData() {
-        return null;
+    public void encodeData(){
+        text.setValue(field.getText());
     }
 
-    public void setData(Object ob) {
-    }
 
     public static void main(String[] args) {
 

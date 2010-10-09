@@ -24,6 +24,7 @@ public class Slider extends NullPanel implements ControlPoints {
     //this is the actual number variable
     VisualLogicSystem.DataBlocks.Number num;
 
+
     public Slider(VisualLogicSystem.DataBlocks.Number n) {
 
         num = n;
@@ -73,10 +74,15 @@ public class Slider extends NullPanel implements ControlPoints {
 
             public void stateChanged(ChangeEvent e) {
                 field.setText("" + slider.getValue());
-                num.setValue(slider.getValue());
+                
             }
         });
 
+    }
+
+
+    public void encodeData(){
+        num.setValue(slider.getValue());
     }
     //method to called by the listener abstract methods
 
@@ -88,7 +94,7 @@ public class Slider extends NullPanel implements ControlPoints {
                 int value = Integer.parseInt(field.getText());
                
                 slider.setValue(value);
-                num.setValue(slider.getValue());
+                
                 
             } catch (Exception e) {
             }
@@ -97,12 +103,6 @@ public class Slider extends NullPanel implements ControlPoints {
 
     }
 
-    public Object getData() {
-        return null;
-    }
-
-    public void setData(Object ob) {
-    }
 
     public static void main(String[] args) {
 
