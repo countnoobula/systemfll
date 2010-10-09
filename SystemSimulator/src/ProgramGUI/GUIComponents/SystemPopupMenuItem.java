@@ -66,7 +66,7 @@ public class SystemPopupMenuItem extends JMenuItem {
         gp3 = new Color(150, 150, 150);
         //gp4 = new Color(30, 30, 30);
         s1 = new BasicStroke(2.0f);
-        super.getInsets().set(5, 10, 5, -5);
+        super.getInsets().set(3, 10, 3, -10);
     }
     
 
@@ -80,12 +80,12 @@ public class SystemPopupMenuItem extends JMenuItem {
             g2d.setPaint(gp1);
             g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
             g2d.setColor(Color.WHITE);
-            g2d.drawString(title, 10, this.getHeight() - 10);
+            g2d.drawString(title, 10, this.getHeight() - 8);
         } else {
             g2d.setPaint(gp2);
             g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
             g2d.setColor(Color.BLACK);
-            g2d.drawString(title, 10, this.getHeight() - 10);
+            g2d.drawString(title, 10, this.getHeight() - 8);
         }
 
         g2d.setPaint(gp3);
