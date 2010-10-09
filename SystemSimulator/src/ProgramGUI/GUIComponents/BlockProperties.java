@@ -1,24 +1,50 @@
 package ProgramGUI.GUIComponents;
 
+import ProgramGUI.GUIComponents.LogicControls.Field;
+import ProgramGUI.GUIComponents.LogicControls.Slider;
+import VisualLogicSystem.DataBlocks.DataObject;
+import VisualLogicSystem.DataBlocks.Number;
+import VisualLogicSystem.DataBlocks.Text;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 
 import java.awt.Graphics2D;
 
 import java.awt.Paint;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 public class BlockProperties extends JPanel {
 
     Paint gp1, gp2, gp3, gp4;
+    ArrayList<DataObject> data;
 
     public BlockProperties(LogicBlock bl) {
         this.setOpaque(false);
         gp1 = new Color(0, 0, 0, 80);
+        data = bl.getData();
+    }
+
+    private void ConstructUpPanel(){
+
+        //400 34
+        this.setLayout(new FlowLayout());
+        this.setPreferredSize(new Dimension(400,34*data.size()));
+
+        for(int i = 0;i < data.size();i++){
+           if(data.get(i) instanceof VisualLogicSystem.DataBlocks.Number){
+               this.add(new Slider((Number) data.get(i)));
+           }
+           if(data.get(i) instanceof VisualLogicSystem.DataBlocks.Text){
+               this.add(new Field((Text) data.get(i)));
+           }
+        }
 
 
     }

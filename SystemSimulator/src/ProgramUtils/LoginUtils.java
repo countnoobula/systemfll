@@ -2,27 +2,36 @@ package ProgramUtils;
 
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
-import ProgramUtils.SQLManager;
 import java.security.MessageDigest;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
+/**
+ * This Script is a connection script for logging into our system servers and retrieving information
+ * Regarding users and their information
+ * @author Dylan and Shaun
+ * http://pro.dylanvorster.com
+ */
 public class LoginUtils {
 
-    public LoginUtils() {
-    }
-
+    /**
+     * Checks whether a user is logged in.
+     * @param user the username of the user
+     * @param pass the password of the user
+     * @return An array of information regarding the user such as id, name, surname email etc..
+     */
     public static Object[] login(String user, String pass) {
 
         String password = pass;
+
+        //All data is stored as MD5 on the servers
         MessageDigest md = null;
         try {
             md = MessageDigest.getInstance("MD5");
         } catch (NoSuchAlgorithmException ex) {
             System.out.println("No MD5 algorythm");
+            return null;
         }
         md.update(password.getBytes());
         byte byteData[] = md.digest();
@@ -35,31 +44,34 @@ public class LoginUtils {
             }
             hexString.append(hex);
         }
+
+
         pass = hexString.toString();
-        System.out.println("pass: "+pass);
         user = user.toLowerCase();
-        
+
         ResultSet set = SQLManager.executeQuery("SELECT * FROM users WHERE user = '" + user + "' AND pass = '" + pass + "'");
         ResultSetMetaData meta = null;
 
 
         try {
             meta = set.getMetaData();
-            
-           
+
+
         } catch (SQLException ex) {
             System.out.println("SQL exception in meta data");
+            return null;
         }
 
         if (set != null) {
-            
+
             int cols = 0;
 
             try {
                 cols = meta.getColumnCount();
-                System.out.println("cols: "+cols);
+                System.out.println("cols: " + cols);
             } catch (SQLException ex) {
                 System.out.println("SQL exception for columns");
+                return null;
             }
 
 
@@ -67,17 +79,19 @@ public class LoginUtils {
                 set.next();
             } catch (SQLException ex) {
                 System.out.println("Resultset cant go to next");
+                return null;
             }
 
             Object array[] = new Object[cols];
 
+            //itterates through the information result set and then sets up the array
             for (int i = 0; i < cols; i++) {
                 try {
-                    Object ob  = set.getObject(i+1);
+                    Object ob = set.getObject(i + 1);
                     array[i] = ob;
-                    System.out.println(""+ ob);
                 } catch (SQLException ex) {
                     System.out.println("SQL exception in loop");
+                    return null;
                 }
 
             }

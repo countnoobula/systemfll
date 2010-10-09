@@ -36,7 +36,6 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public ArrayList<Integer> connections;
     public ArrayList<LogicLink> nodes;
     public ArrayList<DataObject> data;
-    
     //Code stuffs
     public CodeBlock codeBlock;
 
@@ -114,6 +113,11 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public CodeBlock getCodeBlock() {
         return codeBlock;
     }
+
+    public ArrayList<DataObject> getData() {
+        return data;
+    }
+
 
     public void drawBackground() {
 

@@ -8,17 +8,21 @@ import java.sql.SQLException;
 
 
 /**
- *
+ * The authentication script which will connect and run SQL statements from the System databases
  * @author Dylan and Shaun
  */
 public class SQLManager{
 
+    //the super connection url
     private static String url = ("jdbc:mysql://voidblog.com:3306/voidblo1_pro");
     private static Connection con = null;
 
 
-    //!---------------    This will generally connect  ---------------!
-
+    /**
+     * Returns a result set if there was a successful query
+     * @param sql The SQL SELECT statement
+     * @return The resulting data set.
+     */
     public static ResultSet executeQuery(String sql){
 
         
@@ -50,6 +54,11 @@ public class SQLManager{
         }
 
     }
+
+    /**
+     * Simple test script
+     * @param args don't worry about this
+     */
     public static void main(String args[]){
         SQLManager.executeQuery("SELECT * FROM forum_users;");
     }
