@@ -1,5 +1,6 @@
 package ProgramGUI.GUIComponents;
 
+import GUIProgrammer.VisualLogic.DoEvent;
 import ProgramGUI.GUIComponents.LogicControls.Field;
 import ProgramGUI.GUIComponents.LogicControls.Slider;
 import VisualLogicSystem.DataBlocks.DataObject;
@@ -16,6 +17,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import java.awt.Paint;
+import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -24,61 +28,52 @@ public class BlockProperties extends JPanel {
 
     Paint gp1, gp2, gp3, gp4;
     ArrayList<DataObject> data;
+    SystemButton bt;
 
     public BlockProperties(LogicBlock bl) {
+        bt = new  SystemButton("SAVE");
         this.setOpaque(false);
-        gp1 = new Color(0, 0, 0, 80);
+        gp1 = new GradientPaint(0, 0, new Color(0, 0, 0, 0),
+                0, 40, new Color(0, 0, 0, 180));
         data = bl.getData();
+
+        ConstructUpPanel();
+    }
+    public void attatchActionListener(ActionListener e){
+        bt.addActionListener(e);
     }
 
-    private void ConstructUpPanel(){
+
+    private void ConstructUpPanel() {
 
         //400 34
         this.setLayout(new FlowLayout());
-        this.setPreferredSize(new Dimension(400,34*data.size()));
-
-        for(int i = 0;i < data.size();i++){
-           if(data.get(i) instanceof VisualLogicSystem.DataBlocks.Number){
-               this.add(new Slider((Number) data.get(i)));
-           }
-           if(data.get(i) instanceof VisualLogicSystem.DataBlocks.Text){
-               this.add(new Field((Text) data.get(i)));
-           }
+        this.setPreferredSize(new Dimension(400, 34 * data.size() + 55));
+        this.add(bt);
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i) instanceof VisualLogicSystem.DataBlocks.Number) {
+                this.add(new Slider((Number) data.get(i)));
+            }
+            if (data.get(i) instanceof VisualLogicSystem.DataBlocks.Text) {
+                this.add(new Field((Text) data.get(i)));
+            }
         }
 
 
     }
 
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D)g;
-        g2d.setPaint(gp1);
-        gp2 =
- new GradientPaint(this.getWidth() - 10, 0, new Color(0, 0, 0, 150),
-                   this.getWidth(), 0, new Color(0, 0, 0, 0));
-        gp3 =
- new GradientPaint(0, this.getHeight() - 10, new Color(0, 0, 0, 150), 0,
-                   this.getHeight(), new Color(0, 0, 0, 0));
-        gp4 =
- new GradientPaint(this.getWidth() - 10, this.getHeight() - 10, new Color(0, 0,
-                                                                          0,
-                                                                          150),
-                   getWidth() - 5, this.getHeight() - 5,
-                   new Color(0, 0, 0, 0));
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 
         g2d.setPaint(gp1);
-        g2d.fillRect(0, 0, getWidth() - 10, getHeight() - 10);
-        g2d.setPaint(Color.BLACK);
-        g2d.fillRect(0, 0, getWidth() - 10, getHeight() - 10);
-        g2d.setPaint(gp2);
-        g2d.fillRect(getWidth() - 10, 0, 10, getHeight());
-        g2d.setPaint(gp3);
-        g2d.fillRect(0, getHeight() - 10, getWidth(), 10);
-        g2d.setPaint(gp4);
-        g2d.fillRect(getWidth() - 10, getHeight() - 10, 10, 10);
+        g2d.fillRoundRect(0, 0, getWidth() - 10, getHeight() - 10,15,15);
+        g2d.setPaint(Color.GRAY);
+        g2d.drawRoundRect(0, 0, getWidth() - 10, getHeight() - 10,15,15);
+
 
 
     }

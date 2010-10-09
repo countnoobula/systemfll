@@ -1,6 +1,7 @@
 package GUIProgrammer;
 
 import MainClasses.Main;
+import ProgramGUI.GUIComponents.BlockProperties;
 
 import ProgramGUI.GUIComponents.GenericSystemPanel;
 
@@ -10,16 +11,18 @@ import Resources.Images.ImageLoader;
 
 import VisualLogicSystem.LogicBlockEngine;
 import VisualLogicSystem.LogicLink;
-
 import VisualLogicSystem.LogicBlocks.Library;
 
 import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Paint;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -29,8 +32,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -38,7 +39,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.Timer;
 
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -52,12 +52,12 @@ public class VisualLogic extends GenericSystemPanel {
     boolean blinker = false;
     private Timer blinkTimer;
     private LogicBlocksDrawer drawer;
+    private boolean isEnabled = true;
     //the whole program
     Main m;
     //some interesting variables
     SystemSmallTool tools[] =
             new SystemSmallTool[6];
-    
     int cycleNumber = 0;
 
     public static void refresh() {
@@ -83,7 +83,7 @@ public class VisualLogic extends GenericSystemPanel {
         this.drawer.setLogicBlocks(l.getLibrary());
         tools[0].setSelected(true);
 
-  
+
 
     }
 
@@ -168,12 +168,15 @@ public class VisualLogic extends GenericSystemPanel {
         private int selected3 = -1;
         private int addX = 0;
         private int addY = 0;
+
         //create a new object
         private LogicLink link = null;
+        private GridBagConstraints gc;
 
         public LogicCanvas() {
 
-            
+            this.setLayout(new GridBagLayout());
+            gc = new GridBagConstraints();
             nested = this;
             //load the textured background
             Rectangle r = new Rectangle(0, 0, 25, 25);
@@ -187,12 +190,12 @@ public class VisualLogic extends GenericSystemPanel {
             s2 =
                     new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 10.0f,
                     dash, 0.0f);
-            ;
+
 
             gp2 =
-                    new GradientPaint(0, 0, new Color(0, 0, 0), 0, 20, new Color(0, 0, 0, 0));
+                    new GradientPaint(0, 0, new Color(0, 0, 0), 0, 60, new Color(0, 0, 0, 0));
             gp3 =
-                    new GradientPaint(0, 0, new Color(0, 0, 0), 20, 0, new Color(0, 0, 0, 0));
+                    new GradientPaint(0, 0, new Color(0, 0, 0), 60, 0, new Color(0, 0, 0, 0));
 
             //initial heights and widths
             int width = 200;
@@ -245,6 +248,8 @@ public class VisualLogic extends GenericSystemPanel {
 
                 //get ready for dragging the objects around
                 public void mousePressed(MouseEvent e) {
+
+                    if(isEnabled == true){
                     mousePoint = e.getPoint();
 
                     if (menu.getSelected() == 0) {
@@ -442,6 +447,25 @@ public class VisualLogic extends GenericSystemPanel {
 
 
                         }
+                    } else if (menu.getSelected() == 5) {
+                        for ( //check if the click was a link, if so then we delete the link!
+                                int i = 0;
+                                i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
+                                i++) {
+                            if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(e.getPoint())) {
+
+                                BlockProperties p = m.getEngineDepo().getLogicEngine().getBlock(i).getProperties();
+                                p.attatchActionListener(new DoEvent(p));
+                                isEnabled = false;
+                                canvas.add(p, gc);
+                                canvas.revalidate();
+
+
+                            }
+
+
+                        }
+                    }
                     }
                 }
 
@@ -577,9 +601,9 @@ public class VisualLogic extends GenericSystemPanel {
             big.setPaint(gp1);
             big.fillRect(0, 0, getWidth(), getHeight());
             big.setPaint(gp2);
-            big.fillRect(0, 0, getWidth(), 20);
+            big.fillRect(0, 0, getWidth(), 60);
             big.setPaint(gp3);
-            big.fillRect(0, 0, 20, getHeight());
+            big.fillRect(0, 0, 60, getHeight());
 
             big.setStroke(s1);
             big.setPaint(gp5);
@@ -652,6 +676,22 @@ public class VisualLogic extends GenericSystemPanel {
             super.paintComponent(g);
             g.drawImage(bi, 0, 0, this);
 
+        }
+    }
+
+    public class DoEvent implements ActionListener {
+
+        Component c;
+
+        public DoEvent(Component c) {
+            this.c = c;
+        }
+
+        public void actionPerformed(ActionEvent e) {
+            isEnabled = true;
+            canvas.remove(c);
+            canvas.revalidate();
+            canvas.updateUI();
         }
     }
 }

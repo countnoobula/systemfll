@@ -44,6 +44,7 @@ public class SystemPassField extends JPasswordField {
         f1 = new Font("Arial", 12, 12);
         this.setOpaque(false);
         this.setFont(f1);
+        this.setCaretColor(Color.CYAN);
         this.setForeground(Color.LIGHT_GRAY);
         setBorder(BorderFactory.createEmptyBorder(3, 5, 3, 5));
     }

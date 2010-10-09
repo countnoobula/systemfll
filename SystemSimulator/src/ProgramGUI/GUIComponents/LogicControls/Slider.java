@@ -42,6 +42,8 @@ public class Slider extends NullPanel implements ControlPoints {
         slider.setMinimum(n.getMin());
         slider.setMaximum(n.getMax());
         label.setText(num.getVariableName());
+        slider.setValue(num.getValue());
+        field.setText(""+num.getValue());
 
 
         //lay out components df HG
@@ -71,6 +73,7 @@ public class Slider extends NullPanel implements ControlPoints {
 
             public void stateChanged(ChangeEvent e) {
                 field.setText("" + slider.getValue());
+                num.setValue(slider.getValue());
             }
         });
 
@@ -85,6 +88,7 @@ public class Slider extends NullPanel implements ControlPoints {
                 int value = Integer.parseInt(field.getText());
                
                 slider.setValue(value);
+                num.setValue(slider.getValue());
                 
             } catch (Exception e) {
             }

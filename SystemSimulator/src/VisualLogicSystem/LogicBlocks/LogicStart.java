@@ -1,6 +1,7 @@
 package VisualLogicSystem.LogicBlocks;
 
-import VisualLogicSystem.DataBlocks.Text;
+import GUIProgrammer.VisualLogic;
+import VisualLogicSystem.DataBlocks.*;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
@@ -19,7 +20,8 @@ public class LogicStart extends LogicBlock {
     public LogicStart() {
         super();
 
-        super.data.add(new Text("Name","Untitled"));
+        super.data.add(new Text("Name","Program"));
+        super.data.add(new VisualLogicSystem.DataBlocks.Number("Something",0,0,100));
         
         //add the rules 
         super.rects.add(new Rectangle(super.size - 10, 5, 10, 10));
