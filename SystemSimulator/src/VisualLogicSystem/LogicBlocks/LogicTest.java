@@ -1,5 +1,6 @@
 package VisualLogicSystem.LogicBlocks;
 
+import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
@@ -19,9 +20,16 @@ public class LogicTest extends LogicBlock {
         //add connection data
         super.rects.add(new Rectangle(size-10, 5, 10, 10));
         super.connections.add(1);
+        super.linkInfo.add("0");
         super.rects.add(new Rectangle(0, 5, 10, 10));
         super.connections.add(2);
-        super.codeBlock.setCompileCode("\n System.out.println('lolz');");
+        super.linkInfo.add("next");
+
+        //le code blocks
+        CodeBlock c1 = new CodeBlock(this);
+        c1.setCompileCode("\n System.out.println('lolz');");
+        super.codeBlocks.add(c1);
+        
            
         int x[] =
         { (size / 2), size, size, (size / 2) - 6, (size / 2) -

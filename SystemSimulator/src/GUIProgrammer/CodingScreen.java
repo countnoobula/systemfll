@@ -1,6 +1,7 @@
 package GUIProgrammer;
 
 import ProgramGUI.GUIComponents.GenericSystemPanel;
+import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.LogicBlock;
 import VisualLogicSystem.LogicBlockEngine;
 
@@ -36,10 +37,10 @@ public class CodingScreen extends GenericSystemPanel {
 
             public void actionPerformed(ActionEvent e) {
                 String text = "";
-                ArrayList<LogicBlock> logic = LogicBlockEngine.compile();
-                System.out.println("clicked");
+                ArrayList<CodeBlock> logic = LogicBlockEngine.compile();
+                
                 for(int i = 0;i < logic.size();i++){
-                    text = text+ logic.get(i).getCodeBlock().getCompileCode();
+                    text = text+ logic.get(i).getCompileCode();
                 }
                 edit.setText(text);
             }

@@ -1,5 +1,6 @@
 package VisualLogicSystem.LogicBlocks;
 
+import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
@@ -21,14 +22,21 @@ public class LogicElse extends LogicBlock {
         //add connection data
         super.rects.add(new Rectangle(size-10, 5, 10, 10));
         super.connections.add(1);
-        super.linkInfo.add("");
+        super.linkInfo.add("0");
         super.rects.add(new Rectangle(0, 5, 10, 10));
         super.connections.add(2);
-        super.linkInfo.add("endelse");
+        super.linkInfo.add("stop");
         super.rects.add(new Rectangle(0, 35, 10, 10));
         super.connections.add(2);
-        super.linkInfo.add("endif");
-        super.codeBlock.setCompileCode("\n }\nelse{ ");
+        super.linkInfo.add("break");
+
+        //le code blocks
+        CodeBlock c1 = new CodeBlock(this);
+        c1.setCompileCode("\n }\nelse{ ");
+        super.codeBlocks.add(c1);
+        CodeBlock c2 = new CodeBlock(this);
+        c2.setCompileCode("\n }");
+        super.codeBlocks.add(c2);
            
         int x[] =
         { (size / 2), size, size, (size / 2) - 6, (size / 2) -

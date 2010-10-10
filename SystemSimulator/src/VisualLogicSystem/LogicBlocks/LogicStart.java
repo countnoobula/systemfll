@@ -1,5 +1,6 @@
 package VisualLogicSystem.LogicBlocks;
 
+import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.DataBlocks.*;
 import VisualLogicSystem.LogicBlock;
 
@@ -33,9 +34,13 @@ public class LogicStart extends LogicBlock {
         
         //add the rules 
         super.rects.add(new Rectangle(super.size - 10, 5, 10, 10));
+        super.linkInfo.add("0");
         super.connections.add(1);
 
-        super.codeBlock.setCompileCode(compileCode);
+        //le code blocks
+        CodeBlock c1 = new CodeBlock(this);
+        c1.setCompileCode(compileCode);
+        super.codeBlocks.add(c1);
         
         int x[] =
         { (size / 2), size, size, (size / 2) - 6, (size / 2) -

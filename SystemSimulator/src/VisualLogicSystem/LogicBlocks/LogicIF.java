@@ -1,5 +1,6 @@
 package VisualLogicSystem.LogicBlocks;
 
+import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
@@ -20,14 +21,20 @@ public class LogicIF extends LogicBlock {
         //add connection data
         super.rects.add(new Rectangle(size - 10, 5, 10, 10));
         super.connections.add(1);
-        super.linkInfo.add("if");
+        super.linkInfo.add("0");
         super.rects.add(new Rectangle(size - 10, 35, 10, 10));
         super.connections.add(1);
-        super.linkInfo.add("else");
+        super.linkInfo.add("1");
         super.rects.add(new Rectangle(0, 5, 10, 10));
-        super.linkInfo.add("");
+        super.linkInfo.add("next");
         super.connections.add(2);
-        super.codeBlock.setCompileCode("\nif(something == something){");
+
+
+        //le code blocks
+        CodeBlock c1 = new CodeBlock(this);
+        c1.setCompileCode("\nif(something == something){");
+        super.codeBlocks.add(c1);
+
 
         int x[] = {(size / 2), size, size, (size / 2) - 6, (size / 2)
             - 6, (size / 2)};

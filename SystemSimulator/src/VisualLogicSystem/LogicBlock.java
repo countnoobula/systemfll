@@ -30,6 +30,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public BufferedImage bi;
     public int size = 50;
     public String type = "";
+    public int currentCompileString = 0;
     //ID data
     public int ID;
     //Connection DATA
@@ -39,10 +40,19 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public ArrayList<DataObject> data;
     public ArrayList<String> linkInfo;
     //Code stuffs
-    public CodeBlock codeBlock;
+    public ArrayList<CodeBlock> codeBlocks;
 
     public int getID() {
         return ID;
+    }
+    public String compileProperty = "";
+
+    public String getCompileProperty() {
+        return compileProperty;
+    }
+
+    public void setCompileProperty(String compileProperty) {
+        this.compileProperty = compileProperty;
     }
 
     public LogicBlock() {
@@ -52,12 +62,12 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
         //connection data
         rects = new ArrayList<Rectangle>(0);
-        nodes = new ArrayList<LogicLink>(0);     
+        nodes = new ArrayList<LogicLink>(0);
         data = new ArrayList<DataObject>(0);
         linkInfo = new ArrayList<String>(0);
         connections = new ArrayList<Integer>(0);
 
-        codeBlock = new CodeBlock(this);
+        codeBlocks = new ArrayList<CodeBlock>(0);
 
 
         //!-------- Begin Initialization --------!
@@ -97,8 +107,37 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
 
     }
-    public String getLinkInfo(int i){
+
+    public String getLinkInfo(int i) {
         return this.linkInfo.get(i);
+    }
+
+    public int getLinkInfoSize() {
+        return linkInfo.size();
+    }
+
+    public void setCurrentCompileString(int i) {
+        this.currentCompileString = i;
+    }
+
+    public int getCurrentCompileString() {
+        return currentCompileString;
+    }
+
+    public int getAmmountOfCompileString() {
+
+        int amount = 0;
+        for (int i = 0; i < this.linkInfo.size(); i++) {
+            try {
+                int lols = Integer.parseInt(""+linkInfo.get(i));
+                if(lols > 0){
+                amount++;
+                }
+            } catch (Exception e) {
+            }
+        }
+        return amount;
+
     }
 
     public String getType() {
@@ -138,12 +177,12 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         return connections.get(i);
     }
 
-    public CodeBlock getCodeBlock() {
-        return codeBlock;
-    }
-
     public ArrayList<DataObject> getData() {
         return data;
+    }
+
+    public ArrayList<CodeBlock> getCodeBlocks() {
+        return codeBlocks;
     }
 
     public void drawBackground() {

@@ -1,7 +1,5 @@
 package VisualLogicSystem;
 
-import VisualLogicSystem.LogicBlocks.LogicEnd;
-import VisualLogicSystem.LogicBlocks.LogicStart;
 import java.util.ArrayList;
 
 /**
@@ -13,8 +11,8 @@ public class LogicBlockEngine {
     private ArrayList<LogicLink> links;
     public static boolean isTop = false;
 
-    public static ArrayList<LogicBlock> compile() {
-        ArrayList<LogicBlock> b = new ArrayList<LogicBlock>(0);
+    public static ArrayList<CodeBlock> compile() {
+        ArrayList<CodeBlock> b = new ArrayList<CodeBlock>(0);
         LogicBlock first = null;
 
         loop:
@@ -23,7 +21,6 @@ public class LogicBlockEngine {
                 //hahah, yes, we found the first one :D
 
                 first = (LogicBlock) blocks.get(i);
-                System.out.println("found start");
                 break loop;
 
 
@@ -34,116 +31,84 @@ public class LogicBlockEngine {
 
             System.out.println("starting recursion:");
             System.out.println("--------------------------");
+
             //start recursive MIND FUCK!!!!!!!!!!!!!!!!!!!!!!
-            addNextBlock(first, b, first.getNodes().get(0));
+            addNextBlock(first, b);
 
 
 
 
-        }
-        for (int i = 0; i < blocks.size(); i++) {
-            if (((LogicBlock) blocks.get(i)).getType().equals("end")) {
-                //hahah, yes, we found the first one :D
-                b.add((LogicBlock) blocks.get(i));
-
-            }
         }
         return b;
     }
 
-    public static void addNextBlock(LogicBlock b, ArrayList<LogicBlock> b2, LogicLink l) {
+    /**
+     * Recursively builds an array 
+     * @param b
+     * @param b2
+     */
+    public static void addNextBlock(LogicBlock b, ArrayList<CodeBlock> blocks) {
+
+        //add the first part of the coe block
+        blocks.add(b.getCodeBlocks().get(0));
+        System.out.println("added a block");
+
+        //loop through the blocks connection points
+        //  > i < is the connection square
+        for (int i = 0; i < b.getLinkInfoSize(); i++) {
+            try {
 
 
-        boolean stop = false;
-
-        if (b.getType().equals("else")) {
-            System.out.println("found the else");
-            if (l.getStart().equals(b)) {
-                if (l.getStart().getLinkInfo(l.getStartConnection()).equals("endelse")) {
-                    stop = true;
-                    b2.add(b);
-                    System.out.println("added the else");
-                }
-            }
-            if (l.getEnd().equals(b)) {
-                if (l.getEnd().getLinkInfo(l.getEndConnection()).equals("endelse")) {
-                    stop = true;
-                    b2.add(b);
-                    System.out.println("added the else");
-                }
-            }
-        }
+                int currentSquare = Integer.parseInt(b.getLinkInfo(i));
+                System.out.println("was able to to convert.");
+                if (currentSquare == b.getCurrentCompileString()) {
 
 
+                    //this means that we are going to run the rows from top to bottom
 
+                    //we now need to check if the lines start and end points equal the current square
+                    for (int j = 0; j < b.getNodes().size(); j++) {
 
-        if (stop == false) {
+                        if (b.getNodes().get(j).getStart().equals(b)) {
 
-            System.out.println("continuing");
+                            System.out.println("found a match at 1");
+                            if (b.getNodes().get(j).getStartConnection() == i) {
+                                //check whether this line's start or end points match the current on
 
-            //looping through all the connection lines
-            for (int i = 0; i < b.getNodes().size(); i++) {
-
-                //the first block
-                if (b.getType().equals("start")) {
-                    System.out.println("found start");
-
-
-                    //the blocks found on each connection line
-                    LogicBlock block1 = b.getNodes().get(0).getStart();
-                    LogicBlock block2 = b.getNodes().get(0).getEnd();
-
-                    //check if the blocks do not equal the previous block
-                    if (!block1.equals(b)) {
-                        b2.add(block2);
-                        System.out.println("added the start");
-                        addNextBlock(block1, b2, b.getNodes().get(0));
-
-                    }
-                    if (!block2.equals(b)) {
-                        b2.add(block1);
-                        addNextBlock(block2, b2, b.getNodes().get(0));
-                        System.out.println("added the start");
-                    }
-
-
-                } else {
-
-
-                    //we using a new connection line, not the old one
-                    if (l != b.getNodes().get(i)) {
-
-                            //check to see if we are using the if statements
-                            if (b.getNodes().get(i).getStart().getLinkInfo(b.getNodes().get(i).getStartConnection()).equals("if")
-                                    | b.getNodes().get(i).getStart().getLinkInfo(b.getNodes().get(i).getStartConnection()).equals("")|
-                                    b.getNodes().get(i).getEnd().getLinkInfo(b.getNodes().get(i).getEndConnection()).equals("if")
-                                    | b.getNodes().get(i).getEnd().getLinkInfo(b.getNodes().get(i).getEndConnection()).equals("")) {
-
-                                System.out.println("running top line");
-
-                                //the blocks found on each connection line
-                                LogicBlock block1 = b.getNodes().get(i).getStart();
-                                LogicBlock block2 = b.getNodes().get(i).getEnd();
-
-                                if (!block1.equals(b)) {
-                                    b2.add(block2);
-                                    System.out.println("added a block");
-                                    addNextBlock(block1, b2, b.getNodes().get(i));
-
-                                }
-                                if (!block2.equals(b)) {
-                                    b2.add(block1);
-                                    System.out.println("added a block");
-                                    addNextBlock(block2, b2, b.getNodes().get(i));
-
-                                }
-
+                                System.out.println("found a connection match at 1");
+                                addNextBlock(b.getNodes().get(j).getEnd(), blocks);
                             }
+
+
+
+                        } else if (b.getNodes().get(j).getEnd().equals(b)) {
+
+                            System.out.println("found a match at 2");
+                            //check whether this line's start or end points match the current one
+
+
+                            System.out.println("found a connection match at 2");
+                            if (b.getNodes().get(j).getEndConnection() == i) {
+
+                                addNextBlock(b.getNodes().get(j).getStart(), blocks);
+                            }
+
                         }
-                    
+
+                    }
+
+
+                    //and then increase the string for the next row
+                    b.setCurrentCompileString(b.getCurrentCompileString() + 1);
+
+
                 }
+
+            } catch (Exception e) {
             }
+
         }
+
 
     }
 

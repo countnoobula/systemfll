@@ -1,5 +1,6 @@
 package VisualLogicSystem.LogicBlocks;
 
+import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
@@ -21,8 +22,13 @@ public class LogicEnd extends LogicBlock {
         //add connection data
         super.rects.add(new Rectangle(0, 5, 10, 10));
         super.connections.add(2);
+        super.linkInfo.add("next");
 
-        super.codeBlock.setCompileCode("\n}\n}");
+        //le code blocks
+        CodeBlock c1 = new CodeBlock(this);
+        c1.setCompileCode("\n}\n}");
+        super.codeBlocks.add(c1);
+        
         int x[] =
         { (size / 2), size, size, (size / 2) - 6, (size / 2) -
           6, (size / 2)};
