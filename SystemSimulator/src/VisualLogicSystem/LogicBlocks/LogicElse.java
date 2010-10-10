@@ -10,19 +10,26 @@ import java.awt.Polygon;
 /**
  * The end block for an RCX program
  */
-public class LogicEnd extends LogicBlock {
+public class LogicElse extends LogicBlock {
 
 
-    public LogicEnd() {
+    public LogicElse() {
         super();
 
-        super.type = "end";
+        super.type = "else";
         
         //add connection data
+        super.rects.add(new Rectangle(size-10, 5, 10, 10));
+        super.connections.add(1);
+        super.linkInfo.add("");
         super.rects.add(new Rectangle(0, 5, 10, 10));
         super.connections.add(2);
-
-        super.codeBlock.setCompileCode("\n}\n}");
+        super.linkInfo.add("endelse");
+        super.rects.add(new Rectangle(0, 35, 10, 10));
+        super.connections.add(2);
+        super.linkInfo.add("endif");
+        super.codeBlock.setCompileCode("\n }\nelse{ ");
+           
         int x[] =
         { (size / 2), size, size, (size / 2) - 6, (size / 2) -
           6, (size / 2)};
@@ -30,14 +37,14 @@ public class LogicEnd extends LogicBlock {
         { 0, 0, size, size, (size / 2) + 3, (size / 2) - 3 };
         
         Polygon s1 = new Polygon(x, y, 6);
-        g2d.setColor(new Color(255, 0, 0, 30));
+        g2d.setColor(new Color(0, 192, 255, 30));
         g2d.fill(s1);
-        g2d.setColor(new Color(255, 0, 0));
+        g2d.setColor(new Color(0,192, 255));
         g2d.draw(s1);
         g2d.setColor(new Color(0, 0, 0, 150));
         g2d.fillRect(1, 15, size - 1, size - 15);
         g2d.setFont(new Font("Arial", 10, 10));
         g2d.setColor(Color.WHITE);
-        g2d.drawString("End", 4, 12);
+        g2d.drawString("ELSE", 4, 12);
     }
 }

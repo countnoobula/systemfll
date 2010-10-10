@@ -17,6 +17,8 @@ public class LogicStart extends LogicBlock {
     public LogicStart() {
         super();
 
+        super.type = "start";
+
 
         String compileCode = "import lejos.nxt.*;\n" +
             "      \n"

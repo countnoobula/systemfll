@@ -11,6 +11,7 @@ public class LogicBlockEngine {
 
     static ArrayList<LogicBlockInterface> blocks;
     private ArrayList<LogicLink> links;
+    public static boolean isTop = false;
 
     public static ArrayList<LogicBlock> compile() {
         ArrayList<LogicBlock> b = new ArrayList<LogicBlock>(0);
@@ -18,7 +19,7 @@ public class LogicBlockEngine {
 
         loop:
         for (int i = 0; i < blocks.size(); i++) {
-            if (blocks.get(i) instanceof LogicStart) {
+            if (((LogicBlock) blocks.get(i)).getType().equals("start")) {
                 //hahah, yes, we found the first one :D
 
                 first = (LogicBlock) blocks.get(i);
@@ -31,6 +32,8 @@ public class LogicBlockEngine {
 
         if (first != null) {
 
+            System.out.println("starting recursion:");
+            System.out.println("--------------------------");
             //start recursive MIND FUCK!!!!!!!!!!!!!!!!!!!!!!
             addNextBlock(first, b, first.getNodes().get(0));
 
@@ -39,7 +42,7 @@ public class LogicBlockEngine {
 
         }
         for (int i = 0; i < blocks.size(); i++) {
-            if (blocks.get(i) instanceof LogicEnd) {
+            if (((LogicBlock) blocks.get(i)).getType().equals("end")) {
                 //hahah, yes, we found the first one :D
                 b.add((LogicBlock) blocks.get(i));
 
@@ -51,54 +54,97 @@ public class LogicBlockEngine {
     public static void addNextBlock(LogicBlock b, ArrayList<LogicBlock> b2, LogicLink l) {
 
 
-        //looping through all the connection lines
-        for (int i = 0; i < b.getNodes().size(); i++) {
+        boolean stop = false;
 
-            //the first block
-            if (b instanceof LogicStart) {
-                //the blocks found on each connection line
-                LogicBlock block1 = b.getNodes().get(0).getStart();
-                LogicBlock block2 = b.getNodes().get(0).getEnd();
-
-                //check if the blocks do not equal the previous block
-                if (!block1.equals(b)) {
-                    b2.add(block2);
-                    System.out.println("added the start");
-                    addNextBlock(block1, b2, b.getNodes().get(0));
-                    
+        if (b.getType().equals("else")) {
+            System.out.println("found the else");
+            if (l.getStart().equals(b)) {
+                if (l.getStart().getLinkInfo(l.getStartConnection()).equals("endelse")) {
+                    stop = true;
+                    b2.add(b);
+                    System.out.println("added the else");
                 }
-                if (!block2.equals(b)) {
-                    b2.add(block1);
-                    addNextBlock(block2, b2, b.getNodes().get(0));
-                    System.out.println("added the start");
-                }
-                
-                
-            } else {
-
-
-                //we using a new connection line, not the old one
-                if (l != b.getNodes().get(i)) {
-
-                    //the blocks found on each connection line
-                    LogicBlock block1 = b.getNodes().get(i).getStart();
-                    LogicBlock block2 = b.getNodes().get(i).getEnd();
-
-                    if (!block1.equals(b)) {
-                        b2.add(block2);
-                        System.out.println("added a block");
-                        addNextBlock(block1, b2, b.getNodes().get(i));
-                        
-                    }
-                    if (!block2.equals(b)) {
-                        b2.add(block1);
-                        System.out.println("added a block");
-                        addNextBlock(block2, b2, b.getNodes().get(i));
-                        
-                    }
+            }
+            if (l.getEnd().equals(b)) {
+                if (l.getEnd().getLinkInfo(l.getEndConnection()).equals("endelse")) {
+                    stop = true;
+                    b2.add(b);
+                    System.out.println("added the else");
                 }
             }
         }
+
+
+
+
+        if (stop == false) {
+
+            System.out.println("continuing");
+
+            //looping through all the connection lines
+            for (int i = 0; i < b.getNodes().size(); i++) {
+
+                //the first block
+                if (b.getType().equals("start")) {
+                    System.out.println("found start");
+
+
+                    //the blocks found on each connection line
+                    LogicBlock block1 = b.getNodes().get(0).getStart();
+                    LogicBlock block2 = b.getNodes().get(0).getEnd();
+
+                    //check if the blocks do not equal the previous block
+                    if (!block1.equals(b)) {
+                        b2.add(block2);
+                        System.out.println("added the start");
+                        addNextBlock(block1, b2, b.getNodes().get(0));
+
+                    }
+                    if (!block2.equals(b)) {
+                        b2.add(block1);
+                        addNextBlock(block2, b2, b.getNodes().get(0));
+                        System.out.println("added the start");
+                    }
+
+
+                } else {
+
+
+                    //we using a new connection line, not the old one
+                    if (l != b.getNodes().get(i)) {
+
+                            //check to see if we are using the if statements
+                            if (b.getNodes().get(i).getStart().getLinkInfo(b.getNodes().get(i).getStartConnection()).equals("if")
+                                    | b.getNodes().get(i).getStart().getLinkInfo(b.getNodes().get(i).getStartConnection()).equals("")|
+                                    b.getNodes().get(i).getEnd().getLinkInfo(b.getNodes().get(i).getEndConnection()).equals("if")
+                                    | b.getNodes().get(i).getEnd().getLinkInfo(b.getNodes().get(i).getEndConnection()).equals("")) {
+
+                                System.out.println("running top line");
+
+                                //the blocks found on each connection line
+                                LogicBlock block1 = b.getNodes().get(i).getStart();
+                                LogicBlock block2 = b.getNodes().get(i).getEnd();
+
+                                if (!block1.equals(b)) {
+                                    b2.add(block2);
+                                    System.out.println("added a block");
+                                    addNextBlock(block1, b2, b.getNodes().get(i));
+
+                                }
+                                if (!block2.equals(b)) {
+                                    b2.add(block1);
+                                    System.out.println("added a block");
+                                    addNextBlock(block2, b2, b.getNodes().get(i));
+
+                                }
+
+                            }
+                        }
+                    
+                }
+            }
+        }
+
     }
 
     public LogicBlockEngine() {
@@ -141,19 +187,19 @@ public class LogicBlockEngine {
 
         //returns 2
         int length = b.getLinksArraySize();
-        
+
         for (int i = 0; i < length; i++) {
 
             LogicLink temp = b.getLinks(0);
- 
+
             temp.getStart().removeLink(temp);
             temp.getEnd().removeLink(temp);
 
             b.removeLink(temp);
-            
+
             links.remove(temp);
-            
-           
+
+
         }
 
         blocks.remove(b);

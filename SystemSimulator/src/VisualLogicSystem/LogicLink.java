@@ -18,6 +18,11 @@ public class LogicLink implements Cloneable {
     int startConnection;
     int endConnection;
 
+    public int getEndConnection() {
+        return endConnection;
+    }
+
+    
     public LogicBlock getEnd() {
         return end;
     }

@@ -29,6 +29,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public Rectangle bounds;
     public BufferedImage bi;
     public int size = 50;
+    public String type = "";
     //ID data
     public int ID;
     //Connection DATA
@@ -36,6 +37,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public ArrayList<Integer> connections;
     public ArrayList<LogicLink> nodes;
     public ArrayList<DataObject> data;
+    public ArrayList<String> linkInfo;
     //Code stuffs
     public CodeBlock codeBlock;
 
@@ -45,14 +47,21 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     public LogicBlock() {
 
+
         bounds = new Rectangle();
 
+        //connection data
         rects = new ArrayList<Rectangle>(0);
-        nodes = new ArrayList<LogicLink>(0);
-        connections = new ArrayList<Integer>(0);
+        nodes = new ArrayList<LogicLink>(0);     
         data = new ArrayList<DataObject>(0);
+        linkInfo = new ArrayList<String>(0);
+        connections = new ArrayList<Integer>(0);
 
         codeBlock = new CodeBlock(this);
+
+
+        //!-------- Begin Initialization --------!
+
 
         bounds.setSize(size, size);
 
@@ -87,18 +96,29 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         drawBackground();
 
 
-}
+    }
+    public String getLinkInfo(int i){
+        return this.linkInfo.get(i);
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public ArrayList<LogicLink> getNodes() {
         return nodes;
     }
 
-
     public void addLink(LogicLink link) {
         nodes.add(link);
 
     }
-    public void removeLink(LogicLink l){
+
+    public void removeLink(LogicLink l) {
         nodes.remove(l);
     }
 
@@ -125,7 +145,6 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public ArrayList<DataObject> getData() {
         return data;
     }
-
 
     public void drawBackground() {
 
