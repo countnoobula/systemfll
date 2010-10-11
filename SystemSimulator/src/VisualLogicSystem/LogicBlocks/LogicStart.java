@@ -1,5 +1,6 @@
 package VisualLogicSystem.LogicBlocks;
 
+import Resources.Images.ImageLoader;
 import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.DataBlocks.*;
 import VisualLogicSystem.LogicBlock;
@@ -8,6 +9,10 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.Polygon;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 
 /**
  * The start block of an RCX program
@@ -55,8 +60,14 @@ public class LogicStart extends LogicBlock {
         g2d.setColor(new Color(0, 0, 0, 150));
         g2d.fillRect(1, 15, size - 1, size - 15);
         g2d.setFont(new Font("Arial", 10, 10));
+        try {
+            g2d.drawImage(ImageIO.read(ImageLoader.class.getResource("logicblocks/start.png")),0,0,null);
+        } catch (IOException ex) {
+            System.out.println("cant load start image");
+        }
         g2d.setColor(Color.WHITE);
         g2d.drawString("Start", 3, 11);
+
     }
 
 

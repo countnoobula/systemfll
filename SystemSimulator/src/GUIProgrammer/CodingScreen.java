@@ -37,6 +37,7 @@ public class CodingScreen extends GenericSystemPanel {
 
             public void actionPerformed(ActionEvent e) {
                 String text = "";
+                
                 ArrayList<CodeBlock> logic = LogicBlockEngine.compile();
                 
                 for(int i = 0;i < logic.size();i++){

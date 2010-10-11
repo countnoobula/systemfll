@@ -53,6 +53,7 @@ public class LogicElse extends LogicBlock {
         g2d.fillRect(1, 15, size - 1, size - 15);
         g2d.setFont(new Font("Arial", 10, 10));
         g2d.setColor(Color.WHITE);
-        g2d.drawString("ELSE", 4, 12);
+        g2d.drawString("END", 4+10, 12+15);
+        g2d.drawString("ELSE", 4+10, 24+15);
     }
 }

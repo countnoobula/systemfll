@@ -45,8 +45,8 @@ public class Library extends LogicLibrary {
 */
         super.library.add(new LogicStart());
         super.library.add(new LogicEnd());
-        super.library.add(new LogicTest());
-        super.library.add(new LogicIF());
+        super.library.add(new LogicSystemOut());
+        super.library.add(new LogicIF_ELSE());
         super.library.add(new LogicElse());
 
         /**

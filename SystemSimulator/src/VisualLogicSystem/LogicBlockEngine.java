@@ -161,8 +161,8 @@ public class LogicBlockEngine {
     public LogicBlockEngine() {
         this.blocks = new ArrayList<LogicBlockInterface>();
         this.links = new ArrayList<LogicLink>();
-    }
 
+    }
     public static boolean canLinkBlocks(LogicBlock block1, int rect1,
             LogicBlock block2, int rect2) {
 

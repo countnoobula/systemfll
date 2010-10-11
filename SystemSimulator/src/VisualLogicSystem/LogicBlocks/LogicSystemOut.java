@@ -1,38 +1,39 @@
 package VisualLogicSystem.LogicBlocks;
 
+import Resources.Images.ImageLoader;
 import VisualLogicSystem.CodeBlock;
+import VisualLogicSystem.DataBlocks.Text;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.Polygon;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  * The end block for an RCX program
  */
-public class LogicIF extends LogicBlock {
+public class LogicSystemOut extends LogicBlock {
 
-    public LogicIF() {
+
+    public LogicSystemOut() {
         super();
-
-        super.type = "if";
 
         //add connection data
         super.rects.add(new Rectangle(size - 10, 5, 10, 10));
         super.connections.add(1);
         super.linkInfo.add("0");
-        super.rects.add(new Rectangle(size - 10, 35, 10, 10));
-        super.connections.add(1);
-        super.linkInfo.add("1");
         super.rects.add(new Rectangle(0, 5, 10, 10));
-        super.linkInfo.add("next");
         super.connections.add(2);
+        super.linkInfo.add("next");
 
+        super.data.add(new Text("Output","lolz"));
 
         //le code blocks
         CodeBlock c1 = new CodeBlock(this);
-        c1.setCompileCode("\nif(something == something){");
+        c1.setCompileCode("\n System.out.println('#1#');");
         super.codeBlocks.add(c1);
 
 
@@ -41,14 +42,17 @@ public class LogicIF extends LogicBlock {
         int y[] = {0, 0, size, size, (size / 2) + 3, (size / 2) - 3};
 
         Polygon s1 = new Polygon(x, y, 6);
-        g2d.setColor(new Color(0, 192, 255, 30));
+        g2d.setColor(new Color(0, 0, 0, 30));
         g2d.fill(s1);
-        g2d.setColor(new Color(0, 192, 255));
+        g2d.setColor(new Color(40, 40, 40));
         g2d.draw(s1);
         g2d.setColor(new Color(0, 0, 0, 150));
         g2d.fillRect(1, 15, size - 1, size - 15);
-        g2d.setFont(new Font("Arial", 10, 10));
-        g2d.setColor(Color.WHITE);
-        g2d.drawString("IF", 4, 12);
+        try {
+            g2d.drawImage(ImageIO.read(ImageLoader.class.getResource("logicblocks/sout.png")), 0, 0, null);
+        } catch (IOException ex) {
+            System.out.println("cant load start image");
+        }
+
     }
 }
