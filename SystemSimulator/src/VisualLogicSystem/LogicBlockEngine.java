@@ -110,7 +110,7 @@ public class LogicBlockEngine {
 
 
                     int currentSquare = Integer.parseInt(b.getLinkInfo(i));
-                    System.out.println("was able to to convert.");
+                    System.out.println("was able to convert.");
                     if (currentSquare == b.getCurrentCompileString()) {
 
 
