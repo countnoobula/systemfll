@@ -2,11 +2,9 @@ package VisualLogicSystem.LogicBlocks;
 
 import Resources.Images.ImageLoader;
 import VisualLogicSystem.CodeBlock;
-import VisualLogicSystem.DataBlocks.Text;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.Polygon;
 import java.io.IOException;
@@ -28,8 +26,6 @@ public class LogicSystemOut extends LogicBlock {
         super.rects.add(new Rectangle(0, 5, 10, 10));
         super.connections.add(2);
         super.linkInfo.add("next");
-
-        super.data.add(new Text("Output","lolz"));
 
         //le code blocks
         CodeBlock c1 = new CodeBlock(this);

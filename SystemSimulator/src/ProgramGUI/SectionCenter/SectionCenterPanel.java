@@ -50,8 +50,6 @@ public class SectionCenterPanel extends JPanel {
         this.setOpaque(false);
         //construct frame
         initComponents();
-
-
     }
 
 
@@ -65,7 +63,7 @@ public class SectionCenterPanel extends JPanel {
     }
     
     /**
-     * Returns the layerd Pane
+     * Returns the layered Pane
      * @return
      * Layered Pane
      */

@@ -2,7 +2,6 @@ package GUIProgrammer;
 
 import ProgramGUI.GUIComponents.GenericSystemPanel;
 import VisualLogicSystem.CodeBlock;
-import VisualLogicSystem.LogicBlock;
 import VisualLogicSystem.LogicBlockEngine;
 
 import java.awt.BorderLayout;
@@ -15,7 +14,6 @@ import javax.swing.JEditorPane;
 
 import javax.swing.JScrollPane;
 
-import jsyntaxpane.DefaultSyntaxKit;
 
 public class CodingScreen extends GenericSystemPanel {
 
