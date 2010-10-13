@@ -174,6 +174,8 @@ public class VisualLogic extends GenericSystemPanel {
         private Canvas c;
 
 
+
+
         public LogicCanvas() {
 
             this.setLayout(new GridBagLayout());
@@ -218,7 +220,7 @@ public class VisualLogic extends GenericSystemPanel {
                     RenderingHints.VALUE_ANTIALIAS_ON);
 
 
-            this.setIgnoreRepaint(true);
+            c.setIgnoreRepaint(true);
             this.setFocusTraversalKeysEnabled(false);
 
 
@@ -230,6 +232,11 @@ public class VisualLogic extends GenericSystemPanel {
                         //call this when the component is resized
                         bi = new BufferedImage(nested.getWidth(), nested.getHeight(), BufferedImage.TYPE_INT_RGB);
                         c.setSize(getWidth(), getHeight());
+                        try{
+                        reAdjust();
+                        }catch(Exception ex){
+                            
+                        }
 
                     }
                 }

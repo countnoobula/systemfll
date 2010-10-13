@@ -3,6 +3,9 @@ package GUIProgrammer;
 import ProgramGUI.GUIComponents.TabbedPane;
 
 import MainClasses.Main;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -11,6 +14,8 @@ public class ProgrammerHome extends TabbedPane {
     private CoderAPI panel_1;
     private CodingScreen panel_2;
     private VisualLogic panel_3;
+
+    Timer r;
     
     //main class
     private Main m;
@@ -33,13 +38,26 @@ public class ProgrammerHome extends TabbedPane {
 
             public void stateChanged(ChangeEvent e) {
                 if(getSelectedComponent().equals(panel_3)){
-                    panel_3.getCanvas().setVisible();
+                    r = new Timer(200,new DisplayTimer());
+                    r.start();
+
+
                 }
             }
         });
 
+
+
         
         
+    }
+    private class DisplayTimer implements ActionListener{
+
+        public void actionPerformed(ActionEvent e) {
+           panel_3.getCanvas().setVisible();
+           r.stop();
+        }
+
     }
 
     public VisualLogic getPanel_3() {
