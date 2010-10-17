@@ -61,8 +61,6 @@ public class SQLManager{
      * @return The resulting data set.
      */
     public static void insertQuery(String sql){
-
-
         try {
             try {
                Class.forName( "com.mysql.jdbc.Driver" ).newInstance() ;

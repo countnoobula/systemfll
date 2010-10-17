@@ -1,5 +1,6 @@
 package GUIMainPanels;
 
+import Forum.WelcomePanel;
 import ProgramGUI.GUIComponents.GenericSystemPanel;
 
 import ProgramGUI.GUIComponents.NullPanel;
@@ -9,7 +10,7 @@ import ProgramGUI.GUIComponents.SystemLabel;
 import ProgramGUI.GUIComponents.SystemPassField;
 import ProgramGUI.GUIComponents.SystemTextField;
 
-import ProgramUtils.LoginUtils;
+import ProgramUtils.ForumUtils;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -24,11 +25,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import MainClasses.Main;
+import javax.swing.JOptionPane;
 
 public class PortalScreen extends GenericSystemPanel {
 
     private CenterLogin panel_1;
     private CenterRegistration panel_2;
+    private WelcomePanel wp;
     GridBagConstraints gc;
     Main m;
 
@@ -38,6 +41,7 @@ public class PortalScreen extends GenericSystemPanel {
         gc = new GridBagConstraints();
         panel_1 = new CenterLogin();
         panel_2 = new CenterRegistration();
+        wp = new WelcomePanel();
         this.setLayout(new GridBagLayout());
         gc.gridx = 0;
         gc.gridy = 0;
@@ -51,6 +55,7 @@ public class PortalScreen extends GenericSystemPanel {
 
         this.add(panel_1);
         this.add(panel_2);
+        this.add(wp);
 
     }
 
@@ -96,7 +101,7 @@ public class PortalScreen extends GenericSystemPanel {
 
                 public void actionPerformed(ActionEvent e) {
 
-                    Object p[] = LoginUtils.login(field1.getText(), field2.getPassword());
+                    Object p[] = ForumUtils.login(field1.getText(), field2.getPassword());
                     if (p != null) {
                         if (m.getPrefs().getBoolean("rememberUsername",
                                 true) == true) {
@@ -111,10 +116,12 @@ public class PortalScreen extends GenericSystemPanel {
                             }
                             m.getPrefs().put("password", password);
                         }
-
-
                     }
-
+                    if(p != null) {
+                        panel_1.setVisible(false);
+                        panel_2.setVisible(false);
+                        wp.setVisible(true);
+                    }
                 }
             });
             bt2.addActionListener(new ActionListener() {
@@ -229,12 +236,10 @@ public class PortalScreen extends GenericSystemPanel {
                 }
             });
             bt2.addActionListener(new ActionListener() {
-
                 public void actionPerformed(ActionEvent e) {
-                    System.out.println("Register for an account");
+                    ForumUtils.Register(fields.get(0).getText(), fields.get(1).getText(), fields.get(2).getText(), fields.get(3).getText(), fields.get(4).getText(), fields.get(5).getText(), fields.get(6).getText(), fields.get(7).getText(), fields.get(8).getText(), fields.get(9).getText());
                 }
             });
-
 
         }
     }

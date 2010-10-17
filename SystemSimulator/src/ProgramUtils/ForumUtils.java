@@ -6,6 +6,7 @@ import java.security.MessageDigest;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import ProgramUtils.SQLManager;
 
 /**
  * This Script is a connection script for logging into our system servers and retrieving information
@@ -13,7 +14,7 @@ import javax.swing.JOptionPane;
  * @author Dylan and Shaun
  * http://pro.dylanvorster.com
  */
-public class LoginUtils {
+public class ForumUtils {
 
     /**
      * Checks whether a user is logged in.
@@ -104,5 +105,29 @@ public class LoginUtils {
             return null;
         }
 
+    }
+
+    public static boolean Register(String name, String surname, String username, String pass1, String pass2, String email1, String email2, String year, String month, String day) {
+        if(!pass1.equals(pass2)) {
+            System.out.println("passwords not equal");
+            JOptionPane.showMessageDialog(null, "Registration Failed");
+            return false;
+        }
+        if(!email1.equals(email2)) {
+            System.out.println("emails not equal");
+            JOptionPane.showMessageDialog(null, "Registration Failed");
+            return false;
+        }
+        try {
+            String yob = year + "-" + month + "-" + day;
+            SQLManager.insertQuery("INSERT INTO users(name, surname, user, pass, email, dob, active, ban) VALUES('"+name+"', '"+surname+"', '"+pass1+"', '"+email1+"','"+yob+"', '0', '0')");
+            JOptionPane.showMessageDialog(null, "Registration Complete");
+            return true;
+        } catch(Exception e) {
+            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, "Registration Failed");
+            return false;
+        }
+        
     }
 }
