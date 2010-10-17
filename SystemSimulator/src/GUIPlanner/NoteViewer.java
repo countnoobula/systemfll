@@ -74,7 +74,7 @@ public class NoteViewer extends JPanel {
 
         private Paint gp1, gp2;
         private GridBagConstraints c;
-        private SmallRoundedButton bt1, bt2, bt3;
+        private SmallRoundedButton bt1, bt2;
 
         private TopBar() {
             this.setPreferredSize(new Dimension(0, 24));
@@ -100,29 +100,8 @@ public class NoteViewer extends JPanel {
             c.weighty = 1;
             bt1 = new SmallRoundedButton("Add Note");
             bt2 = new SmallRoundedButton("Clear Notes");
-            bt3 = new SmallRoundedButton("Add random color note");
             
             bt1.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-
-                        // create a temporary note and add it to the note panel stack
-                        PlannerNoteData tempNote = new PlannerNoteData();
-                        tempNote.setX((int)Math.random() * 300);
-                        tempNote.setY((int)Math.random() * 300);
-
-                        m.getPlanDatabase().addPlannerNote(tempNote);
-                        notes.add(new PlannerNote(nv, tempNote));
-                        mainCanvas.resetComponents();
-                    }
-                });
-            bt2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        m.getPlanDatabase().clearNotes();
-                        notes.clear();
-                        mainCanvas.resetComponents();
-                    }
-                });
-            bt3.addActionListener(new ActionListener() {
                   public void actionPerformed(ActionEvent e) {
                     // create a temporary note and add it to the note panel stack
                     PlannerNoteData tempNote = new PlannerNoteData();
@@ -134,13 +113,18 @@ public class NoteViewer extends JPanel {
                     mainCanvas.resetComponents();
                   }
               });
+            bt2.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        m.getPlanDatabase().clearNotes();
+                        notes.clear();
+                        mainCanvas.resetComponents();
+                    }
+                });
+            
             this.add(bt1, c);
             c.gridx = 1;
             c.weightx = 0;
             this.add(bt2, c);
-            c.gridx = 2;
-            c.weightx = 1;
-            this.add(bt3, c);
         }
 
         @Override
