@@ -46,10 +46,6 @@ public class SectionTopSub extends JPanel {
     public SectionTopSub(Main m2) {
 
         m = m2;
-
-        //create new instances
-        arrow1 = new SubPaneArrow();
-        arrow2 = new SubPaneArrow();
         barButtons = new ArrayList<SubBarAButton>(0);
 
         //Here are all the buttons in their correct order
@@ -65,10 +61,10 @@ public class SectionTopSub extends JPanel {
 
 
         gp1 =
- new GradientPaint(0, 0, new Color(20, 20, 20), 0, 30, new Color(60, 60, 60));
+ new GradientPaint(0, 0, new Color(200, 200, 200), 0, 20, new Color(102,102, 102));
 
         //apply component settings
-        this.setPreferredSize(new Dimension(0, 25));
+        this.setPreferredSize(new Dimension(0, 20));
         this.initComponents();
         this.installListeners();
     }
@@ -106,7 +102,7 @@ public class SectionTopSub extends JPanel {
             });
     }
 
-    private class MiddleButtonsPanel extends JPanel {
+    private class MiddleButtonsPanel extends NullPanel {
 
         GridBagConstraints c;
 
@@ -115,7 +111,6 @@ public class SectionTopSub extends JPanel {
             c = new GridBagConstraints();
 
             this.setLayout(new GridBagLayout());
-            this.setOpaque(false);
 
             //lay out all the buttons in a neat orderly fashion
             c.gridy = 0;
@@ -143,8 +138,6 @@ public class SectionTopSub extends JPanel {
      */
     private void initComponents() {
         this.setLayout(new BorderLayout());
-        this.add(arrow1, BorderLayout.WEST);
-        this.add(arrow2, BorderLayout.EAST);
         this.add(middlePanel, BorderLayout.CENTER);
     }
 

@@ -3,6 +3,9 @@ package ProgramGUI;
 import ProgramGUI.SectionCenter.SectionCenterPanel;
 
 import java.awt.Graphics;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JPanel;
 
@@ -12,21 +15,23 @@ import ProgramGUI.SectionBottom.SectionBottomPanel;
 
 import ProgramGUI.GUIComponents.AuxSidePanels;
 
-import ProgramGUI.SectionBottom.SectionBottomSub;
 
 import ProgramGUI.SectionCenter.SectionCenterSidePanels;
 
 import ProgramGUI.SectionTop.SectionTopPanel;
 
 import ProgramGUI.SectionTop.SectionTopSub;
+import Resources.Images.ImageLoader;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 
 import java.awt.Insets;
+import javax.imageio.ImageIO;
 
 /**
  * The panel which is overlayed onto the frame, purely programming convention
@@ -39,10 +44,10 @@ public class ProgramWindowPanel extends JPanel {
     private SectionCenterPanel panel_2;
     private SectionBottomPanel panel_3;
     private SectionTopSub panel_4;
-    private SectionBottomSub panel_5;
     private SectionCenterSidePanels leftPanel, rightPanel;
 
     private GradientPaint gp1;
+    private Image i;
     private int insetSize;
 
     private GridBagConstraints gc = new GridBagConstraints();
@@ -55,22 +60,25 @@ public class ProgramWindowPanel extends JPanel {
         else{
           this.setVisible(true);
         }
-        
+        try {
+            i = ImageIO.read(ImageLoader.class.getResource("backdrop.png"));
+        } catch (IOException ex) {
+            System.out.println("oh shit");
+        }
 
         //create new instances of the components
         this.panel_1 = new SectionTopPanel(m);
         this.panel_2 = new SectionCenterPanel(m);
         this.panel_3 = new SectionBottomPanel(m);
         this.panel_4 = new SectionTopSub(m);
-        this.panel_5 = new SectionBottomSub(m);
         this.leftPanel = new SectionCenterSidePanels(m);
         this.rightPanel = new SectionCenterSidePanels(m);
 
         this.insetSize = 4;
 
         gp1 =
- new GradientPaint(0, 40, new Color(120, 120, 120), 0, 100, new Color(80, 80,
-                                                                      80));
+ new GradientPaint(0, 40, new Color(30, 30, 30), 0, 100, new Color(0, 0,
+                                                                      0));
 
         //build the window
         this.initComponents();
@@ -130,7 +138,7 @@ public class ProgramWindowPanel extends JPanel {
         gc.gridheight = 1;
         gc.fill = GridBagConstraints.BOTH;
         gc.anchor = GridBagConstraints.NORTHWEST;
-        gc.insets = new Insets(insetSize, insetSize, insetSize, insetSize);
+        gc.insets = new Insets(-5,0,0,0);
         this.add(panel_2, gc);
 
         //Place the right panel
@@ -145,22 +153,11 @@ public class ProgramWindowPanel extends JPanel {
         gc.insets = new Insets(0, 0, 0, 0);
         this.add(rightPanel, gc);
 
-        //Place the panel_5 at the bottom and use its minimum size
-        gc.gridx = 0;
-        gc.gridy = 3;
-        gc.weightx = 1;
-        gc.weighty = 0;
-        gc.gridwidth = 3;
-        gc.gridheight = 1;
-        gc.fill = GridBagConstraints.BOTH;
-        gc.anchor = GridBagConstraints.NORTHWEST;
-        gc.insets = new Insets(0, 0, 0, 0);
-        this.add(panel_5, gc);
 
 
         //Place the bottom panel
         gc.gridx = 0;
-        gc.gridy = 4;
+        gc.gridy = 3;
         gc.weightx = 1;
         gc.weighty = 0;
         gc.gridwidth = 3;
@@ -179,6 +176,7 @@ public class ProgramWindowPanel extends JPanel {
         Graphics2D g2d = (Graphics2D)g;
         g2d.setPaint(gp1);
         g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g2d.drawImage(i, 0, 0,null);
     }
 
     public SectionCenterPanel getPanel_2() {

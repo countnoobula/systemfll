@@ -33,7 +33,7 @@ public class SectionTopPanel extends JPanel {
         gp1 =
  new GradientPaint(0, 0, new Color(250, 250, 250), 0, 50, new Color(200, 200,
                                                                     200));
-        this.setPreferredSize(new Dimension(0, 40));
+        this.setPreferredSize(new Dimension(0, 28));
         initComponents();
 
     }

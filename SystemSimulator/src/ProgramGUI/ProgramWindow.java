@@ -24,6 +24,7 @@ import java.awt.Image;
 import java.io.IOException;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
+import javax.swing.JWindow;
 
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.transitions.ScreenTransition;
@@ -32,7 +33,7 @@ import org.jdesktop.animation.transitions.TransitionTarget;
 /**
  * This is the main Program Window for the application.
  */
-public class ProgramWindow extends JFrame {
+public class ProgramWindow extends JWindow {
 
     private Main m;
     private ContentPane panel_1;
@@ -45,7 +46,6 @@ public class ProgramWindow extends JFrame {
      * @param m2
      */
     public ProgramWindow(Main m2) {
-        super("SYSTEM Simulation");
 
         //create new instances of the GUI components
         this.m = m2;
@@ -63,38 +63,12 @@ public class ProgramWindow extends JFrame {
 
         //component methods
         this.setLayout(new BorderLayout());
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //add components
         this.add(panel_1, BorderLayout.CENTER);
         this.setBounds(sideWidth, topWidth, (int)(width - 2 * sideWidth),
                        (int)(height - 2 * topWidth));
         this.setVisible(true);
-
-        this.addWindowListener(new WindowListener() {
-                public void windowOpened(WindowEvent e) {
-                }
-
-                public void windowClosing(WindowEvent e) {
-                }
-
-                public void windowClosed(WindowEvent e) {
-                }
-
-                public void windowIconified(WindowEvent e) {
-                }
-
-                public void windowDeiconified(WindowEvent e) {
-                }
-
-                public void windowActivated(WindowEvent e) {
-                }
-
-                public void windowDeactivated(WindowEvent e) {
-
-
-                }
-            });
 
 
     }
