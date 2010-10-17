@@ -6,15 +6,10 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import java.awt.Paint;
-
 import java.awt.Stroke;
-
 import java.awt.event.MouseEvent;
-
 import javax.swing.JMenuItem;
-
 import java.awt.event.MouseListener;
 
 public class SystemPopupMenuItem extends JMenuItem {

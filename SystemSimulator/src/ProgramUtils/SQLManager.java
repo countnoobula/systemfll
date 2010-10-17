@@ -56,6 +56,40 @@ public class SQLManager{
     }
 
     /**
+     * Returns a result set if there was a successful query
+     * @param sql The SQL SELECT statement
+     * @return The resulting data set.
+     */
+    public static void insertQuery(String sql){
+
+
+        try {
+            try {
+               Class.forName( "com.mysql.jdbc.Driver" ).newInstance() ;
+            } catch (InstantiationException ex) {
+                System.out.println("Cant find Driver Manager");
+            } catch (IllegalAccessException ex) {
+                System.out.println("There is No access to the site");
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println("cant find driver");
+        }
+        try {
+
+            con = (Connection) DriverManager.getConnection(url, "voidblo1_shaun", "system");
+            Statement statement;
+            statement = (Statement) con.createStatement();
+            statement.executeUpdate(sql);
+
+        } catch (SQLException ex) {
+
+            System.out.println("SQL did not work");
+            
+        }
+    }
+
+    /**
      * Simple test script
      * @param args don't worry about this
      */

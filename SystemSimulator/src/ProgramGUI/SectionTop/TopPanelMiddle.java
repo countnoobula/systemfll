@@ -21,6 +21,7 @@ import ProgramGUI.GUIComponents.SystemPopUp;
 import ProgramGUI.GUIComponents.SystemPopupMenuItem;
 import ProgramGUI.GUIComponents.TopPanelButton;
 import Resources.Images.ImageLoader;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -35,14 +36,16 @@ import javax.swing.ImageIcon;
 public class TopPanelMiddle extends JPanel {
 
     private SystemPopUp pop1, pop2, pop3;
-    private Paint gp1,gp2;
+    private Paint gp1,gp2,gp3,gp4;
     private Point p;
     private Main m;
-    private NullButton bt1, bt2;
+    private NullButton bt1, bt2,end1,end2,end3;
     private GridBagConstraints gc;
     private TopPanelButton bt3,bt4,bt5;
-    private Shape s1;
-    private int y[] = {0,0,28,28};
+    private Font f1;
+    private Shape s1,s2;
+    private int y1[] = {0,0,28,28};
+    private int y2[] = {6,6,28,28};
 
     public TopPanelMiddle(Main m2) {
 
@@ -51,6 +54,9 @@ public class TopPanelMiddle extends JPanel {
         gc = new GridBagConstraints();
         bt1 = new NullButton("");
         bt2 = new NullButton("");
+        end1 = new NullButton("");
+        end2 = new NullButton("");
+        end3 = new NullButton("");
         bt3 = new TopPanelButton(m,"Program");
         bt4 = new TopPanelButton(m,"Window");
         bt5 = new TopPanelButton(m,"Developer");
@@ -76,7 +82,11 @@ public class TopPanelMiddle extends JPanel {
 
 
         gp1 = new GradientPaint(0, 5, new Color(51, 51, 51), 0, 25, new Color(0, 0, 0));
-        gp2 = new GradientPaint(0, 5, new Color(251,251,251), 0, 25, new Color(200, 200, 200));
+        gp2 = new GradientPaint(0, 5, new Color(251,251,251,100), 0, 25, new Color(200, 200, 200,100));
+        gp3 = new GradientPaint(0, 5, new Color(40,40,40), 0, 25, new Color(10,10,10));
+        gp4 = new GradientPaint(0, 8, new Color(0,192,255), 0, 25, new Color(0,142,200));
+
+        f1 = m.getFonts().getFont(1).deriveFont(14.0f);
 
         bt2.addActionListener(new ActionListener(){
 
@@ -123,16 +133,27 @@ public class TopPanelMiddle extends JPanel {
         gc.insets = new Insets(0, 40, 0, 0);
         gc.weightx = 0;
         this.add(bt3, gc);
-        gc.insets = new Insets(0, 0, 0, 0);
+        gc.insets = new Insets(0, 0, 0, -30);
         gc.weightx = 0;
         this.add(bt4, gc);
-        gc.insets = new Insets(0, 0, 0, 0);
+        gc.insets = new Insets(0, 10, 0, 0);
         gc.weightx = 0;
         this.add(bt5, gc);
+
+
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 2;
         this.add(new NullPanel(), gc);
 
+        this.add(end1, gc);
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.weightx = 0;
+        this.add(end2, gc);
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.weightx = 0;
+        this.add(end3, gc);
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.weightx = 0;
 
 
     }
@@ -141,12 +162,23 @@ public class TopPanelMiddle extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
-        int x[] = {getWidth()-150,getWidth(),getWidth(),getWidth()-178};
-        s1 = new Polygon(x,y,4);
+        int x1[] = {getWidth()-150,getWidth(),getWidth(),getWidth()-178};
+        int x2[] = {getWidth()-148,getWidth()-80,getWidth()-80,getWidth()-170};
+        s1 = new Polygon(x1,y1,4);
+        s2 = new Polygon(x2,y2,4);
         g2d.setPaint(gp1);
         g2d.fillRect(0, 0, getWidth(), getHeight());
         g2d.setPaint(gp2);
         g2d.fill(s1);
+        g2d.setPaint(gp3);
+        g2d.fill(s2);
+        g2d.setFont(f1);
+        g2d.setPaint(gp4);
+        g2d.fillRect(getWidth()-78, 6,6,22);
+        g2d.fillRect(getWidth()-70, 6,6,22);
+        g2d.fillRect(getWidth()-62, 6,6,22);
+        g2d.setColor(Color.WHITE);
+        g2d.drawString("CONN", getWidth()-140, 23);
 
     }
 }
