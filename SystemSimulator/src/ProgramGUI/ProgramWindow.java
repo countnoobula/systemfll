@@ -33,7 +33,7 @@ import org.jdesktop.animation.transitions.TransitionTarget;
 /**
  * This is the main Program Window for the application.
  */
-public class ProgramWindow extends JWindow {
+    public class ProgramWindow extends JFrame {
 
     private Main m;
     private ContentPane panel_1;
@@ -52,6 +52,7 @@ public class ProgramWindow extends JWindow {
         this.panel_2 = new ProgramWindowPanel(m);
         this.panel_1 = new ContentPane();
         this.guiEngine = new GUIEngine(m);
+        this.setUndecorated(true);
 
         //Variables for the program Window layout on the screen
         int sideWidth = 50;
