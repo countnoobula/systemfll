@@ -56,7 +56,7 @@ public class SystemPopupMenuItem extends JMenuItem {
             }
         });
 
-        gp1 = new Color(30, 30, 30);
+        gp1 = new Color(100, 100, 100);
         gp2 = new GradientPaint(0, 0, new Color(250, 250, 250), 0, 25, new Color(230, 230, 230));
         gp3 = new Color(150, 150, 150);
         //gp4 = new Color(30, 30, 30);

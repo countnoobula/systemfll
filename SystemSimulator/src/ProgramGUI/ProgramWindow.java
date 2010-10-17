@@ -8,8 +8,6 @@ import MainClasses.*;
 import Resources.Images.ImageLoader;
 
 import java.awt.BorderLayout;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -25,7 +23,6 @@ import java.awt.Image;
 import java.io.IOException;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
-import javax.swing.JWindow;
 
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.transitions.ScreenTransition;
@@ -89,6 +86,15 @@ import org.jdesktop.animation.transitions.TransitionTarget;
     public void startIntroAnimation() {
         panel_1.startTransition();
     }
+
+    public GUIEngine getGuiEngine() {
+        return guiEngine;
+    }
+
+    public void setGuiEngine(GUIEngine guiEngine) {
+        this.guiEngine = guiEngine;
+    }
+
 
 
     private class ContentPane extends JPanel implements TransitionTarget {

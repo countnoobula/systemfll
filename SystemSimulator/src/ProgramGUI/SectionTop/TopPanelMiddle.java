@@ -7,19 +7,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import java.awt.Paint;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.Icon;
 
 import javax.swing.JPanel;
-
-
-
-
-
-
 
 import MainClasses.Main;
 import ProgramGUI.GUIComponents.NullButton;
@@ -34,20 +25,24 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.Shape;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 public class TopPanelMiddle extends JPanel {
 
     private SystemPopUp pop1, pop2, pop3;
-    private Paint gp1;
+    private Paint gp1,gp2;
     private Point p;
     private Main m;
     private NullButton bt1, bt2;
     private GridBagConstraints gc;
     private TopPanelButton bt3,bt4,bt5;
+    private Shape s1;
+    private int y[] = {0,0,28,28};
 
     public TopPanelMiddle(Main m2) {
 
@@ -81,7 +76,16 @@ public class TopPanelMiddle extends JPanel {
 
 
         gp1 = new GradientPaint(0, 5, new Color(51, 51, 51), 0, 25, new Color(0, 0, 0));
+        gp2 = new GradientPaint(0, 5, new Color(251,251,251), 0, 25, new Color(200, 200, 200));
 
+        bt2.addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent e) {
+               pop1.setLocation(  (int) ((int) bt2.getLocation().getX() + m.getMainWindow().getLocation().getX()), (int) ((int) (bt2.getLocation().getY() + bt2.getHeight()) + m.getMainWindow().getLocation().getY()));
+               pop1.setVisible(true);
+              
+            }
+        });
         this.addMouseListener(new MouseListener() {
 
             public void mouseClicked(MouseEvent e) {
@@ -137,8 +141,12 @@ public class TopPanelMiddle extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
+        int x[] = {getWidth()-150,getWidth(),getWidth(),getWidth()-178};
+        s1 = new Polygon(x,y,4);
         g2d.setPaint(gp1);
         g2d.fillRect(0, 0, getWidth(), getHeight());
+        g2d.setPaint(gp2);
+        g2d.fill(s1);
 
     }
 }
