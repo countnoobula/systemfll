@@ -61,6 +61,7 @@ public class Main {
                     if (main.getPrefs().getBoolean("showStartAnimation",
                                                    true)) {
                         main.getMainWindow().startIntroAnimation();
+                        main.getGuiEngine().makeVisible(main.getMainWindow().getProgramWindowPanel().getPanel_2().getPanel_1());
                     }
                 }
             });

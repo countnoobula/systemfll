@@ -46,6 +46,8 @@ public class SectionCenterPanel extends JPanel {
         this.layeredPane.addPanel(panel_3);
         this.layeredPane.addPanel(panel_4);
 
+        
+
         //perform some property changes
         this.setOpaque(false);
         //construct frame

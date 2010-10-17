@@ -70,6 +70,7 @@ import org.jdesktop.animation.transitions.TransitionTarget;
         this.setBounds(sideWidth, topWidth, (int)(width - 2 * sideWidth),
                        (int)(height - 2 * topWidth));
         this.setVisible(true);
+        
 
 
     }

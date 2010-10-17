@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Paint;
 import java.awt.RenderingHints;
 import javax.swing.JButton;
@@ -30,6 +31,10 @@ public class TopPanelButton extends JButton{
         title = s;
         this.m = m2;
         this.setOpaque(false);
+        this.setMargin(new Insets(-3, -3, -3, -3));
+        this.setBorderPainted(false);
+        this.setFocusPainted(false);
+        this.setContentAreaFilled(false);
         this.setUI(new TopPanelButtonUI());
     }
     private class TopPanelButtonUI extends BasicButtonUI{
