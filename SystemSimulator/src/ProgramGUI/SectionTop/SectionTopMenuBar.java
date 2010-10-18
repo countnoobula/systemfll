@@ -210,7 +210,7 @@ public class SectionTopMenuBar extends JPanel {
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.NONE;
         gc.weighty = 1;
-        bt3.setMinimumSize(new Dimension(100,20));
+        bt3.setPreferredSize(new Dimension(100,20));
 
         this.add(bt3, gc);
         gc.insets = new Insets(0, 0, 0, 0);
@@ -220,7 +220,7 @@ public class SectionTopMenuBar extends JPanel {
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.NONE;
         gc.weighty = 1;
-        bt4.setMinimumSize(new Dimension(85,20));
+        bt4.setPreferredSize(new Dimension(85,20));
 
         this.add(bt4, gc);
         gc.insets = new Insets(0, 0, 0, 0);
@@ -230,7 +230,7 @@ public class SectionTopMenuBar extends JPanel {
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.NONE;
         gc.weighty = 1;
-        bt5.setMinimumSize(new Dimension(140,20));
+        bt5.setPreferredSize(new Dimension(125,20));
 
         this.add(bt5, gc);
 
@@ -271,7 +271,7 @@ public class SectionTopMenuBar extends JPanel {
         gc.fill = GridBagConstraints.BOTH;
         gc.weighty = 1;
         NullPanel n1 = new NullPanel();
-        n1.setMinimumSize(new Dimension(150,0));
+        n1.setPreferredSize(new Dimension(150,0));
         this.add(n1, gc);
 
         //end buttons

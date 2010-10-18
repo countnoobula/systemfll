@@ -67,7 +67,7 @@ import org.jdesktop.animation.transitions.TransitionTarget;
         this.add(panel_1, BorderLayout.CENTER);
         this.setBounds(sideWidth, topWidth, (int)(width - 2 * sideWidth),
                        (int)(height - 2 * topWidth));
-        this.setMinimumSize(new Dimension(800,600));
+        this.setMinimumSize(new Dimension(900,675));
         this.setVisible(true);
         
 
