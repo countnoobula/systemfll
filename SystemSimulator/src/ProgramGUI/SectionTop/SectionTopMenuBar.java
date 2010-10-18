@@ -202,6 +202,7 @@ public class SectionTopMenuBar extends JPanel {
         gc.weighty = 1;
         this.add(new NullPanel(), gc);
 
+        //menu buttons
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
         gc.gridx = 3;
@@ -209,6 +210,8 @@ public class SectionTopMenuBar extends JPanel {
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.NONE;
         gc.weighty = 1;
+        bt3.setMinimumSize(new Dimension(100,20));
+
         this.add(bt3, gc);
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
@@ -217,6 +220,8 @@ public class SectionTopMenuBar extends JPanel {
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.NONE;
         gc.weighty = 1;
+        bt4.setMinimumSize(new Dimension(85,20));
+
         this.add(bt4, gc);
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
@@ -225,9 +230,11 @@ public class SectionTopMenuBar extends JPanel {
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.NONE;
         gc.weighty = 1;
+        bt5.setMinimumSize(new Dimension(140,20));
+
         this.add(bt5, gc);
 
-
+        //spacer
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 1;
         gc.gridx = 6;
@@ -237,6 +244,7 @@ public class SectionTopMenuBar extends JPanel {
         gc.weighty = 1;
         this.add(new NullPanel(), gc);
 
+        //monitors
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
         gc.gridx = 7;
@@ -254,6 +262,7 @@ public class SectionTopMenuBar extends JPanel {
         gc.weighty = 1;
         this.add(mon1, gc);
 
+        //spacer
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
         gc.gridx = 9;
@@ -265,6 +274,7 @@ public class SectionTopMenuBar extends JPanel {
         n1.setMinimumSize(new Dimension(150,0));
         this.add(n1, gc);
 
+        //end buttons
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
         gc.gridx = 10;

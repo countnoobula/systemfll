@@ -6,22 +6,17 @@ import java.awt.FontMetrics;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Insets;
 
 import java.awt.Paint;
 import java.awt.Rectangle;
 
-import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 import MainClasses.Main;
 import javax.swing.BorderFactory;
-import javax.swing.border.EmptyBorder;
 
-import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.transitions.ScreenTransition;
-import org.jdesktop.animation.transitions.TransitionTarget;
 
 public class TabbedPane extends JTabbedPane {
 
@@ -55,7 +50,7 @@ public class TabbedPane extends JTabbedPane {
 
     private class TabbedPaneUI extends BasicTabbedPaneUI {
 
-        Paint gp1,gp2;
+        Paint gp1,gp2,gp3;
 
         TabbedPaneUI() {
             super();
@@ -67,8 +62,10 @@ public class TabbedPane extends JTabbedPane {
             gp2 =
                     new GradientPaint(0, 0, new Color(50, 50, 50, 100), 0, 30, new Color(80, 80,
                     80, 100));
+            gp3 = new Color(255,255,255,100);
         }
 
+        @Override
         protected void installDefaults() {
             super.installDefaults();
             this.tabInsets.top=2;
@@ -96,6 +93,9 @@ public class TabbedPane extends JTabbedPane {
             if (isSelected == true) {
                 g2d.setPaint(gp2);
                 g2d.fillRect(x, y, w, h);
+                g2d.setPaint(gp3);
+                g2d.fillRect(x, y, 2, h);
+                g2d.fillRect(x+w-2, y, 2, h);
             } else {
                 g2d.setPaint(gp1);
                 g2d.fillRect(x, y, w, h);

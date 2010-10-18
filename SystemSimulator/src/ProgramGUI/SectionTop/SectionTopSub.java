@@ -5,30 +5,22 @@ import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import java.awt.event.ActionEvent;
-
+import javax.swing.ButtonModel;
 import javax.swing.JPanel;
-
 import MainClasses.Main;
-
-import ProgramGUI.SectionCenter.*;
-
 import ProgramGUI.GUIComponents.Panes.NullPanel;
 import ProgramGUI.GUIComponents.Buttons.SubBarAButton;
 import ProgramGUI.GUIComponents.Buttons.SubPaneArrow;
-
 import java.awt.Insets;
-
 import java.awt.BorderLayout;
-
 import java.awt.GridBagConstraints;
-
 import java.awt.GridBagLayout;
-
 import java.awt.event.ActionListener;
-
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
+
+
 
 /**
  * The panel for the buttons underneith the topPanel
@@ -39,6 +31,7 @@ public class SectionTopSub extends JPanel {
     private SubPaneArrow arrow1, arrow2;
     private ArrayList<SubBarAButton> barButtons;
     private MiddleButtonsPanel middlePanel;
+    private ButtonGroup bg;
 
     //program main
     private Main m;
@@ -47,6 +40,7 @@ public class SectionTopSub extends JPanel {
 
         m = m2;
         barButtons = new ArrayList<SubBarAButton>(0);
+        bg = new ButtonGroup();
 
         //Here are all the buttons in their correct order
         barButtons.add(new SubBarAButton(m, "Core"));
@@ -57,7 +51,17 @@ public class SectionTopSub extends JPanel {
         barButtons.add(new SubBarAButton(m, "Programmer"));
         barButtons.add(new SubBarAButton(m, "Simulator"));
         barButtons.add(new SubBarAButton(m, "Connector"));
+        bg.add(barButtons.get(0));
+        bg.add(barButtons.get(1));
+        bg.add(barButtons.get(2));
+        bg.add(barButtons.get(3));
+        bg.add(barButtons.get(4));
+        bg.add(barButtons.get(5));
+        bg.add(barButtons.get(6));
+        bg.add(barButtons.get(7));
+
         middlePanel = new MiddleButtonsPanel();
+        barButtons.get(0).setSelected(true);
 
 
         gp1 =

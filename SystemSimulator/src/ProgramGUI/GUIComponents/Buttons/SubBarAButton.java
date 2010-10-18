@@ -15,17 +15,14 @@ import java.awt.Shape;
 
 import MainClasses.Main;
 
-import java.awt.Dimension;
-import java.awt.Insets;
-
 import javax.swing.AbstractButton;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicButtonUI;
 
 import ProgramUtils.SystemInformation;
+import javax.swing.JRadioButton;
 
-public class SubBarAButton extends JButton {
+public class SubBarAButton extends JRadioButton {
 
     private String title;
     private boolean entered = false;
@@ -71,13 +68,14 @@ public class SubBarAButton extends JButton {
     private class SubBarAButtonUI extends BasicButtonUI {
 
         Shape s1, s2, s3;
-        Paint gp1, gp2;
+        Paint gp1,gp2;
         int y[] = {0, 0, 25, 25};
         int y2[] = {13, 13, 25, 25};
 
         private SubBarAButtonUI() {
             gp1 =
-                    new GradientPaint(0, 4, new Color(10, 10, 10), 0, 15, new Color(30, 30, 30));
+                    new GradientPaint(0, 4, new Color(10, 10, 10), 0, 15, new Color(40, 40, 40));
+            gp2 = new Color(0,192,255);
 
 
 
@@ -98,7 +96,16 @@ public class SubBarAButton extends JButton {
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                     RenderingHints.VALUE_ANTIALIAS_ON);
 
-            g2d.setColor(Color.BLACK);
+            if(isSelected()){
+            g2d.setPaint(gp1);
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.setPaint(Color.WHITE);
+            }
+            else{
+            g2d.setPaint(Color.BLACK);
+            }
+
+            
             if (SystemInformation.isWindows()) {
                 g2d.setFont(m.getFonts().getFont(1).deriveFont(11.0f));
             } else {
@@ -108,7 +115,7 @@ public class SubBarAButton extends JButton {
             g2d.drawString(title, 14, 13);
 
             if (entered == true) {
-                g2d.setColor(Color.CYAN);
+                g2d.setPaint(gp2);
             } else {
                 g2d.setPaint(gp1);
             }

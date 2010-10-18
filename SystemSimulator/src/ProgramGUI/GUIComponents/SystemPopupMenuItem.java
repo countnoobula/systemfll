@@ -14,7 +14,7 @@ import java.awt.event.MouseListener;
 
 public class SystemPopupMenuItem extends JMenuItem {
 
-    private Paint gp1, gp2, gp3;
+    private Paint gp1, gp2, gp3,gp4;
     private Stroke s1;
     private boolean entered = false;
     private String title;
@@ -51,10 +51,10 @@ public class SystemPopupMenuItem extends JMenuItem {
             }
         });
 
-        gp1 = new Color(100, 100, 100);
-        gp2 = new GradientPaint(0, 0, new Color(250, 250, 250), 0, 25, new Color(230, 230, 230));
-        gp3 = new Color(150, 150, 150);
-        //gp4 = new Color(30, 30, 30);
+        gp1 = new Color(0,192,255);
+        gp2 = new GradientPaint(0, 0, new Color(0, 192, 255), 0, 25, new Color(0, 140, 200));
+        gp3 = new GradientPaint(0, 0, new Color(40,40 , 40), 100, 0, new Color(50,50,50));
+        gp4 = new Color(30, 30, 30);
         s1 = new BasicStroke(2.0f);
         super.getInsets().set(3, 10, 3, -10);
     }
@@ -65,8 +65,8 @@ public class SystemPopupMenuItem extends JMenuItem {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(s1);
         g2d.setFont(f1);
-        if (entered == true) {
-            g2d.setPaint(gp1);
+        if (entered == false) {
+            g2d.setPaint(gp4);
             g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
             g2d.setColor(Color.WHITE);
             g2d.drawString(title, 10, this.getHeight() - 8);
