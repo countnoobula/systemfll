@@ -1,6 +1,6 @@
 package ProgramGUI.GUIComponents.LogicControls;
 
-import ProgramGUI.GUIComponents.NullPanel;
+import ProgramGUI.GUIComponents.Panes.NullPanel;
 import ProgramGUI.GUIComponents.SystemTextField;
 import VisualLogicSystem.DataBlocks.Text;
 import java.awt.Color;

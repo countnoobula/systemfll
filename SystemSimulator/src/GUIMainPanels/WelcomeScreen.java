@@ -2,7 +2,7 @@ package GUIMainPanels;
 
 import MainClasses.SystemInformation;
 
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 
 import Resources.Images.ImageLoader;
 

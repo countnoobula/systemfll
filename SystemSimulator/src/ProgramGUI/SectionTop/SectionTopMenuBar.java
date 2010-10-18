@@ -13,15 +13,17 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import MainClasses.Main;
-import ProgramGUI.GUIComponents.NullButton;
-import ProgramGUI.GUIComponents.NullPanel;
+import ProgramGUI.GUIComponents.Buttons.NullButton;
+import ProgramGUI.GUIComponents.Panes.NullPanel;
 
 import ProgramGUI.GUIComponents.SystemPopUp;
 
 import ProgramGUI.GUIComponents.SystemPopupMenuItem;
-import ProgramGUI.GUIComponents.TopPanelButton;
+import ProgramGUI.GUIComponents.Buttons.TopPanelButton;
+import ProgramGUI.GUIComponents.SystemMonitor;
 import ProgramUtils.SystemInformation;
 import Resources.Images.ImageLoader;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -34,31 +36,38 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.ImageIcon;
+import javax.swing.Timer;
 
-public class TopPanelMiddle extends JPanel {
+public class SectionTopMenuBar extends JPanel {
 
-    private SystemPopUp pop1, pop2, pop3;
-    private Paint gp1, gp2, gp3, gp4,gp5;
     private Point p;
-    private Main m;
+    private SystemPopUp pop1, pop2, pop3;
     private NullButton bt1, bt2, end1, end2, end3;
-    private GridBagConstraints gc;
     private TopPanelButton bt3, bt4, bt5;
+    private GridBagConstraints gc;
+    private Paint gp1, gp2, gp3, gp4, gp5;
+    private SystemMonitor mon1,mon2;
     private Font f1;
     private Shape s1, s2;
     private int y1[] = {0, 0, 28, 28};
     private int y2[] = {6, 6, 28, 28};
+    private Main m;
 
-    public TopPanelMiddle(Main m2) {
+    public SectionTopMenuBar(Main m2) {
 
         this.m = m2;
         this.setOpaque(false);
         gc = new GridBagConstraints();
+
+
         bt1 = new NullButton("");
         bt2 = new NullButton("");
         end1 = new NullButton("");
         end2 = new NullButton("");
         end3 = new NullButton("");
+
+        mon1 = new SystemMonitor(m,5, Color.BLUE, "CPU");
+        mon2 = new SystemMonitor(m,10, Color.BLUE, "RAM");
 
 
         bt3 = new TopPanelButton(m, "Program");
@@ -95,7 +104,7 @@ public class TopPanelMiddle extends JPanel {
                 double height =
                         Toolkit.getDefaultToolkit().getScreenSize().getHeight();
                 if (SystemInformation.isMac()) {
-                    m.getMainWindow().setBounds(0, 20, (int) width, (int) height-20);
+                    m.getMainWindow().setBounds(0, 20, (int) width, (int) height - 20);
                 } else {
                     m.getMainWindow().setBounds(0, 0, (int) width, (int) height);
                 }
@@ -112,7 +121,6 @@ public class TopPanelMiddle extends JPanel {
         end2.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
-
             }
         });
 
@@ -161,47 +169,145 @@ public class TopPanelMiddle extends JPanel {
             public void mouseMoved(MouseEvent e) {
             }
         });
+
+        //add the 2 system buttons
         this.setLayout(new GridBagLayout());
+
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
+        gc.gridx = 0;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.NONE;
+        gc.weighty = 1;
         this.add(bt1, gc);
+
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
+        gc.gridx = 1;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.NONE;
+        gc.weighty = 1;
         this.add(bt2, gc);
-        gc.insets = new Insets(0, 40, 0, 0);
+
+
+
+        gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
+        gc.gridx = 2;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.NONE;
+        gc.weighty = 1;
+        this.add(new NullPanel(), gc);
+
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.weightx = 0;
+        gc.gridx = 3;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.NONE;
+        gc.weighty = 1;
         this.add(bt3, gc);
-        gc.insets = new Insets(0, 0, 0, -30);
+        gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
+        gc.gridx = 4;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.NONE;
+        gc.weighty = 1;
         this.add(bt4, gc);
-        gc.insets = new Insets(0, 10, 0, 0);
+        gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
+        gc.gridx = 5;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.NONE;
+        gc.weighty = 1;
         this.add(bt5, gc);
 
 
         gc.insets = new Insets(0, 0, 0, 0);
-        gc.weightx = 2;
+        gc.weightx = 1;
+        gc.gridx = 6;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weighty = 1;
         this.add(new NullPanel(), gc);
+
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
+        gc.gridx = 7;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        gc.weighty = 1;
+        this.add(mon2, gc);
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.weightx = 0;
+        gc.gridx = 8;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.HORIZONTAL;
+        gc.weighty = 1;
+        this.add(mon1, gc);
+
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.weightx = 0;
+        gc.gridx = 9;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weighty = 1;
+        NullPanel n1 = new NullPanel();
+        n1.setMinimumSize(new Dimension(150,0));
+        this.add(n1, gc);
+
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.weightx = 0;
+        gc.gridx = 10;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weighty = 1;
         this.add(end1, gc);
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
+        gc.gridx = 11;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weighty = 2;
         this.add(end2, gc);
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
+        gc.gridx =12;
+        gc.gridy = 0;
+        gc.anchor = GridBagConstraints.WEST;
+        gc.fill = GridBagConstraints.BOTH;
+        gc.weighty = 1;
         this.add(end3, gc);
-
-
+        Timer t = new Timer(2000,new memUsage());
+        t.start();
 
     }
+    private class memUsage implements ActionListener{
+
+        public void actionPerformed(ActionEvent e) {
+            mon2.updatePercent((int) SystemInformation.getRam());
+        }
+
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int r = -25;
         Graphics2D g2d = (Graphics2D) g;
-        int x1[] = {getWidth() - 150 + r, getWidth()-26, getWidth()-26, getWidth() - 178 + r};
+        int x1[] = {getWidth() - 150 + r, getWidth() - 26, getWidth() - 26, getWidth() - 178 + r};
         int x2[] = {getWidth() - 148 + r, getWidth() - 80 + r, getWidth() - 80 + r, getWidth() - 170 + r};
         s1 = new Polygon(x1, y1, 4);
         s2 = new Polygon(x2, y2, 4);
@@ -217,11 +323,12 @@ public class TopPanelMiddle extends JPanel {
         g2d.fillRect(getWidth() - 70 + r, 6, 6, 22);
         g2d.fillRect(getWidth() - 62 + r, 6, 6, 22);
         g2d.setPaint(gp5);
-         g2d.fillRect(getWidth() - 78 + r, 12, 6, 16);
+        g2d.fillRect(getWidth() - 78 + r, 12, 6, 16);
         g2d.fillRect(getWidth() - 70 + r, 16, 6, 16);
         g2d.fillRect(getWidth() - 62 + r, 20, 6, 16);
         g2d.setColor(Color.WHITE);
         g2d.drawString("CONN", getWidth() - 140 + r, 23);
+        
 
     }
 }

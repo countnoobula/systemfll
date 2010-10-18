@@ -4,7 +4,7 @@ import GUIMainPanels.PreferencePanels.Account;
 import GUIMainPanels.PreferencePanels.General;
 import GUIMainPanels.PreferencePanels.ProgramUI;
 
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 import ProgramGUI.GUIComponents.SystemList;
 
 import java.awt.Dimension;

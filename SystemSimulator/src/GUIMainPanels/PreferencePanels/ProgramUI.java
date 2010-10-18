@@ -1,6 +1,6 @@
 package GUIMainPanels.PreferencePanels;
 
-import ProgramGUI.GUIComponents.NullPanel;
+import ProgramGUI.GUIComponents.Panes.NullPanel;
 
 public class ProgramUI extends NullPanel{
     public ProgramUI() {

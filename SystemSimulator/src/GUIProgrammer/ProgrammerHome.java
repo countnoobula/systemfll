@@ -1,6 +1,6 @@
 package GUIProgrammer;
 
-import ProgramGUI.GUIComponents.TabbedPane;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 
 import MainClasses.Main;
 import java.awt.event.ActionEvent;

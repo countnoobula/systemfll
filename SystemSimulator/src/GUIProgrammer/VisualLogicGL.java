@@ -3,9 +3,9 @@ package GUIProgrammer;
 import MainClasses.Main;
 import ProgramGUI.GUIComponents.BlockProperties;
 
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 
-import ProgramGUI.GUIComponents.SystemSmallTool;
+import ProgramGUI.GUIComponents.Buttons.SystemSmallTool;
 
 import Resources.Images.ImageLoader;
 

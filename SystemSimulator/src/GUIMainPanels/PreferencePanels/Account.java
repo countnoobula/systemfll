@@ -2,7 +2,7 @@ package GUIMainPanels.PreferencePanels;
 
 import MainClasses.Main;
 
-import ProgramGUI.GUIComponents.NullPanel;
+import ProgramGUI.GUIComponents.Panes.NullPanel;
 import ProgramGUI.GUIComponents.SystemCheckBox;
 import ProgramGUI.GUIComponents.SystemLabel;
 

@@ -21,13 +21,13 @@ public class SectionTopPanel extends JPanel {
     private GradientPaint gp1;
 
     private Main m;
-    private TopPanelMiddle panel_2;
+    private SectionTopMenuBar panel_2;
 
 
     public SectionTopPanel(Main m2) {
         
         this.m = m2;
-        this.panel_2 = new TopPanelMiddle(m);
+        this.panel_2 = new SectionTopMenuBar(m);
 
         //create the graidients
         gp1 =

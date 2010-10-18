@@ -1,4 +1,4 @@
-package ProgramGUI.GUIComponents;
+package ProgramGUI.GUIComponents.Panes;
 
 import javax.swing.JPanel;
 

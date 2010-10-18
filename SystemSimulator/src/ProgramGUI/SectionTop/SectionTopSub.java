@@ -14,9 +14,9 @@ import MainClasses.Main;
 
 import ProgramGUI.SectionCenter.*;
 
-import ProgramGUI.GUIComponents.NullPanel;
-import ProgramGUI.GUIComponents.SubBarAButton;
-import ProgramGUI.GUIComponents.SubPaneArrow;
+import ProgramGUI.GUIComponents.Panes.NullPanel;
+import ProgramGUI.GUIComponents.Buttons.SubBarAButton;
+import ProgramGUI.GUIComponents.Buttons.SubPaneArrow;
 
 import java.awt.Insets;
 

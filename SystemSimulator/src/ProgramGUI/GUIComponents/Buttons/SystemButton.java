@@ -1,4 +1,4 @@
-package ProgramGUI.GUIComponents;
+package ProgramGUI.GUIComponents.Buttons;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

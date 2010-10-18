@@ -2,7 +2,7 @@ package GUIMainPanels;
 
 import MainClasses.Main;
 
-import ProgramGUI.GUIComponents.TabbedPane;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 
 /**
  * The starting location of the program when it loads

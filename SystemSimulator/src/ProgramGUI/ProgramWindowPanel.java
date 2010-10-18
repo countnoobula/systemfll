@@ -12,7 +12,7 @@ import MainClasses.*;
 
 import ProgramGUI.SectionBottom.SectionBottomPanel;
 
-import ProgramGUI.GUIComponents.AuxSidePanels;
+import ProgramGUI.GUIComponents.Panes.AuxSidePanels;
 
 
 import ProgramGUI.SectionCenter.SectionCenterSidePanels;

@@ -1,6 +1,6 @@
 package GUIProgrammer;
 
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.LogicBlockEngine;
 

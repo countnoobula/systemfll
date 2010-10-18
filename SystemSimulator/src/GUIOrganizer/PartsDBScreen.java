@@ -1,6 +1,6 @@
 package GUIOrganizer;
 
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 
 public class PartsDBScreen extends GenericSystemPanel{
     public PartsDBScreen() {

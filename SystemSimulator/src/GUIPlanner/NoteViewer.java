@@ -5,9 +5,9 @@ import MainClasses.Main;
 
 import Planner.PlannerNoteData;
 
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 
-import ProgramGUI.GUIComponents.SmallRoundedButton;
+import ProgramGUI.GUIComponents.Buttons.SmallRoundedButton;
 
 import Resources.Images.ImageLoader;
 

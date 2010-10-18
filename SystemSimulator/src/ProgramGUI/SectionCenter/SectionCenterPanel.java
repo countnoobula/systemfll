@@ -13,7 +13,7 @@ import GUIProgrammer.ProgrammerHome;
 import MainClasses.Main;
 
 
-import ProgramGUI.GUIComponents.TabbedPane;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 
 import java.awt.BorderLayout;
 

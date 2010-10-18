@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package ProgramGUI.GUIComponents;
+package ProgramGUI.GUIComponents.Buttons;
 
 import MainClasses.Main;
 import java.awt.Color;

@@ -1,6 +1,6 @@
 package GUIMainPanels;
 
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;

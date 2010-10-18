@@ -1,6 +1,6 @@
 package GUIProgrammer;
 
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 
 public class CoderAPI extends GenericSystemPanel{
     public CoderAPI() {

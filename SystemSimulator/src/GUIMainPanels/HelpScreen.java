@@ -3,7 +3,7 @@ package GUIMainPanels;
 
 import ProgramUtils.FileTreeModel;
 
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 import ProgramGUI.GUIComponents.SystemTreeViewer;
 
 import Resources.Images.ImageLoader;

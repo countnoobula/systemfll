@@ -2,7 +2,7 @@ package ProgramGUI;
 
 import MainClasses.Main;
 
-import ProgramGUI.GUIComponents.AuxPanelButton;
+import ProgramGUI.GUIComponents.Buttons.AuxPanelButton;
 
 import java.awt.Color;
 

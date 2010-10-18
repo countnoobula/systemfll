@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ProgramGUI.GUIComponents;
+package ProgramGUI.GUIComponents.Buttons;
 
 import java.awt.Insets;
 import javax.swing.JButton;

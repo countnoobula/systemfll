@@ -1,11 +1,11 @@
 package GUIMainPanels;
 
 import Forum.WelcomePanel;
-import ProgramGUI.GUIComponents.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 
-import ProgramGUI.GUIComponents.NullPanel;
+import ProgramGUI.GUIComponents.Panes.NullPanel;
 
-import ProgramGUI.GUIComponents.SystemButton;
+import ProgramGUI.GUIComponents.Buttons.SystemButton;
 import ProgramGUI.GUIComponents.SystemLabel;
 import ProgramGUI.GUIComponents.SystemPassField;
 import ProgramGUI.GUIComponents.SystemTextField;

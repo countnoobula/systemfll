@@ -1,5 +1,6 @@
-package ProgramGUI.GUIComponents;
+package ProgramGUI.GUIComponents.Panes;
 
+import ProgramGUI.GUIComponents.Buttons.AuxPanelButton;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;

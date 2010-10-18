@@ -1,6 +1,6 @@
 package Forum;
 
-import ProgramGUI.GUIComponents.NullPanel;
+import ProgramGUI.GUIComponents.Panes.NullPanel;
 
 public class WelcomePanel extends NullPanel {
     public WelcomePanel() {

@@ -1,6 +1,6 @@
 package GUIPlanner;
 
-import ProgramGUI.GUIComponents.TabbedPane;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 
 import MainClasses.Main;
 

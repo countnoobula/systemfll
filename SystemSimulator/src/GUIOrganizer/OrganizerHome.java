@@ -1,6 +1,6 @@
 package GUIOrganizer;
 
-import ProgramGUI.GUIComponents.TabbedPane;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 import MainClasses.Main;
 
 public class OrganizerHome extends TabbedPane{
