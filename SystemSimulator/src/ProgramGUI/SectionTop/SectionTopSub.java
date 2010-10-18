@@ -6,7 +6,6 @@ import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
-import javax.swing.ButtonModel;
 import javax.swing.JPanel;
 import MainClasses.Main;
 import ProgramGUI.GUIComponents.Panes.NullPanel;
