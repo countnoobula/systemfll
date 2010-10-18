@@ -46,7 +46,7 @@ public class SectionTopMenuBar extends JPanel {
     private TopPanelButton bt3, bt4, bt5;
     private GridBagConstraints gc;
     private Paint gp1, gp2, gp3, gp4, gp5;
-    private SystemMonitor mon1,mon2;
+    private SystemMonitor mon1, mon2;
     private Font f1;
     private Shape s1, s2;
     private int y1[] = {0, 0, 28, 28};
@@ -66,8 +66,8 @@ public class SectionTopMenuBar extends JPanel {
         end2 = new NullButton("");
         end3 = new NullButton("");
 
-        mon1 = new SystemMonitor(m,5, Color.BLUE, "CPU");
-        mon2 = new SystemMonitor(m,10, Color.BLUE, "RAM");
+        mon1 = new SystemMonitor(m, 5, Color.BLUE, "CPU");
+        mon2 = new SystemMonitor(m, 10, Color.BLUE, "RAM");
 
 
         bt3 = new TopPanelButton(m, "Program");
@@ -210,7 +210,11 @@ public class SectionTopMenuBar extends JPanel {
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.NONE;
         gc.weighty = 1;
-        bt3.setPreferredSize(new Dimension(100,20));
+       if (SystemInformation.isMac()) {
+            bt3.setMinimumSize(new Dimension(100, 20));
+        } else {
+            bt3.setPreferredSize(new Dimension(100, 0));
+        }
 
         this.add(bt3, gc);
         gc.insets = new Insets(0, 0, 0, 0);
@@ -220,7 +224,11 @@ public class SectionTopMenuBar extends JPanel {
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.NONE;
         gc.weighty = 1;
-        bt4.setPreferredSize(new Dimension(85,20));
+        if (SystemInformation.isMac()) {
+            bt4.setMinimumSize(new Dimension(80, 20));
+        } else {
+            bt4.setPreferredSize(new Dimension(85, 0));
+        }
 
         this.add(bt4, gc);
         gc.insets = new Insets(0, 0, 0, 0);
@@ -230,7 +238,11 @@ public class SectionTopMenuBar extends JPanel {
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.NONE;
         gc.weighty = 1;
-        bt5.setPreferredSize(new Dimension(125,20));
+        if (SystemInformation.isMac()) {
+            bt5.setMinimumSize(new Dimension(120, 20));
+        } else {
+            bt5.setPreferredSize(new Dimension(125, 0));
+        }
 
         this.add(bt5, gc);
 
@@ -271,7 +283,12 @@ public class SectionTopMenuBar extends JPanel {
         gc.fill = GridBagConstraints.BOTH;
         gc.weighty = 1;
         NullPanel n1 = new NullPanel();
-        n1.setPreferredSize(new Dimension(150,0));
+        if (SystemInformation.isMac()) {
+            n1.setMinimumSize(new Dimension(130, 0));
+        } else {
+            n1.setPreferredSize(new Dimension(150, 0));
+        }
+
         this.add(n1, gc);
 
         //end buttons
@@ -293,24 +310,23 @@ public class SectionTopMenuBar extends JPanel {
         this.add(end2, gc);
         gc.insets = new Insets(0, 0, 0, 0);
         gc.weightx = 0;
-        gc.gridx =12;
+        gc.gridx = 12;
         gc.gridy = 0;
         gc.anchor = GridBagConstraints.WEST;
         gc.fill = GridBagConstraints.BOTH;
         gc.weighty = 1;
         this.add(end3, gc);
-        Timer t = new Timer(2000,new memUsage());
+        Timer t = new Timer(2000, new memUsage());
         t.start();
 
     }
-    private class memUsage implements ActionListener{
+
+    private class memUsage implements ActionListener {
 
         public void actionPerformed(ActionEvent e) {
             mon2.updatePercent((int) SystemInformation.getRam());
         }
-
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -338,7 +354,7 @@ public class SectionTopMenuBar extends JPanel {
         g2d.fillRect(getWidth() - 62 + r, 20, 6, 16);
         g2d.setColor(Color.WHITE);
         g2d.drawString("CONN", getWidth() - 140 + r, 23);
-        
+
 
     }
 }
