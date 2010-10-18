@@ -213,7 +213,7 @@ public class SectionTopMenuBar extends JPanel {
        if (SystemInformation.isMac()) {
             bt3.setMinimumSize(new Dimension(100, 20));
         } else {
-            bt3.setPreferredSize(new Dimension(100, 0));
+            bt3.setPreferredSize(new Dimension(100, 25));
         }
 
         this.add(bt3, gc);
@@ -227,7 +227,7 @@ public class SectionTopMenuBar extends JPanel {
         if (SystemInformation.isMac()) {
             bt4.setMinimumSize(new Dimension(80, 20));
         } else {
-            bt4.setPreferredSize(new Dimension(85, 0));
+            bt4.setPreferredSize(new Dimension(85, 25));
         }
 
         this.add(bt4, gc);
@@ -241,7 +241,7 @@ public class SectionTopMenuBar extends JPanel {
         if (SystemInformation.isMac()) {
             bt5.setMinimumSize(new Dimension(120, 20));
         } else {
-            bt5.setPreferredSize(new Dimension(125, 0));
+            bt5.setPreferredSize(new Dimension(125, 25));
         }
 
         this.add(bt5, gc);
