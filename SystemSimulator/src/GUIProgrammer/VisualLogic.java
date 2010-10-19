@@ -24,6 +24,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Paint;
 import java.awt.Point;
 import java.awt.RenderingHints;
@@ -60,14 +61,6 @@ public class VisualLogic extends GenericSystemPanel {
     SystemSmallTool tools[] =
             new SystemSmallTool[6];
     int cycleNumber = 0;
-
-    public static void refresh() {
-        canvas.reAdjust();
-    }
-
-    public static LogicCanvas getCanvas() {
-        return canvas;
-    }
 
 
     public VisualLogic(Main m2) {
@@ -172,9 +165,22 @@ public class VisualLogic extends GenericSystemPanel {
         public Graphics2D big;
         private BufferStrategy BS;
         private Canvas c;
+        private Image mImage;
+        private int mX, mY;
 
+        private void checkOffscreenImage() {
+            Dimension d = getSize();
+            if (mImage == null || mImage.getWidth(null) != d.width
+                    || mImage.getHeight(null) != d.height) {
+                mImage = createImage(d.width, d.height);
+            }
+        }
 
-
+        public void paintOffscreen(Graphics g) {
+            int s = 100;
+            g.setColor(Color.blue);
+            g.fillRect(mX - s / 2, mY - s / 2, s, s);
+        }
 
         public LogicCanvas() {
 
@@ -232,10 +238,9 @@ public class VisualLogic extends GenericSystemPanel {
                         //call this when the component is resized
                         bi = new BufferedImage(nested.getWidth(), nested.getHeight(), BufferedImage.TYPE_INT_RGB);
                         c.setSize(getWidth(), getHeight());
-                        try{
-                        reAdjust();
-                        }catch(Exception ex){
-                            
+                        try {
+                            reAdjust();
+                        } catch (Exception ex) {
                         }
 
                     }
@@ -545,12 +550,6 @@ public class VisualLogic extends GenericSystemPanel {
                 }
             });
         }
-
-        public void setVisible() {
-            c.createBufferStrategy(2);
-            BS = c.getBufferStrategy();
-            reAdjust();
-        }
         boolean repaintAgain = false;
 
         private class hoverChecker implements ActionListener {
@@ -693,6 +692,20 @@ public class VisualLogic extends GenericSystemPanel {
 
 
 
+        }
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            // Clear the offscreen image.
+            Dimension d = getSize();
+            checkOffscreenImage();
+            Graphics offG = mImage.getGraphics();
+            offG.setColor(getBackground());
+            offG.fillRect(0, 0, d.width, d.height);
+            // Draw into the offscreen image.
+            paintOffscreen(mImage.getGraphics());
+            // Put the offscreen image on the screen.
+            g.drawImage(mImage, 0, 0, null);
         }
     }
 

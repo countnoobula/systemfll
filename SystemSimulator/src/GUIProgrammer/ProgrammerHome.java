@@ -13,7 +13,7 @@ public class ProgrammerHome extends TabbedPane {
 
     private CoderAPI panel_1;
     private CodingScreen panel_2;
-    private VisualLogic panel_3;
+    private VisualLogicGL panel_3;
 
     Timer r;
     
@@ -27,44 +27,22 @@ public class ProgrammerHome extends TabbedPane {
         //create new instances
         this.panel_1 = new CoderAPI();
         this.panel_2 = new CodingScreen();
-        this.panel_3 = new VisualLogic(m);
+        this.panel_3 = new VisualLogicGL(m);
         
         //add components
         this.add("Coding API", panel_1);
         this.add("Scripter", panel_2);
         this.add("Visual Logic", panel_3);
-
-        this.addChangeListener(new ChangeListener(){
-
-            public void stateChanged(ChangeEvent e) {
-                if(getSelectedComponent().equals(panel_3)){
-                    r = new Timer(200,new DisplayTimer());
-                    r.start();
-
-
-                }
-            }
-        });
-
-
-
-        
+  
         
     }
-    private class DisplayTimer implements ActionListener{
 
-        public void actionPerformed(ActionEvent e) {
-           panel_3.getCanvas().setVisible();
-           r.stop();
-        }
 
-    }
-
-    public VisualLogic getPanel_3() {
+    public VisualLogicGL getPanel_3() {
         return panel_3;
     }
 
-    public void setPanel_3(VisualLogic panel_3) {
+    public void setPanel_3(VisualLogicGL panel_3) {
         this.panel_3 = panel_3;
     }
     

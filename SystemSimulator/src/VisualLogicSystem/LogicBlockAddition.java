@@ -19,7 +19,7 @@ public class LogicBlockAddition implements ActionListener {
 
             Class c = b.getClass();
             LogicBlockEngine.addBlock((LogicBlock)c.newInstance());
-            VisualLogic.refresh();
+            //VisualLogic.refresh();
         }
 
         catch (InstantiationException f) {
