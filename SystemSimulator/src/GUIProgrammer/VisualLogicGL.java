@@ -1,7 +1,6 @@
 package GUIProgrammer;
 
 import MainClasses.Main;
-import ProgramGUI.GUIComponents.BlockProperties;
 
 import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 
@@ -9,9 +8,9 @@ import ProgramGUI.GUIComponents.Buttons.SystemSmallTool;
 
 import Resources.Images.ImageLoader;
 
-import VisualLogicSystem.LogicBlockEngine;
 import VisualLogicSystem.LogicLink;
 import VisualLogicSystem.LogicBlocks.Library;
+import com.jogamp.opengl.util.gl2.GLUT;
 
 
 import java.awt.BorderLayout;
@@ -36,8 +35,10 @@ import javax.swing.Timer;
 
 
 import javax.imageio.ImageIO;
+import javax.media.opengl.GL2;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
+import javax.media.opengl.glu.GLU;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -56,10 +57,6 @@ public class VisualLogicGL extends GenericSystemPanel {
     SystemSmallTool tools[] =
             new SystemSmallTool[6];
     int cycleNumber = 0;
-
-    public static void refresh() {
-        canvas.reAdjust();
-    }
 
     public VisualLogicGL(Main m2) {
         super();
@@ -151,418 +148,76 @@ public class VisualLogicGL extends GenericSystemPanel {
 
     private class GLContext implements GLEventListener {
 
+        int x = 0;
+        int y = 0;
+        int w = 400;
+        int h = 400;
+
         public void init(GLAutoDrawable glad) {
+
+            GL2 gl = glad.getGL().getGL2();
+            //Projection mode is for setting camera
+            gl.glMatrixMode(GL2.GL_PROJECTION);
+            //This will set the camera for orthographic projection and allow 2D view
+            //Our projection will be on 400 X 400 screen
+            gl.glLoadIdentity();
+
+            //Modelview is for drawing
+            gl.glMatrixMode(GL2.GL_MODELVIEW);
+            //Depth is disabled because we are drawing in 2D
+            gl.glDisable(GL2.GL_DEPTH_TEST);
+            //Setting the clear color (in this case black)
+            //and clearing the buffer with this set clear color
+            gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+            //This defines how to blend when a transparent graphics
+            //is placed over another (here we have blended colors of
+            //two consecutively overlapping graphic objects)
+            gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
+            gl.glEnable(GL2.GL_BLEND);
         }
 
         public void dispose(GLAutoDrawable glad) {
         }
 
         public void display(GLAutoDrawable glad) {
+            GL2 gl = glad.getGL().getGL2();
+
+            gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+            //After this we start the drawing of object
+            //We want to draw a triangle which is a type of polygon
+            gl.glBegin(GL2.GL_POLYGON);
+            //We want to draw triangle in red color
+            //So setting the gl color to red
+            gl.glColor4f(1, 0, 0, 1);
+            //Making vertices of the triangle
+            gl.glVertex2d(100, 100);
+            gl.glColor4f(1, 0, 1, 1);
+            gl.glVertex2d(100, 200);
+            gl.glColor4f(1, 1, 0, 1);
+            gl.glVertex2d(200, 200);
+            //Our polygon ends here
+            gl.glEnd();
+            gl.glFlush();
         }
 
-        public void reshape(GLAutoDrawable glad, int i, int i1, int i2, int i3) {
+        public void reshape(GLAutoDrawable glad, int x, int y, int w, int h) {
+            GL2 gl = glad.getGL().getGL2();
+            //Projection mode is for setting camera
+            gl.glMatrixMode(GL2.GL_PROJECTION);
+            //This will set the camera for orthographic projection and allow 2D view
+            //Our projection will be on 400 X 400 screen
+            gl.glLoadIdentity();
+            gl.glOrtho(0, canvas.getWidth(), canvas.getHeight(), 0, 0, 1);
+
         }
     }
 
     public class LogicCanvas extends GLCanvas {
 
-        private BufferedImage bi;
-        public Graphics2D big;
-        private Paint gp1, gp2, gp3, gp4, gp5, gp6, gp7;
-        private Stroke s1, s2, s3;
-        private LogicCanvas nested;
-        //Object Manipulation Variables
-        //the last position of the mouse
-        private Point mousePoint;
-        //  -1 if there is no selection
-        private int selected = -1;
-        private int selected2 = -1;
-        private int selected3 = -1;
-        private int addX = 0;
-        private int addY = 0;
-        //create a new object
-        private LogicLink link = null;
-        private GridBagConstraints gc;
-
         public LogicCanvas() {
 
             this.addGLEventListener(new GLContext());
-//
-//            this.addMouseListener(new MouseListener() {
-//
-//                public void mouseClicked(MouseEvent e) {
-//                }
-//
-//                //get ready for dragging the objects around
-//                public void mousePressed(MouseEvent e) {
-//
-//                    if (isEnabled == true) {
-//                        mousePoint = new Point(e.getX(), e.getY());
-//
-//                        if (menu.getSelected() == 0) {
-//
-//                            blinker = false;
-//
-//
-//                            //check if the click was a block
-//                            for (int i = 0;
-//                                    i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
-//                                    i++) {
-//                                if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(new Point(e.getX(), e.getY()))) {
-//                                    selected = i;
-//
-//                                }
-//
-//                            }
-//
-//
-//                            //check if the click was a link, if so then we are done!
-//                            for (int i = 0;
-//                                    i < m.getEngineDepo().getLogicEngine().getLinkArraySize();
-//                                    i++) {
-//                                for (int j = 0;
-//                                        j < m.getEngineDepo().getLogicEngine().getLink(i).getAmountOfAnchors();
-//                                        j++) {
-//                                    if (m.getEngineDepo().getLogicEngine().getLink(i).getVirtualAnchor(j).contains(new Point(e.getX(), e.getY()))) {
-//                                        selected2 = i;
-//                                        selected3 = j;
-//
-//                                    }
-//                                }
-//
-//
-//                            }
-//
-//
-//                            //Okay, it look slike we found a Block, lets add some neccessary values
-//                            if (selected > -1) {
-//                                addX =
-//                                        (int) (e.getX() - m.getEngineDepo().getLogicEngine().getBlock(selected).getBounds().getX());
-//                                addY =
-//                                        (int) (e.getY() - m.getEngineDepo().getLogicEngine().getBlock(selected).getBounds().getY());
-//                            }
-//
-//
-//                        } else if (menu.getSelected() == 1) {
-//
-//                            int customSelection = -1;
-//                            for (int k = 0;
-//                                    k < m.getEngineDepo().getLogicEngine().getBlockArraySize();
-//                                    k++) {
-//                                if (m.getEngineDepo().getLogicEngine().getBlock(k).getBounds().contains(new Point(e.getX(), e.getY()))) {
-//                                    customSelection = k;
-//                                }
-//                            }
-//                            if (customSelection > -1) {
-//                                //it is under a very specific block
-//                                if (m.getEngineDepo().getLogicEngine().getBlock(customSelection).getBounds().contains(mousePoint)
-//                                        == true) {
-//
-//                                    int chosen = -1;
-//
-//                                    //loop connection points
-//                                    for (int i = 0;
-//                                            i < m.getEngineDepo().getLogicEngine().getBlock(customSelection).getAmountBounds();
-//                                            i++) {
-//
-//                                        //check if its under a connection point
-//                                        if (m.getEngineDepo().getLogicEngine().getBlock(customSelection).getConnectionBoundReal(i).contains(new Point(e.getX(), e.getY()))) {
-//                                            chosen = i;
-//
-//                                        }
-//                                    }
-//
-//                                    //if it is indeed under a point :)
-//                                    if (chosen > -1) {
-//
-//
-//                                        //make a new object the first time
-//                                        if (link == null) {
-//                                            link = new LogicLink();
-//                                            selected2 = customSelection;
-//
-//
-//                                            link.setStartBlock(m.getEngineDepo().getLogicEngine().getBlock(customSelection),
-//                                                    chosen);
-//
-//                                            canvas.reAdjust();
-//                                        } else {
-//
-//
-//                                            //add to the database
-//                                            if (LogicBlockEngine.canLinkBlocks(link.getStart(),
-//                                                    link.getStartConnection(),
-//                                                    m.getEngineDepo().getLogicEngine().getBlock(customSelection),
-//                                                    chosen)) {
-//
-//                                                link.setEndBlock(m.getEngineDepo().getLogicEngine().getBlock(customSelection),
-//                                                        chosen);
-//
-//                                                try {
-//
-//
-//                                                    LogicLink temp =
-//                                                            (LogicLink) link.clone();
-//                                                    m.getEngineDepo().getLogicEngine().addLogicLink(temp);
-//
-//                                                    m.getEngineDepo().getLogicEngine().getBlock(customSelection).addLink(temp);
-//                                                    m.getEngineDepo().getLogicEngine().getBlock(selected2).addLink(temp);
-//
-//                                                    selected2 = -1;
-//                                                } catch (CloneNotSupportedException f) {
-//                                                    System.out.println("Cant create a cloned version of the link");
-//                                                }
-//                                                //thats the end of it
-//                                                link = null;
-//                                                canvas.reAdjust();
-//                                            }
-//                                        }
-//                                    }
-//                                }
-//                            } //else it must be somewhere on the plane
-//                            else {
-//
-//                                //it does exist, so add a point
-//                                if (link != null) {
-//                                    link.addPoint(new Point(e.getX(), e.getY()));
-//                                    canvas.reAdjust();
-//
-//                                }
-//                            }
-//                        } //!-------------- Delete ------------
-//                        else if (menu.getSelected() == 2) {
-//
-//                            loop:
-//                            for ( //check through blocks
-//                                    int i = 0;
-//                                    i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
-//                                    i++) {
-//                                if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(new Point(e.getX(), e.getY()))) {
-//                                    selected = i;
-//                                    break loop;
-//                                }
-//
-//                            }
-//
-//                            loop:
-//                            for ( //check if the click was a link Anchor, if so then we delete the link!
-//                                    int i = 0;
-//                                    i < m.getEngineDepo().getLogicEngine().getLinkArraySize();
-//                                    i++) {
-//                                for (int j = 0;
-//                                        j < m.getEngineDepo().getLogicEngine().getLink(i).getAmountOfAnchors();
-//                                        j++) {
-//                                    if (m.getEngineDepo().getLogicEngine().getLink(i).getVirtualAnchor(j).contains(new Point(e.getX(), e.getY()))) {
-//                                        m.getEngineDepo().getLogicEngine().getLink(i).removeAnchor(j);
-//                                        reAdjust();
-//                                        break loop;
-//                                    }
-//                                }
-//
-//
-//                            }
-//                            for ( //check if the click was a link, if so then we delete the link!
-//                                    int i = 0;
-//                                    i < m.getEngineDepo().getLogicEngine().getLinkArraySize();
-//                                    i++) {
-//                                if (m.getEngineDepo().getLogicEngine().getLink(i).killTheLink(new Point(e.getX(), e.getY()),
-//                                        10)) {
-//                                    m.getEngineDepo().getLogicEngine().removeLink(m.getEngineDepo().getLogicEngine().getLink(i));
-//                                    reAdjust();
-//
-//
-//                                }
-//
-//
-//                            }
-//                            //okay, we seem to have found something
-//                            if (selected > -1) {
-//                                m.getEngineDepo().getLogicEngine().removeBlock(m.getEngineDepo().getLogicEngine().getBlock(selected));
-//                                reAdjust();
-//                            }
-//                        } // if we are gonna be adding points
-//                        else if (menu.getSelected() == 4) {
-//                            for ( //check if the click was a link, if so then we delete the link!
-//                                    int i = 0;
-//                                    i < m.getEngineDepo().getLogicEngine().getLinkArraySize();
-//                                    i++) {
-//                                if (m.getEngineDepo().getLogicEngine().getLink(i).getLineBoundaries((int) e.getX(),
-//                                        (int) e.getY())) {
-//
-//                                    reAdjust();
-//                                }
-//
-//
-//                            }
-//                        } else if (menu.getSelected() == 5) {
-//                            for ( //check if the click was a link, if so then we delete the link!
-//                                    int i = 0;
-//                                    i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
-//                                    i++) {
-//                                if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(new Point(e.getX(), e.getY()))) {
-//
-//                                    BlockProperties p = m.getEngineDepo().getLogicEngine().getBlock(i).getProperties();
-//                                    p.attatchActionListener(new DoEvent(p));
-//                                    isEnabled = false;
-////                                canvas.add(p, gc);
-////                                canvas.revalidate();
-//
-//
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                public void mouseReleased(MouseEvent e) {
-//                    //unset the set variables
-//
-//                    selected = -1;
-//
-//                    addX = 0;
-//                    addY = 0;
-//                    if (selected3 > -1) {
-//                        selected2 = -1;
-//                        selected3 = -1;
-//                    }
-//
-//
-//                }
-//
-//                public void mouseEntered(MouseEvent e) {
-//                }
-//
-//                public void mouseExited(MouseEvent e) {
-//                }
-//
-//                public void mouseMoved(MouseEvent me) {
-//                    throw new UnsupportedOperationException("Not supported yet.");
-//                }
-//
-//                public void mouseDragged(MouseEvent me) {
-//                    throw new UnsupportedOperationException("Not supported yet.");
-//                }
-//
-//                public void mouseWheelMoved(MouseEvent me) {
-//                    throw new UnsupportedOperationException("Not supported yet.");
-//                }
-//            });
-//            this.addMouseMotionListener(new MouseMotionListener() {
-//
-//                public void mouseDragged(MouseEvent e) {
-//
-//                    //check to see if there is a selection
-//                    if (selected > -1 & menu.getSelected() == 0) {
-//
-//
-//                        //methods which move the note around
-//                        m.getEngineDepo().getLogicEngine().getBlock(selected).setLocation(e.getX()
-//                                - addX,
-//                                e.getY()
-//                                - addY);
-//
-//                        reAdjust();
-//
-//                    } //check to see if there is a selection
-//                    else if (selected3 > -1 & menu.getSelected() == 0) {
-//
-//
-//                        //methods which move the note around
-//                        m.getEngineDepo().getLogicEngine().getLink(selected2).setPoint(selected3,
-//                                new Point(e.getX(), e.getY()));
-//
-//                        reAdjust();
-//
-//                    }
-//
-//
-//                }
-//
-//                public void mouseMoved(MouseEvent e) {
-//                    mousePoint = new Point(e.getX(), e.getY());
-//                    if (menu.getSelected() == 1) {
-//
-//
-//                        if (blinkTimer == null) {
-//                            blinkTimer =
-//                                    new Timer(150, new hoverChecker());
-//
-//                            blinkTimer.start();
-//                        }
-//
-//                    } else {
-//                        if (blinkTimer != null) {
-//                            if (blinkTimer.isRunning()) {
-//                                blinkTimer.stop();
-//                                blinkTimer = null;
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                public void mouseDragged(java.awt.event.MouseEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet.");
-//                }
-//
-//                public void mouseMoved(java.awt.event.MouseEvent e) {
-//                    throw new UnsupportedOperationException("Not supported yet.");
-//                }
-//            });
-
-        }
-        boolean repaintAgain = false;
-
-        private class hoverChecker implements ActionListener {
-
-            public void actionPerformed(ActionEvent e) {
-                boolean found = false;
-
-                for (int i = 0;
-                        i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
-                        i++) {
-
-                    if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(mousePoint)
-                            == true) {
-
-                        if (blinker == true) {
-
-
-                            selected = i;
-                            found = true;
-                            canvas.reAdjust();
-                            blinker = false;
-                            repaintAgain = true;
-
-
-                        } else {
-
-                            selected = i;
-                            found = true;
-                            canvas.reAdjust();
-                            blinker = true;
-                            repaintAgain = true;
-
-
-                        }
-                    }
-                }
-                if (found == false) {
-                    selected = -1;
-                    blinker = false;
-                    if (repaintAgain == true) {
-                        canvas.reAdjust();
-                        repaintAgain = false;
-                    }
-
-
-                }
-
-
-            }
-        }
-        int spacingX = 40;
-
-        private void reAdjust() {
         }
     }
 

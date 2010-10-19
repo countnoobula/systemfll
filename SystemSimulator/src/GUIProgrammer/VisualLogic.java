@@ -681,16 +681,12 @@ public class VisualLogic extends GenericSystemPanel {
                                 (int) m.getEngineDepo().getLogicEngine().getBlock(selected).getConnectionBound(j).getY()
                                 + m.getEngineDepo().getLogicEngine().getBlock(selected).getY(),
                                 10, 10);
-
                     }
                 }
             }
+
             big.dispose();
-
             BS.show();
-
-
-
 
         }
 
