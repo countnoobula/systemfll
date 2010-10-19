@@ -10,6 +10,8 @@ import Resources.Images.ImageLoader;
 
 import VisualLogicSystem.LogicLink;
 import VisualLogicSystem.LogicBlocks.Library;
+import com.jogamp.newt.event.MouseEvent;
+import com.jogamp.newt.event.MouseListener;
 import com.jogamp.opengl.util.gl2.GLUT;
 
 
@@ -36,6 +38,7 @@ import javax.swing.Timer;
 
 import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
+import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.glu.GLU;
@@ -61,10 +64,11 @@ public class VisualLogicGL extends GenericSystemPanel {
     public VisualLogicGL(Main m2) {
         super();
         this.m = m2;
-
+        GLCapabilities caps = new GLCapabilities(null);
+        caps.setDoubleBuffered(true);
         //new instances
         menu = new TopBar();
-        canvas = new LogicCanvas();
+        canvas = new LogicCanvas(caps);
         drawer = new LogicBlocksDrawer(m);
 
         //layout properties
@@ -146,21 +150,15 @@ public class VisualLogicGL extends GenericSystemPanel {
         }
     }
 
-    private class GLContext implements GLEventListener {
+    private class GLContext implements GLEventListener,MouseListener{
 
-        int x = 0;
-        int y = 0;
-        int w = 400;
-        int h = 400;
 
         public void init(GLAutoDrawable glad) {
 
             GL2 gl = glad.getGL().getGL2();
             //Projection mode is for setting camera
             gl.glMatrixMode(GL2.GL_PROJECTION);
-            //This will set the camera for orthographic projection and allow 2D view
-            //Our projection will be on 400 X 400 screen
-            gl.glLoadIdentity();
+
 
             //Modelview is for drawing
             gl.glMatrixMode(GL2.GL_MODELVIEW);
@@ -175,6 +173,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             //two consecutively overlapping graphic objects)
             gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
             gl.glEnable(GL2.GL_BLEND);
+
         }
 
         public void dispose(GLAutoDrawable glad) {
@@ -189,13 +188,10 @@ public class VisualLogicGL extends GenericSystemPanel {
             gl.glBegin(GL2.GL_POLYGON);
             //We want to draw triangle in red color
             //So setting the gl color to red
-            gl.glColor4f(1, 0, 0, 1);
-            //Making vertices of the triangle
-            gl.glVertex2d(100, 100);
-            gl.glColor4f(1, 0, 1, 1);
-            gl.glVertex2d(100, 200);
-            gl.glColor4f(1, 1, 0, 1);
-            gl.glVertex2d(200, 200);
+
+            
+
+
             //Our polygon ends here
             gl.glEnd();
             gl.glFlush();
@@ -211,12 +207,44 @@ public class VisualLogicGL extends GenericSystemPanel {
             gl.glOrtho(0, canvas.getWidth(), canvas.getHeight(), 0, 0, 1);
 
         }
+
+        public void mouseClicked(MouseEvent me) {
+
+        }
+
+        public void mouseEntered(MouseEvent me) {
+
+        }
+
+        public void mouseExited(MouseEvent me) {
+
+        }
+
+        public void mousePressed(MouseEvent me) {
+
+        }
+
+        public void mouseReleased(MouseEvent me) {
+
+        }
+
+        public void mouseMoved(MouseEvent me) {
+
+        }
+
+        public void mouseDragged(MouseEvent me) {
+
+        }
+
+        public void mouseWheelMoved(MouseEvent me) {
+
+        }
     }
 
     public class LogicCanvas extends GLCanvas {
 
-        public LogicCanvas() {
-
+        public LogicCanvas(GLCapabilities caps) {
+            super(caps);
             this.addGLEventListener(new GLContext());
         }
     }

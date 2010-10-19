@@ -117,7 +117,7 @@ public class PortalScreen extends GenericSystemPanel {
                             m.getPrefs().put("password", password);
                         }
                     }
-                    if(p != null) {
+                    if (p != null) {
                         panel_1.setVisible(false);
                         panel_2.setVisible(false);
                         wp.setVisible(true);
@@ -236,8 +236,27 @@ public class PortalScreen extends GenericSystemPanel {
                 }
             });
             bt2.addActionListener(new ActionListener() {
+
                 public void actionPerformed(ActionEvent e) {
-                    ForumUtils.Register(fields.get(0).getText(), fields.get(1).getText(), fields.get(2).getText(), fields.get(3).getText(), fields.get(4).getText(), fields.get(5).getText(), fields.get(6).getText(), fields.get(7).getText(), fields.get(8).getText(), fields.get(9).getText());
+
+                    String password = "";
+                    for (int i = 0; i < pass.get(0).getPassword().length; i++) {
+                        password = password + pass.get(0).getPassword()[i];
+                    }
+                    String password2 = "";
+                    for (int i = 0; i < pass.get(1).getPassword().length; i++) {
+                        password2 = password2 + pass.get(1).getPassword()[i];
+                    }
+                    ForumUtils.Register(fields.get(0).getText(),
+                            fields.get(1).getText(),
+                            fields.get(2).getText(),
+                            password,
+                            password2,
+                            fields.get(3).getText(),
+                            fields.get(4).getText(),
+                            fields.get(5).getText(),
+                            fields.get(6).getText(),
+                            fields.get(7).getText());
                 }
             });
 
