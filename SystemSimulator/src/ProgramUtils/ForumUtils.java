@@ -120,7 +120,7 @@ public class ForumUtils {
         }
         try {
             String yob = year + "-" + month + "-" + day;
-            SQLManager.insertQuery("INSERT INTO users(name, surname, user, pass, email, dob, active, ban) VALUES('"+name+"', '"+surname+"', '"+pass1+"', '"+email1+"','"+yob+"', '0', '0')");
+            SQLManager.insertQuery("INSERT INTO users(name, surname, user, pass, email, dob, active, ban, admin) VALUES('"+name+"', '"+surname+"', '"+pass1+"', '"+email1+"','"+yob+"', '0', '0', '')");
             JOptionPane.showMessageDialog(null, "Registration Complete");
             return true;
         } catch(Exception e) {
