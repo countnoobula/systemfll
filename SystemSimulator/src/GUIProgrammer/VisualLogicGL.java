@@ -7,9 +7,12 @@ import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 import ProgramGUI.GUIComponents.Buttons.SystemSmallTool;
 
 import Resources.Images.ImageLoader;
+import VisualLogicSystem.LogicBlock;
 
 import VisualLogicSystem.LogicLink;
 import VisualLogicSystem.LogicBlocks.Library;
+import VisualLogicSystem.LogicBlocks.LogicIF_ELSE;
+import VisualLogicSystem.LogicBlocks.LogicStart;
 import com.jogamp.newt.event.MouseEvent;
 import com.jogamp.newt.event.MouseListener;
 import com.jogamp.opengl.util.gl2.GLUT;
@@ -166,7 +169,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             gl.glDisable(GL2.GL_DEPTH_TEST);
             //Setting the clear color (in this case black)
             //and clearing the buffer with this set clear color
-            gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+            gl.glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
             //This defines how to blend when a transparent graphics
             //is placed over another (here we have blended colors of
@@ -185,15 +188,11 @@ public class VisualLogicGL extends GenericSystemPanel {
             gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
             //After this we start the drawing of object
             //We want to draw a triangle which is a type of polygon
-            gl.glBegin(GL2.GL_POLYGON);
-            //We want to draw triangle in red color
-            //So setting the gl color to red
-
-            
 
 
-            //Our polygon ends here
-            gl.glEnd();
+            LogicBlock l = new LogicIF_ELSE();
+            l.drawGL(gl);
+   
             gl.glFlush();
         }
 
@@ -209,7 +208,7 @@ public class VisualLogicGL extends GenericSystemPanel {
         }
 
         public void mouseClicked(MouseEvent me) {
-
+         
         }
 
         public void mouseEntered(MouseEvent me) {

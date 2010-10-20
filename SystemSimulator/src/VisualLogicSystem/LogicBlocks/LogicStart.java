@@ -67,6 +67,7 @@ public class LogicStart extends LogicBlock {
         }
         g2d.setColor(Color.WHITE);
         g2d.drawString("Start", 3, 11);
+        GenerateGLBlock();
 
     }
 

@@ -12,9 +12,19 @@ import java.awt.Image;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
+import java.awt.color.ColorSpace;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.awt.image.ComponentColorModel;
+import java.awt.image.DataBuffer;
+import java.awt.image.DataBufferByte;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 import java.util.ArrayList;
+import javax.media.opengl.GL2;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,12 +34,15 @@ import javax.swing.plaf.basic.BasicButtonUI;
 public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     //GUI data
+    public int list;
     public Paint gp1, gp2, gp3, gp4, gp5;
     public Graphics2D g2d;
     public Rectangle bounds;
     public BufferedImage bi;
+    public WritableRaster raster;
     public int size = 50;
     public String type = "";
+    public ByteBuffer dest = null;
     public int currentCompileString = 0;
     //ID data
     public int ID;
@@ -55,6 +68,26 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         this.compileProperty = compileProperty;
     }
 
+    public void GenerateGLBlock() {
+        
+
+        //the buffer array of bytes
+        DataBufferByte dukeBuf = (DataBufferByte) raster.getDataBuffer();
+        byte[] data = dukeBuf.getData();
+
+
+        dest = ByteBuffer.allocateDirect(data.length);
+        dest.order(ByteOrder.nativeOrder());
+        dest.put(data, 0, data.length);
+        dest.rewind(); // <- NEW STUFF NEEDED BY JSR231
+    }
+
+    public void drawGL(GL2 gl) {
+        gl.glDrawPixels(size+10, size+10,
+                GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE,
+                dest);
+    }
+
     public LogicBlock() {
 
 
@@ -76,16 +109,39 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         bounds.setSize(size, size);
 
 
+        //prepare the image for JOGL
+        raster =
+                Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE,
+                size+10,
+                size+10,
+                4,
+                null);
+        ComponentColorModel colorModel =
+                new ComponentColorModel(ColorSpace.getInstance(ColorSpace.CS_sRGB),
+                new int[]{8, 8, 8, 8},
+                true,
+                false,
+                ComponentColorModel.TRANSLUCENT,
+                DataBuffer.TYPE_BYTE);
 
-        //create a new buffered image
-        bi = new BufferedImage(size + 10, size + 10, BufferedImage.TYPE_INT_ARGB);
+        //create a new buffered image with jogl specifications
+        bi = new BufferedImage(colorModel,
+                raster,
+                false,
+                null);
         g2d = bi.createGraphics();
+         AffineTransform gt = new AffineTransform();
+        gt.translate(0, size+10);
+        
+        gt.scale(1, -1d);
+        g2d.transform(gt);
+
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
 
 
-        // a few grphics objects which are useful
+        // a few graphics objects which are useful
         gp1 = new Color(20, 20, 20);
         gp2 = new Color(160, 160, 160);
         gp3 =
@@ -101,7 +157,6 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         gp5 =
                 new GradientPaint(size, size, new Color(0, 0, 0, 100), size + 5, size + 5,
                 new Color(0, 0, 0, 0));
-
 
         drawBackground();
 
@@ -129,9 +184,9 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         int amount = 0;
         for (int i = 0; i < this.linkInfo.size(); i++) {
             try {
-                int lols = Integer.parseInt(""+linkInfo.get(i));
-                if(lols > 0){
-                amount++;
+                int lols = Integer.parseInt("" + linkInfo.get(i));
+                if (lols > 0) {
+                    amount++;
                 }
             } catch (Exception e) {
             }
@@ -187,6 +242,8 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     public void drawBackground() {
 
+       
+        
         g2d.setPaint(gp1);
         g2d.fillRect(0, 0, size, size);
         g2d.setPaint(gp3);
