@@ -6,7 +6,8 @@ import java.security.MessageDigest;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import ProgramUtils.SQLManager;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  * This Script is a connection script for logging into our system servers and retrieving information
@@ -127,7 +128,19 @@ public class ForumUtils {
             System.out.println(e.toString());
             JOptionPane.showMessageDialog(null, "Registration Failed");
             return false;
+        }        
+    }
+    public static JPanel getTopics() {
+        JPanel main = new JPanel();
+        JLabel text = new JLabel();
+        ResultSet set = SQLManager.executeQuery("SELECT * FROM forum_topics");
+        try {
+            while (set.next()) {
+                text = new JLabel("" + set);
+            }
+        } catch (Exception e) {
+            System.out.println("Error has occured: " + e.toString());
         }
-        
+        return main;
     }
 }

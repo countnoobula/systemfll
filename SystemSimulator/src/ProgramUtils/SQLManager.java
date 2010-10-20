@@ -45,7 +45,6 @@ public class SQLManager{
             statement = (Statement) con.createStatement();
             ResultSet set = statement.executeQuery("" + sql);
 
-
             return set;
         } catch (SQLException ex) {
             
