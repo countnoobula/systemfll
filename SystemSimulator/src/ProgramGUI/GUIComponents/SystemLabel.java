@@ -11,8 +11,6 @@ public class SystemLabel extends JLabel {
         this.setFont(new Font("Arial", 14, 14));
         this.setForeground(Color.WHITE);
         this.setOpaque(false);
-        
-
     }
 
     public void setSmallText() {

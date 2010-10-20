@@ -1,10 +1,18 @@
 package ProgramUtils;
 
+import ProgramGUI.GUIComponents.Buttons.SystemButton;
+import ProgramGUI.GUIComponents.Panes.NullPanel;
+import ProgramGUI.GUIComponents.SystemLabel;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.security.MessageDigest;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -130,13 +138,29 @@ public class ForumUtils {
             return false;
         }        
     }
+
     public static JPanel getTopics() {
-        JPanel main = new JPanel();
-        JLabel text = new JLabel();
+        NullPanel main = new NullPanel();
+        SystemLabel text = new SystemLabel("");
+        SystemButton view = new SystemButton("");
         ResultSet set = SQLManager.executeQuery("SELECT * FROM forum_topics");
+        GridBagConstraints gc = new GridBagConstraints();
+        main.setLayout(new GridBagLayout());
         try {
             while (set.next()) {
-                text = new JLabel("" + set);
+                text = new SystemLabel(set.getString("topics"));
+                view = new SystemButton("View");
+                view.addActionListener( new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        System.out.println("It would redirect you to topic. I will get there dylan...");
+                    }
+                });
+                gc.gridx = 1;
+                gc.gridwidth = 2;
+                main.add(text, gc);
+                gc.gridx = 3;
+                gc.gridwidth = 0;
+                main.add(view, gc);
             }
         } catch (Exception e) {
             System.out.println("Error has occured: " + e.toString());

@@ -66,7 +66,7 @@ public class SQLManager{
             } catch (InstantiationException ex) {
                 System.out.println("Cant find Driver Manager");
             } catch (IllegalAccessException ex) {
-                System.out.println("There is No access to the site");
+                System.out.println("There is no access to the site");
             }
 
         } catch (ClassNotFoundException ex) {
