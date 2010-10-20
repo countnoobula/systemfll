@@ -69,7 +69,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     }
 
     public void GenerateGLBlock() {
-        
+
 
         //the buffer array of bytes
         DataBufferByte dukeBuf = (DataBufferByte) raster.getDataBuffer();
@@ -83,9 +83,14 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     }
 
     public void drawGL(GL2 gl) {
-        gl.glDrawPixels(size+10, size+10,
+
+
+
+        gl.glRasterPos2i(getX(), getY() + size + 10);
+        gl.glDrawPixels(size + 10, size + 10,
                 GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE,
                 dest);
+
     }
 
     public LogicBlock() {
@@ -112,8 +117,8 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         //prepare the image for JOGL
         raster =
                 Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE,
-                size+10,
-                size+10,
+                size + 10,
+                size + 10,
                 4,
                 null);
         ComponentColorModel colorModel =
@@ -130,9 +135,9 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
                 false,
                 null);
         g2d = bi.createGraphics();
-         AffineTransform gt = new AffineTransform();
-        gt.translate(0, size+10);
-        
+        AffineTransform gt = new AffineTransform();
+        gt.translate(0, size + 10);
+
         gt.scale(1, -1d);
         g2d.transform(gt);
 
@@ -242,8 +247,8 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     public void drawBackground() {
 
-       
-        
+
+
         g2d.setPaint(gp1);
         g2d.fillRect(0, 0, size, size);
         g2d.setPaint(gp3);

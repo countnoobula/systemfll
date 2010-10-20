@@ -30,7 +30,7 @@ public class LogicBlocksDrawer extends JPanel {
         this.setPreferredSize(new Dimension(230, 0));
         this.setOpaque(false);
         this.setLayout(new FlowLayout());
-        this.setVisible(false);
+
 
         gp1 =
                 new GradientPaint(0, 40, new Color(200, 200, 200), 0, 80, new Color(250, 250,

@@ -1,6 +1,7 @@
 package VisualLogicSystem;
 
 import GUIProgrammer.VisualLogic;
+import GUIProgrammer.VisualLogicGL;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +19,7 @@ public class LogicBlockAddition implements ActionListener {
 
             Class c = b.getClass();
             LogicBlockEngine.addBlock((LogicBlock)c.newInstance());
-            //VisualLogic.refresh();
+            VisualLogicGL.getCanvas().repaint();
         }
 
         catch (InstantiationException f) {
