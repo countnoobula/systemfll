@@ -22,6 +22,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Paint;
 import java.awt.Point;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -41,6 +42,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JComponent;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 public class VisualLogicGL extends GenericSystemPanel {
 
@@ -185,10 +187,8 @@ public class VisualLogicGL extends GenericSystemPanel {
 
     private class GLContext implements GLEventListener, MouseListener, MouseMotionListener {
 
-
         //Object Manipulation Variables
         //the last position of the mouse
-
         private Point mousePoint;
         //  -1 if there is no selection
         private int selected = -1;
@@ -479,10 +479,28 @@ public class VisualLogicGL extends GenericSystemPanel {
 
                             BlockProperties p = m.getEngineDepo().getLogicEngine().getBlock(i).getProperties();
                             p.attatchActionListener(new DoEvent(p));
+
+
+                            // NOTE: Here we need a workaround for the HW/LW Mixing feature to work
+                            // correctly due to yet unfixed bug 6852592.
+                            // The JTextField is a validate root, so the revalidate() method called
+                            // during the setText() operation does not validate the parent of the
+                            // component. Therefore, we need to force validating its parent here.
+                            Container parent = panes.getParent();
+                            if (parent instanceof JComponent) {
+                                ((JComponent) parent).revalidate();
+                            }
+
+                            
                             isEnabled = false;
                             topLayer.add(p, gc);
                             topLayer.revalidate();
+                            panes.validate();
+                            m.getMainWindow().validate();
                             
+
+                            
+
                         }
                     }
                 }
@@ -549,11 +567,12 @@ public class VisualLogicGL extends GenericSystemPanel {
 
             }
         }
+
         public void mouseWheelMoved(MouseEvent me) {
         }
     }
 
-    public class LogicCanvas extends GLJPanel {
+    public class LogicCanvas extends GLCanvas {
 
         public LogicCanvas(GLCapabilities caps) {
             super(caps);
@@ -574,9 +593,10 @@ public class VisualLogicGL extends GenericSystemPanel {
 
         public void actionPerformed(ActionEvent e) {
             isEnabled = true;
-            canvas.remove(c);
-            canvas.revalidate();
-            canvas.updateUI();
+            topLayer.remove(c);
+            topLayer.revalidate();
+            topLayer.updateUI();
+           
         }
     }
 }
