@@ -71,8 +71,6 @@ public class BlockProperties extends JPanel {
             }
         }
         this.add(bt);
-
-
     }
 
     @Override

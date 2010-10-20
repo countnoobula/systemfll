@@ -19,9 +19,9 @@ import java.util.ArrayList;
 
 public class LogicBlocksDrawer extends JPanel {
 
-    Main m;
-    Paint gp1;
-    ArrayList<LogicBlock> library;
+    private Main m;
+    private Paint gp1;
+    private ArrayList<LogicBlock> library;
 
     public LogicBlocksDrawer(Main m2) {
         super();
@@ -31,12 +31,7 @@ public class LogicBlocksDrawer extends JPanel {
         this.setOpaque(false);
         this.setLayout(new FlowLayout());
 
-
-        gp1 =
-                new GradientPaint(0, 40, new Color(200, 200, 200), 0, 80, new Color(250, 250,
-                250));
-
-
+        gp1 = new GradientPaint(0, 40, new Color(0, 0, 0), 0, 80, new Color(30, 30, 30));
 
     }
 

@@ -55,5 +55,6 @@ public class LogicElse extends LogicBlock {
         g2d.setColor(Color.WHITE);
         g2d.drawString("END", 4+10, 12+15);
         g2d.drawString("ELSE", 4+10, 24+15);
+        GenerateGLBlock();
     }
 }

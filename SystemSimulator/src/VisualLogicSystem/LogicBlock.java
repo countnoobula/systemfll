@@ -305,6 +305,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     }
 
     public JButton getButton() {
+        
         JButton temp = new JButton("");
         ImageIcon i = new ImageIcon(bi);
         temp.setUI(new LogicButtonUI());

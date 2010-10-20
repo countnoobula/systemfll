@@ -45,5 +45,6 @@ public class LogicEnd extends LogicBlock {
         g2d.setFont(new Font("Arial", 10, 10));
         g2d.setColor(Color.WHITE);
         g2d.drawString("End", 4, 12);
+        GenerateGLBlock();
     }
 }

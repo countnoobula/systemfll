@@ -9,6 +9,7 @@ import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 
 import java.awt.Polygon;
+import javax.media.opengl.GL2;
 
 public class LogicLink implements Cloneable {
 
@@ -22,7 +23,6 @@ public class LogicLink implements Cloneable {
         return endConnection;
     }
 
-    
     public LogicBlock getEnd() {
         return end;
     }
@@ -181,6 +181,73 @@ public class LogicLink implements Cloneable {
         return (topOverlap < botOverlap)
                 && (!((botOverlap < ry) || (topOverlap > ry + rh)));
 
+    }
+
+    public void drawAnchors(GL2 gl) {
+        gl.glColor4d(0.0, 0.0, 0.0, 0.7);
+        gl.glLineWidth(3.0f);
+        for (int i = 0; i < points.size(); i++) {
+            gl.glBegin(GL2.GL_POLYGON);
+            gl.glVertex2d((int) points.get(i).getX() - 5,
+                    (int) points.get(i).getY() - 5);
+            gl.glVertex2d((int) points.get(i).getX() + 5,
+                    (int) points.get(i).getY() - 5);
+            gl.glVertex2d((int) points.get(i).getX() + 5,
+                    (int) points.get(i).getY() + 5);
+            gl.glVertex2d((int) points.get(i).getX() - 5,
+                    (int) points.get(i).getY() + 5);
+            gl.glEnd();
+        }
+
+        gl.glLineWidth(1.0f);
+        gl.glColor4d(1.0, 1.0, 1.0, 0.3);
+
+        for (int i = 0; i < points.size(); i++) {
+            gl.glBegin(GL2.GL_LINE_LOOP);
+            gl.glVertex2d((int) points.get(i).getX() - 5,
+                    (int) points.get(i).getY() - 5);
+            gl.glVertex2d((int) points.get(i).getX() + 5,
+                    (int) points.get(i).getY() - 5);
+            gl.glVertex2d((int) points.get(i).getX() + 5,
+                    (int) points.get(i).getY() + 5);
+            gl.glVertex2d((int) points.get(i).getX() - 5,
+                    (int) points.get(i).getY() + 5);
+            gl.glEnd();
+        }
+
+       
+    }
+
+    public void drawGL(GL2 gl) {
+        gl.glColor3d(0, 0.75, 1.0);
+        gl.glBegin(GL2.GL_LINES);
+        if (points.size() > 0) {
+            gl.glVertex2d(start.getConnectionBoundReal(startConnection).getCenterX(),
+                    start.getConnectionBoundReal(startConnection).getCenterY());
+            gl.glVertex2d(points.get(0).getX(), points.get(0).getY());
+        }
+        for (int i = 1; i < points.size(); i++) {
+            gl.glVertex2d(points.get(i - 1).getX(),
+                    points.get(i - 1).getY());
+            gl.glVertex2d(points.get(i).getX(), points.get(i).getY());
+
+        }
+        if (end != null & points.size() > 0) {
+            gl.glVertex2d(end.getConnectionBoundReal(endConnection).getCenterX(),
+                    end.getConnectionBoundReal(endConnection).getCenterY());
+            gl.glVertex2d(points.get(points.size() - 1).getX(),
+                    points.get(points.size() - 1).getY());
+
+
+
+        } else if (end != null & points.size() == 0) {
+            gl.glVertex2d(start.getConnectionBoundReal(startConnection).getCenterX(),
+                    start.getConnectionBoundReal(startConnection).getCenterY());
+            gl.glVertex2d(end.getConnectionBoundReal(endConnection).getCenterX(),
+                    end.getConnectionBoundReal(endConnection).getCenterY());
+
+        }
+        gl.glEnd();
     }
 
     /**

@@ -58,6 +58,7 @@ public class LogicIF extends LogicBlock{
         g2d.setColor(Color.WHITE);
         g2d.drawString("IF", 28, 14);
         g2d.drawString("ELSE", 10, 43);
+        GenerateGLBlock();
     }
 
 }

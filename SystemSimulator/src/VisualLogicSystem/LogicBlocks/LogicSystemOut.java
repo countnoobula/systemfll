@@ -49,6 +49,7 @@ public class LogicSystemOut extends LogicBlock {
         } catch (IOException ex) {
             System.out.println("cant load start image");
         }
+        GenerateGLBlock();
 
     }
 }
