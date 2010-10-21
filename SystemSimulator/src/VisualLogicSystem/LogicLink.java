@@ -219,16 +219,21 @@ public class LogicLink implements Cloneable {
     }
 
     public void drawGL(GL2 gl) {
-        gl.glColor3d(0, 0.75, 1.0);
+        
         gl.glBegin(GL2.GL_LINES);
+        gl.glColor3d(0, 0.75, 1.0);
         if (points.size() > 0) {
+            
             gl.glVertex2d(start.getConnectionBoundReal(startConnection).getCenterX(),
                     start.getConnectionBoundReal(startConnection).getCenterY());
+            
             gl.glVertex2d(points.get(0).getX(), points.get(0).getY());
         }
         for (int i = 1; i < points.size(); i++) {
+            
             gl.glVertex2d(points.get(i - 1).getX(),
                     points.get(i - 1).getY());
+            
             gl.glVertex2d(points.get(i).getX(), points.get(i).getY());
 
         }

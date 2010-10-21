@@ -53,12 +53,14 @@ public class ProgramWindowPanel extends JPanel {
 
     public ProgramWindowPanel(Main m2) {
         this.m = m2;
-        if(m.getPrefs().getBoolean("showStartAnimation", true)==true){
-          this.setVisible(false); 
-        }
-        else{
-          this.setVisible(true);
-        }
+        this.setOpaque(false);
+//        if(m.getPrefs().getBoolean("showStartAnimation", true)==true){
+//          this.setVisible(false);
+//        }
+//        else{
+//          this.setVisible(true);
+//        }
+        
         try {
             i = ImageIO.read(ImageLoader.class.getResource("backdrop.png"));
         } catch (IOException ex) {
@@ -76,8 +78,8 @@ public class ProgramWindowPanel extends JPanel {
         this.insetSize = 4;
 
         gp1 =
- new GradientPaint(0, 40, new Color(30, 30, 30), 0, 100, new Color(0, 0,
-                                                                      0));
+ new GradientPaint(0, 40, new Color(30, 30, 30,200), 0, 100, new Color(0, 0,
+                                                                      0,200));
 
         //build the window
         this.initComponents();

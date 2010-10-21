@@ -1,6 +1,7 @@
 package VisualLogicSystem.LogicBlocks;
 
 import VisualLogicSystem.CodeBlock;
+import VisualLogicSystem.ConnectionPoint;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
@@ -13,28 +14,28 @@ import java.awt.Polygon;
  */
 public class LogicEnd extends LogicBlock {
 
-
     public LogicEnd() {
-        super();
 
-        super.type = "end";
-        
-        //add connection data
-        super.rects.add(new Rectangle(0, 5, 10, 10));
-        super.connections.add(2);
-        super.linkInfo.add("next");
 
-        //le code blocks
-        CodeBlock c1 = new CodeBlock(this);
-        c1.setCompileCode("\n}\n}");
-        super.codeBlocks.add(c1);
+        CodeBlock code1 = new CodeBlock(this);
+        code1.setCompileCode("\n}\n}");
+
+        super.connectionPoints.add(new ConnectionPoint(
+                "next",
+                "End of program",
+                2,
+                code1,
+                new Rectangle(0, 5, 10, 10),
+                new Color(0, 192, 255)));
+
+
+        //start the drawing
+
         
-        int x[] =
-        { (size / 2), size, size, (size / 2) - 6, (size / 2) -
-          6, (size / 2)};
-        int y[] =
-        { 0, 0, size, size, (size / 2) + 3, (size / 2) - 3 };
-        
+        int x[] = {(size / 2), size, size, (size / 2) - 6, (size / 2)
+            - 6, (size / 2)};
+        int y[] = {0, 0, size, size, (size / 2) + 3, (size / 2) - 3};
+
         Polygon s1 = new Polygon(x, y, 6);
         g2d.setColor(new Color(255, 0, 0, 30));
         g2d.fill(s1);

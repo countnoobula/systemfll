@@ -14,41 +14,37 @@ import javax.swing.JComponent;
 import javax.swing.JRadioButton;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-public class SystemSmallTool extends JRadioButton {
+public class SystemSmallBarButton extends JRadioButton {
 
     Image icon;
 
-    public SystemSmallTool(Image icon) {
+    public SystemSmallBarButton(Image icon) {
         super();
         this.icon = icon;
         this.setOpaque(false);
-        this.setPreferredSize(new Dimension(25, 25));
+        this.setPreferredSize(new Dimension(30, 23));
         this.setUI(new SystemSmallToolUI());
 
     }
 
     private class SystemSmallToolUI extends BasicButtonUI {
 
-        Paint gp1, gp2, gp3;
+        Paint gp1, gp2;
 
         private SystemSmallToolUI() {
-            gp1 = new Color(60, 60, 60);
-            gp3 = new Color(0, 192, 255);
-            gp2 = new GradientPaint(0, 0, new Color(20, 20, 20), 25, 25, new Color(50, 50, 50));
+            gp1 = new Color(0,0,0,0);
+            gp2 = new GradientPaint(0, 0, new Color(120, 120, 120), 0,23, new Color(30, 30, 30));
 
         }
 
         @Override
         public void paint(Graphics g, JComponent c) {
             Graphics2D g2d = (Graphics2D) g;
-            g2d.setPaint(gp2);
-            g2d.fillRect(0, 0, getWidth(), getHeight());
             if (isSelected()) {
-                g2d.setPaint(gp3);
-            } else {
-                g2d.setPaint(gp1);
-            }
-            g2d.drawRect(0, 0, getWidth() - 1, getHeight() - 1);
+                g2d.setPaint(gp2);
+                g2d.fillRect(0, 0, getWidth() - 1, getHeight() - 1);
+            } 
+            
             g2d.drawImage(icon, 0, 0, null);
 
 

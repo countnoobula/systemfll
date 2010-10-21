@@ -26,7 +26,7 @@ public class Field extends NullPanel implements ControlPoints {
         this.label = new JLabel();
 
         this.setLayout(null);
-        this.setPreferredSize(new Dimension(400, 34));
+        this.setPreferredSize(new Dimension(200, 50));
 
         this.add(label);
         this.add(field);
@@ -34,10 +34,9 @@ public class Field extends NullPanel implements ControlPoints {
 
 
         //lay out components
-        label.setBounds(245, 10, 140, 22);
-        field.setBounds(10,10, 225, 22);
+        label.setBounds(10, 0, 180, 22);
+        field.setBounds(10,25, 180, 22);
         field.setText(text.getValue());
-
         label.setForeground(Color.WHITE);
 
 

@@ -1,8 +1,8 @@
 package VisualLogicSystem;
 
-import ProgramGUI.GUIComponents.BlockProperties;
+//imports
+import ProgramGUI.GUIComponents.BlockVariablePane;
 import VisualLogicSystem.DataBlocks.DataObject;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
@@ -22,10 +22,8 @@ import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-
 import java.util.ArrayList;
 import javax.media.opengl.GL2;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -33,8 +31,6 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
-    //GUI data
-    public int list;
     public Paint gp1, gp2, gp3, gp4, gp5;
     public Graphics2D g2d;
     public Rectangle bounds;
@@ -46,67 +42,19 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public int currentCompileString = 0;
     //ID data
     public int ID;
-    //Connection DATA
-    public ArrayList<Rectangle> rects;
-    public ArrayList<Integer> connections;
     public ArrayList<LogicLink> nodes;
     public ArrayList<DataObject> data;
-    public ArrayList<String> linkInfo;
-    //Code stuffs
-    public ArrayList<CodeBlock> codeBlocks;
-
-    public int getID() {
-        return ID;
-    }
-    public String compileProperty = "";
-
-    public String getCompileProperty() {
-        return compileProperty;
-    }
-
-    public void setCompileProperty(String compileProperty) {
-        this.compileProperty = compileProperty;
-    }
-
-    public void GenerateGLBlock() {
-
-
-        //the buffer array of bytes
-        DataBufferByte dukeBuf = (DataBufferByte) raster.getDataBuffer();
-        byte[] data = dukeBuf.getData();
-
-
-        dest = ByteBuffer.allocateDirect(data.length);
-        dest.order(ByteOrder.nativeOrder());
-        dest.put(data, 0, data.length);
-        dest.rewind(); // <- NEW STUFF NEEDED BY JSR231
-    }
-
-    public void drawGL(GL2 gl) {
-
-
-
-        gl.glRasterPos2i(getX(), getY() + size + 10);
-        gl.glDrawPixels(size + 10, size + 10,
-                GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE,
-                dest);
-
-    }
+    public ArrayList<ConnectionPoint> connectionPoints;
 
     public LogicBlock() {
 
 
         bounds = new Rectangle();
 
-        //connection data
-        rects = new ArrayList<Rectangle>(0);
+        //create the data objects
         nodes = new ArrayList<LogicLink>(0);
         data = new ArrayList<DataObject>(0);
-        linkInfo = new ArrayList<String>(0);
-        connections = new ArrayList<Integer>(0);
-
-        codeBlocks = new ArrayList<CodeBlock>(0);
-
+        connectionPoints = new ArrayList<ConnectionPoint>(0);
 
         //!-------- Begin Initialization --------!
 
@@ -168,12 +116,72 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     }
 
+    /**
+     * Draws the Block in OpenGL
+     * @param gl the GL context
+     */
+    public void drawGL(GL2 gl) {
+
+        gl.glRasterPos2i(getX(), getY() + size + 10);
+        gl.glDrawPixels(size + 10, size + 10,
+                GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE,
+                dest);
+    }
+
+    //!---------- Methods for generating a LogicBlock ---------!
+    public void drawBackground() {
+
+        g2d.setPaint(gp1);
+        g2d.fillRect(0, 0, size, size);
+        g2d.setPaint(gp3);
+        g2d.fillRect(size, 5, 10, size - 5);
+        g2d.setPaint(gp4);
+        g2d.fillRect(5, size, size - 5, 10);
+        g2d.setPaint(gp5);
+        g2d.fillRect(size, size, 10, 10);
+        g2d.setPaint(gp2);
+        g2d.drawRect(0, 0, size, size);
+
+    }
+
+    public void GenerateGLBlock() {
+
+
+        //the buffer array of bytes
+        DataBufferByte dukeBuf = (DataBufferByte) raster.getDataBuffer();
+        byte[] data = dukeBuf.getData();
+
+
+        dest = ByteBuffer.allocateDirect(data.length);
+        dest.order(ByteOrder.nativeOrder());
+        dest.put(data, 0, data.length);
+        dest.rewind(); // <- NEW STUFF NEEDED BY JSR231
+    }
+
+
+
+    public int getID() {
+        return ID;
+    }
+    public ConnectionPoint getConnectionPoint(int i){
+        return this.connectionPoints.get(i);
+    }
+    public String compileProperty = "";
+
+    public String getCompileProperty() {
+        return compileProperty;
+    }
+
+    public void setCompileProperty(String compileProperty) {
+        this.compileProperty = compileProperty;
+    }
+
     public String getLinkInfo(int i) {
-        return this.linkInfo.get(i);
+        return this.connectionPoints.get(i).getCompilerRules();
     }
 
     public int getLinkInfoSize() {
-        return linkInfo.size();
+        return this.connectionPoints.size();
     }
 
     public void setCurrentCompileString(int i) {
@@ -187,9 +195,9 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public int getAmmountOfCompileString() {
 
         int amount = 0;
-        for (int i = 0; i < this.linkInfo.size(); i++) {
+        for (int i = 0; i < this.connectionPoints.size(); i++) {
             try {
-                int lols = Integer.parseInt("" + linkInfo.get(i));
+                int lols = Integer.parseInt("" + this.connectionPoints.get(i).getCompilerRules());
                 if (lols > 0) {
                     amount++;
                 }
@@ -214,15 +222,14 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     public void addLink(LogicLink link) {
         nodes.add(link);
-
     }
 
     public void removeLink(LogicLink l) {
         nodes.remove(l);
     }
 
-    public BlockProperties getProperties() {
-        return new BlockProperties(this);
+    public BlockVariablePane getProperties() {
+        return new BlockVariablePane(this);
     }
 
     public LogicLink getLinks(int index) {
@@ -234,54 +241,26 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     }
 
     public int getConnectionRules(int i) {
-        return connections.get(i);
+        return this.connectionPoints.get(i).getConnectionRule();
     }
 
     public ArrayList<DataObject> getData() {
         return data;
     }
 
-    public ArrayList<CodeBlock> getCodeBlocks() {
-        return codeBlocks;
-    }
-
-    public void drawBackground() {
-
-
-
-        g2d.setPaint(gp1);
-        g2d.fillRect(0, 0, size, size);
-        g2d.setPaint(gp3);
-        g2d.fillRect(size, 5, 10, size - 5);
-        g2d.setPaint(gp4);
-        g2d.fillRect(5, size, size - 5, 10);
-        g2d.setPaint(gp5);
-        g2d.fillRect(size, size, 10, 10);
-        g2d.setPaint(gp2);
-        g2d.drawRect(0, 0, size, size);
-
-    }
-
-    /**
-     * Set the location of this object.
-     * @param x
-     * The X location
-     * @param y
-     * The Y location
-     */
     public void setLocation(int x, int y) {
         this.bounds.setLocation(x, y);
     }
 
     public Rectangle getConnectionBoundReal(int index) {
-        return new Rectangle((int) (rects.get(index).getX() + bounds.getX()),
-                (int) (rects.get(index).getY() + bounds.getY()),
-                (int) (rects.get(index).getWidth()),
-                (int) (rects.get(index).getHeight()));
+        return new Rectangle((int) (this.connectionPoints.get(index).getRect().getX() + bounds.getX()),
+                (int) (this.connectionPoints.get(index).getRect().getY() + bounds.getY()),
+                (int) (this.connectionPoints.get(index).getRect().getWidth()),
+                (int) (this.connectionPoints.get(index).getRect().getHeight()));
     }
 
     public Rectangle getConnectionBound(int index) {
-        return rects.get(index);
+        return this.connectionPoints.get(index).getRect();
     }
 
     public int getX() {
@@ -296,6 +275,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         return bounds;
     }
 
+    //!-------- The button class --------------
     private class LogicButtonUI extends BasicButtonUI {
 
         @Override
@@ -305,8 +285,9 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     }
 
     public JButton getButton() {
-        
+
         JButton temp = new JButton("");
+
         ImageIcon i = new ImageIcon(bi);
         temp.setUI(new LogicButtonUI());
         temp.setOpaque(false);
@@ -316,7 +297,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     }
 
     public int getAmountBounds() {
-        return rects.size();
+        return this.connectionPoints.size();
     }
 
     public Image getGraphicsObject() {

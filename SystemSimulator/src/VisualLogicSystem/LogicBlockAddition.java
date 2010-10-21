@@ -1,12 +1,11 @@
 package VisualLogicSystem;
 
-import GUIProgrammer.VisualLogic;
 import GUIProgrammer.VisualLogicGL;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LogicBlockAddition implements ActionListener {
+
     LogicBlock b;
 
     public LogicBlockAddition(LogicBlock b) {
@@ -16,14 +15,16 @@ public class LogicBlockAddition implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         try {
-
+            //get the type of logic block
             Class c = b.getClass();
-            LogicBlockEngine.addBlock((LogicBlock)c.newInstance());
+            //add it to the engine
+            LogicBlockEngine.addBlock((LogicBlock) c.newInstance());
+            //repaint
             VisualLogicGL.getCanvas().repaint();
-        }
-
-        catch (InstantiationException f) {
+        } catch (InstantiationException f) {
+            System.out.println("should not happen");
         } catch (IllegalAccessException f) {
+            System.out.println("should not happen");
         }
     }
 }

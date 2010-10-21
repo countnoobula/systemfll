@@ -9,8 +9,10 @@ import ProgramGUI.ProgramWindow;
 import Resources.Fonts.FontLoader;
 
 import java.util.prefs.Preferences;
+import javax.swing.JFrame;
 
 import javax.swing.SwingUtilities;
+import translucentshapes.AWTUtilitiesWrapper;
 
 
 /**
@@ -37,7 +39,13 @@ public class Main {
         this.systemProject = new SystemProject("Temp", "Dylan Vorster");
         this.fonts = new FontLoader();
         this.guiEngine = new GUIEngine(this);
-        this.mainWindow = new ProgramWindow(this);
+        JFrame f = new JFrame();
+        f.setSize(0,0);
+        f.setUndecorated(true);
+        f.setVisible(true);
+        this.mainWindow = new ProgramWindow(this,f);
+        mainWindow.setVisible(true);
+        AWTUtilitiesWrapper.setWindowOpaque(mainWindow, false);
 
     }
 
@@ -57,12 +65,10 @@ public class Main {
                 public void run() {
                     
                     Main main = new Main();
-
-                    if (main.getPrefs().getBoolean("showStartAnimation",
-                                                   true)) {
-                        main.getMainWindow().startIntroAnimation();
+    
                         main.getGuiEngine().makeVisible(main.getMainWindow().getProgramWindowPanel().getPanel_2().getPanel_1());
-                    }
+
+                    
                 }
             });
 

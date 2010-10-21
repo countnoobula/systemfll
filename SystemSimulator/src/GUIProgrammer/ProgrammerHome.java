@@ -3,11 +3,7 @@ package GUIProgrammer;
 import ProgramGUI.GUIComponents.Panes.TabbedPane;
 
 import MainClasses.Main;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.Timer;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class ProgrammerHome extends TabbedPane {
 
@@ -33,6 +29,8 @@ public class ProgrammerHome extends TabbedPane {
         this.add("Coding API", panel_1);
         this.add("Scripter", panel_2);
         this.add("Visual Logic", panel_3);
+        panel_3.setOpaque(false);
+        panel_3.setDoubleBuffered(false);
   
         
     }

@@ -59,34 +59,57 @@ public class LogicBlockEngine {
         boolean breaker = false;
 
 
-        //!------- enetering command ------!
+        //!------- entering command ------!
+
+        //make sure the block is not the start of the program
         if (l != null) {
+
+            //checks to see if the block isnt the same block we came in on
             if (l.getStart().equals(b)) {
-                if (b.getLinkInfo(l.getStartConnection()).equals("stop")) {
+
+                //checks with the links to see if the
+                if (b.getLinkInfo(l.getStartConnection()).equals("break")) {
 
                     stop = true;
-                    blocks.add(b.getCodeBlocks().get(0));
-                    System.out.println("Stopped due to compile command");
+                    //old code
+                    //blocks.add(b.getCodeBlocks().get(0));
+                    if (b.getConnectionPoint(l.getStartConnection()).getC() != null) {
+                        blocks.add(b.getConnectionPoint(l.getStartConnection()).getC());
+                        System.out.println("added at insert 1");
+                    }
 
-                } else if (b.getLinkInfo(l.getStartConnection()).equals("break")) {
+                } else if (b.getLinkInfo(l.getStartConnection()).equals("next")) {
                     stop = false;
-                    System.out.println("breaked due to compile command");
-                    blocks.add(b.getCodeBlocks().get(1));
+                    //old code
+                    //blocks.add(b.getCodeBlocks().get(1));
+                    if (b.getConnectionPoint(l.getStartConnection()).getC() != null) {
+                        blocks.add(b.getConnectionPoint(l.getStartConnection()).getC());
+                        System.out.println("added at insert 2");
+                    }
                     breaker = true;
                 }
 
             }
             if (l.getEnd().equals(b)) {
-                if (b.getLinkInfo(l.getEndConnection()).equals("stop")) {
+                if (b.getLinkInfo(l.getEndConnection()).equals("break")) {
 
                     stop = true;
-                    blocks.add(b.getCodeBlocks().get(0));
-                    System.out.println("Stopped due to compile command");
+                    //old code
+                    //blocks.add(b.getCodeBlocks().get(0));
+                    if (b.getConnectionPoint(l.getEndConnection()).getC() != null) {
+                        blocks.add(b.getConnectionPoint(l.getEndConnection()).getC());
+                        System.out.println("added at insert 3");
+                    }
 
-                } else if (b.getLinkInfo(l.getEndConnection()).equals("break")) {
+
+                } else if (b.getLinkInfo(l.getEndConnection()).equals("next")) {
                     stop = false;
-                    System.out.println("breaked due to compile command");
-                    blocks.add(b.getCodeBlocks().get(1));
+                    //old code
+                    //blocks.add(b.getCodeBlocks().get(1));
+                    if (b.getConnectionPoint(l.getEndConnection()).getC() != null) {
+                        blocks.add(b.getConnectionPoint(l.getEndConnection()).getC());
+                        System.out.println("added at insert 4");
+                    }
                     breaker = true;
                 }
             }
@@ -97,12 +120,6 @@ public class LogicBlockEngine {
 
         if (stop == false) {
 
-            if(breaker == false){
-            //add the first part of the code block
-            blocks.add(b.getCodeBlocks().get(0));
-            System.out.println("added a block");
-            }
-
             //loop through the blocks connection points
             //  > i < is the connection square
             for (int i = 0; i < b.getLinkInfoSize(); i++) {
@@ -110,36 +127,43 @@ public class LogicBlockEngine {
 
 
                     int currentSquare = Integer.parseInt(b.getLinkInfo(i));
-                    System.out.println("was able to convert.");
                     if (currentSquare == b.getCurrentCompileString()) {
+                            //add the first part of the code block
 
 
-                        //this means that we are going to run the rows from top to bottom
 
-                        //we now need to check if the lines start and end points equal the current square
+                        if (b.getConnectionPoint(i).getC() != null) {
+
+                            blocks.add(b.getConnectionPoint(i).getC());
+                            System.out.println("added at insert loop");
+                        }
+                        
+
+
+                        //this means that we are going to  run the connection lines from top to bottom
+
+                        //we now need to check if the lines' start and end points equal the current square
                         for (int j = 0; j < b.getNodes().size(); j++) {
 
                             if (b.getNodes().get(j).getStart().equals(b)) {
 
-                                System.out.println("found a match at 1");
                                 if (b.getNodes().get(j).getStartConnection() == i) {
                                     //check whether this line's start or end points match the current on
 
-                                    System.out.println("found a connection match at 1");
+                                    System.out.println("started recursion 1");
                                     addNextBlock(b.getNodes().get(j).getEnd(), blocks, b.getNodes().get(j));
+
                                 }
 
 
 
                             } else if (b.getNodes().get(j).getEnd().equals(b)) {
 
-                                System.out.println("found a match at 2");
                                 //check whether this line's start or end points match the current one
 
-
-                                System.out.println("found a connection match at 2");
                                 if (b.getNodes().get(j).getEndConnection() == i) {
 
+                                    System.out.println("started recursion 2");
                                     addNextBlock(b.getNodes().get(j).getStart(), blocks, b.getNodes().get(j));
                                 }
                             }
@@ -163,6 +187,7 @@ public class LogicBlockEngine {
         this.links = new ArrayList<LogicLink>();
 
     }
+
     public static boolean canLinkBlocks(LogicBlock block1, int rect1,
             LogicBlock block2, int rect2) {
 
@@ -246,6 +271,6 @@ public class LogicBlockEngine {
 
 
 
-        
+
     }
 }

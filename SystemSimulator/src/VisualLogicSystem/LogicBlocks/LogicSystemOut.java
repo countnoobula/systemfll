@@ -2,6 +2,8 @@ package VisualLogicSystem.LogicBlocks;
 
 import Resources.Images.ImageLoader;
 import VisualLogicSystem.CodeBlock;
+import VisualLogicSystem.ConnectionPoint;
+import VisualLogicSystem.DataBlocks.Text;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
@@ -19,18 +21,29 @@ public class LogicSystemOut extends LogicBlock {
     public LogicSystemOut() {
         super();
 
-        //add connection data
-        super.rects.add(new Rectangle(size - 10, 5, 10, 10));
-        super.connections.add(1);
-        super.linkInfo.add("0");
-        super.rects.add(new Rectangle(0, 5, 10, 10));
-        super.connections.add(2);
-        super.linkInfo.add("next");
+        super.data.add(new Text("Output","KABLAM!"));
 
-        //le code blocks
-        CodeBlock c1 = new CodeBlock(this);
-        c1.setCompileCode("\n System.out.println('#1#');");
-        super.codeBlocks.add(c1);
+        CodeBlock code1 = new CodeBlock(this);
+        code1.setCompileCode("\n System.out.println('#1#');");
+
+
+        super.connectionPoints.add(new ConnectionPoint(
+                "0",
+                "begin the statement",
+                1,
+                code1,
+                new Rectangle(super.size - 10, 5, 10, 10),
+                new Color(0, 192, 255)));
+
+        
+        super.connectionPoints.add(new ConnectionPoint(
+                "next",
+                "connect to something",
+                2,
+                null,
+                new Rectangle(0, 5, 10, 10),
+                new Color(0, 192, 255)));
+
 
 
         int x[] = {(size / 2), size, size, (size / 2) - 6, (size / 2)

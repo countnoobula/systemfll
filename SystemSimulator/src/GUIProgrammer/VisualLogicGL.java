@@ -2,9 +2,9 @@ package GUIProgrammer;
 
 //imports
 import MainClasses.Main;
-import ProgramGUI.GUIComponents.BlockProperties;
 import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 import ProgramGUI.GUIComponents.Buttons.SystemSmallTool;
+import ProgramGUI.GUIComponents.Panes.BlockPropertyEditor;
 import ProgramGUI.GUIComponents.Panes.NullPanel;
 import Resources.Images.ImageLoader;
 import VisualLogicSystem.LogicBlockEngine;
@@ -13,7 +13,6 @@ import VisualLogicSystem.LogicLink;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -22,7 +21,6 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Paint;
 import java.awt.Point;
-import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -37,12 +35,11 @@ import javax.media.opengl.GL2;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
-import javax.media.opengl.awt.GLJPanel;
 import javax.swing.ButtonGroup;
-import javax.swing.JComponent;
+import javax.swing.JFrame;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.SwingUtilities;
+import translucentshapes.AWTUtilitiesWrapper;
 
 public class VisualLogicGL extends GenericSystemPanel {
 
@@ -53,8 +50,10 @@ public class VisualLogicGL extends GenericSystemPanel {
     private JLayeredPane panes;
     private NullPanel topLayer;
     private GridBagConstraints gc;
+    private BlockPropertyEditor properties;
     private boolean blinker = false;
     private boolean isEnabled = true;
+    private JFrame f;
     //the whole program
     private Main m;
     //some interesting variables
@@ -67,6 +66,7 @@ public class VisualLogicGL extends GenericSystemPanel {
         GLCapabilities caps = new GLCapabilities(null);
         caps.setDoubleBuffered(true);
 
+        this.setDoubleBuffered(false);
 
         //new instances
         menu = new TopBar();
@@ -74,7 +74,15 @@ public class VisualLogicGL extends GenericSystemPanel {
         drawer = new LogicBlocksDrawer(m);
         panes = new JLayeredPane();
         topLayer = new NullPanel();
-
+        
+        //dont ask, its just required
+        f = new JFrame();
+        f.setUndecorated(true);
+        f.setSize(0, 0);
+        f.setVisible(true);
+        properties = new BlockPropertyEditor(f);
+        AWTUtilitiesWrapper.setWindowOpaque(properties, false);
+        
         topLayer.setLayout(new GridBagLayout());
 
         panes.add(canvas, 0);
@@ -111,19 +119,14 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
 
             public void componentShown(ComponentEvent e) {
+                properties.setVisible(true);
             }
 
             public void componentHidden(ComponentEvent e) {
+                properties.setVisible(false);
             }
         });
-    }
-
-    public static LogicCanvas getCanvas() {
-        return canvas;
-    }
-
-    public static void setCanvas(LogicCanvas canvas) {
-        VisualLogicGL.canvas = canvas;
+        
     }
 
     private class TopBar extends JPanel {
@@ -198,6 +201,56 @@ public class VisualLogicGL extends GenericSystemPanel {
         private int addY = 0;
         //create a new object
         private LogicLink link = null;
+        boolean repaintAgain = false;
+
+        private class hoverChecker implements ActionListener {
+
+            public void actionPerformed(ActionEvent e) {
+                boolean found = false;
+
+                for (int i = 0;
+                        i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
+                        i++) {
+
+                    if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(mousePoint)
+                            == true) {
+
+                        if (blinker == true) {
+
+
+                            selected = i;
+                            found = true;
+                            canvas.repaint();
+                            blinker = false;
+                            repaintAgain = true;
+
+
+                        } else {
+
+                            selected = i;
+                            found = true;
+                            canvas.repaint();
+                            blinker = true;
+                            repaintAgain = true;
+
+
+                        }
+                    }
+                }
+                if (found == false) {
+                    selected = -1;
+                    blinker = false;
+                    if (repaintAgain == true) {
+                        canvas.repaint();
+                        repaintAgain = false;
+                    }
+
+
+                }
+
+
+            }
+        }
 
         public void init(GLAutoDrawable glad) {
 
@@ -262,6 +315,43 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
             gl.glDisable(GL2.GL_LINE_SMOOTH);
 
+            gl.glColor4d(0, 0.75, 1.0,0.7);
+            //draw flashing blocks
+            if (blinker == true) {
+
+                if (selected != -1) {
+
+                    for (int j = 0;
+                            j < m.getEngineDepo().getLogicEngine().getBlock(selected).getAmountBounds();
+                            j++) {
+
+
+                        //drawFlashingblocks
+                        gl.glBegin(GL2.GL_POLYGON);
+
+                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected).getConnectionBound(j).getX()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected).getX(),
+                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected).getConnectionBound(j).getY()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected).getY());
+                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected).getConnectionBound(j).getX()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected).getX() + 10,
+                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected).getConnectionBound(j).getY()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected).getY());
+                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected).getConnectionBound(j).getX()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected).getX() + 10,
+                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected).getConnectionBound(j).getY()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected).getY() + 10);
+                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected).getConnectionBound(j).getX()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected).getX(),
+                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected).getConnectionBound(j).getY()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected).getY() + 10);
+                        gl.glEnd();
+
+                    }
+                }
+            }
+
+
             gl.glFlush();
 
         }
@@ -303,9 +393,7 @@ public class VisualLogicGL extends GenericSystemPanel {
                             i++) {
                         if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(e)) {
                             selected = i;
-
                         }
-
                     }
                     //check if the click was a link, if so then we are done!
                     for (int i = 0;
@@ -317,11 +405,9 @@ public class VisualLogicGL extends GenericSystemPanel {
                             if (m.getEngineDepo().getLogicEngine().getLink(i).getVirtualAnchor(j).contains(e)) {
                                 selected2 = i;
                                 selected3 = j;
-
                             }
                         }
                     }
-
 
                     //Okay, it look slike we found a Block, lets add some neccessary values
                     if (selected > -1) {
@@ -344,9 +430,7 @@ public class VisualLogicGL extends GenericSystemPanel {
                         //it is under a very specific block
                         if (m.getEngineDepo().getLogicEngine().getBlock(customSelection).getBounds().contains(mousePoint)
                                 == true) {
-
                             int chosen = -1;
-
                             //loop connection points
                             for (int i = 0;
                                     i < m.getEngineDepo().getLogicEngine().getBlock(customSelection).getAmountBounds();
@@ -361,12 +445,10 @@ public class VisualLogicGL extends GenericSystemPanel {
                             //if it is indeed under a point :)
                             if (chosen > -1) {
 
-
                                 //make a new object the first time
                                 if (link == null) {
                                     link = new LogicLink();
                                     selected2 = customSelection;
-
 
                                     link.setStartBlock(m.getEngineDepo().getLogicEngine().getBlock(customSelection),
                                             chosen);
@@ -427,7 +509,6 @@ public class VisualLogicGL extends GenericSystemPanel {
                             break loop;
                         }
                     }
-
                     loop:
                     for ( //check if the click was a link Anchor, if so then we delete the link!
                             int i = 0;
@@ -476,29 +557,9 @@ public class VisualLogicGL extends GenericSystemPanel {
                             i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
                             i++) {
                         if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(e)) {
-
-                            BlockProperties p = m.getEngineDepo().getLogicEngine().getBlock(i).getProperties();
-                            p.attatchActionListener(new DoEvent(p));
-
-
-                            // NOTE: Here we need a workaround for the HW/LW Mixing feature to work
-                            // correctly due to yet unfixed bug 6852592.
-                            // The JTextField is a validate root, so the revalidate() method called
-                            // during the setText() operation does not validate the parent of the
-                            // component. Therefore, we need to force validating its parent here.
-                            Container parent = panes.getParent();
-                            if (parent instanceof JComponent) {
-                                ((JComponent) parent).revalidate();
-                            }
-
+                            properties.setLogicBlock(m.getEngineDepo().getLogicEngine().getBlock(i));
+                           
                             
-                            isEnabled = false;
-                            topLayer.add(p, gc);
-                            topLayer.revalidate();
-                            panes.validate();
-                            m.getMainWindow().validate();
-                            
-
                             
 
                         }
@@ -526,8 +587,8 @@ public class VisualLogicGL extends GenericSystemPanel {
 
 
                 if (blinkTimer == null) {
-                    //blinkTimer =  new Timer(150, new hoverChecker());
-                    //blinkTimer.start();
+                    blinkTimer =  new Timer(150, new hoverChecker());
+                    blinkTimer.start();
                 }
 
             } else {
@@ -583,6 +644,14 @@ public class VisualLogicGL extends GenericSystemPanel {
         }
     }
 
+    public static LogicCanvas getCanvas() {
+        return canvas;
+    }
+
+    public static void setCanvas(LogicCanvas canvas) {
+        VisualLogicGL.canvas = canvas;
+    }
+
     public class DoEvent implements ActionListener {
 
         private Component c;
@@ -592,11 +661,7 @@ public class VisualLogicGL extends GenericSystemPanel {
         }
 
         public void actionPerformed(ActionEvent e) {
-            isEnabled = true;
-            topLayer.remove(c);
-            topLayer.revalidate();
-            topLayer.updateUI();
-           
+        
         }
     }
 }
