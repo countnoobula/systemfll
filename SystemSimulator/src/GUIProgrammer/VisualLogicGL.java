@@ -38,6 +38,7 @@ import javax.imageio.ImageIO;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GLCapabilities;
 import javax.media.opengl.GLEventListener;
+import javax.media.opengl.GLProfile;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
@@ -71,9 +72,10 @@ public class VisualLogicGL extends GenericSystemPanel {
     public VisualLogicGL(Main m2) {
         super();
         this.m = m2;
-        GLCapabilities caps = new GLCapabilities(null);
+        GLProfile.initSingleton();
+        GLProfile glp = GLProfile.getDefault();
+        GLCapabilities caps = new GLCapabilities(glp);
         caps.setDoubleBuffered(true);
-
         this.setDoubleBuffered(false);
 
         //new instances
@@ -134,6 +136,7 @@ public class VisualLogicGL extends GenericSystemPanel {
                 properties.setVisible(false);
             }
         });
+        
 
     }
 
@@ -144,23 +147,14 @@ public class VisualLogicGL extends GenericSystemPanel {
         private TopBar() {
 
             this.setLayout(null);
-
-
             try {
-                tools[0] =
-                        new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon1.png")));
-                tools[1] =
-                        new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon2.png")));
-                tools[2] =
-                        new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon3.png")));
-                tools[3] =
-                        new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon4.png")));
-                tools[4] =
-                        new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon5.png")));
-                tools[5] =
-                        new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon6.png")));
-                tools[6] =
-                        new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon7.png")));
+                tools[0] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon1.png")));
+                tools[1] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon2.png")));
+                tools[2] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon3.png")));
+                tools[3] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon4.png")));
+                tools[4] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon5.png")));
+                tools[5] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon6.png")));
+                tools[6] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon7.png")));
 
             } catch (Exception e) {
                 System.out.println("Could not load the logic gate tools");
@@ -168,8 +162,6 @@ public class VisualLogicGL extends GenericSystemPanel {
             this.setPreferredSize(new Dimension(0, 30));
             gp1 =
                     new GradientPaint(0, 0, new Color(20, 20, 20), 0, 30, new Color(40, 40, 40));
-
-
 
             ButtonGroup group = new ButtonGroup();
 
@@ -259,6 +251,7 @@ public class VisualLogicGL extends GenericSystemPanel {
         public void init(GLAutoDrawable glad) {
 
             GL2 gl = glad.getGL().getGL2();
+            //gl.getGL().setSwapInterval(1);
             //Projection mode is for setting camera
             gl.glMatrixMode(GL2.GL_PROJECTION);
 
@@ -305,9 +298,7 @@ public class VisualLogicGL extends GenericSystemPanel {
 
 
             //draw all the links
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getLinkArraySize();
-                    i++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getLinkArraySize();i++) {
 
                 gl.glLineWidth(3.0f);
                 m.getEngineDepo().getLogicEngine().getLink(i).drawGL(gl);
@@ -315,36 +306,27 @@ public class VisualLogicGL extends GenericSystemPanel {
                 m.getEngineDepo().getLogicEngine().getLink(i).drawAnchors(gl);
             }
             //draw all the logic blocks
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
-                    i++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getBlockArraySize();i++) {
                 m.getEngineDepo().getLogicEngine().getBlock(i).drawGL(gl);
             }
             //draw all the data links
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getDataLinkSize();
-                    i++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getDataLinkSize();i++) {
                 m.getEngineDepo().getLogicEngine().getDataLink(i).drawGL(gl);
             }
             //draw all the data blocks
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getDatBlocksSize();
-                    i++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getDatBlocksSize();i++) {
                 m.getEngineDepo().getLogicEngine().getDataBlock(i).drawGL(gl);
             }
 
             
             gl.glDisable(GL2.GL_LINE_SMOOTH);
-
             gl.glColor4d(0, 0.75, 1.0, 0.7);
             //draw flashing blocks
             if (blinker == true) {
 
                 if (selected1 != -1) {
 
-                    for (int j = 0;
-                            j < m.getEngineDepo().getLogicEngine().getBlock(selected1).getAmountBounds();
-                            j++) {
+                    for (int j = 0;j < m.getEngineDepo().getLogicEngine().getBlock(selected1).getAmountBounds();j++) {
 
                         //drawFlashingblocks
                         gl.glBegin(GL2.GL_POLYGON);
@@ -392,9 +374,11 @@ public class VisualLogicGL extends GenericSystemPanel {
         }
 
         public void mouseEntered(MouseEvent me) {
+
         }
 
         public void mouseExited(MouseEvent me) {
+
         }
 
         public void mousePressed(MouseEvent me) {
@@ -405,9 +389,7 @@ public class VisualLogicGL extends GenericSystemPanel {
 
             loop:
             //check if the click was a logic block
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
-                    i++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getBlockArraySize();i++) {
                 if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(me.getPoint())) {
                     selected1 = i;
                     break loop;
@@ -415,9 +397,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
             loop:
             //check if the click was a data block
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getDatBlocksSize();
-                    i++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getDatBlocksSize();i++) {
                 if (m.getEngineDepo().getLogicEngine().getDataBlock(i).getBounds().contains(me.getPoint())) {
                     selected4 = i;
                     break loop;
@@ -425,12 +405,8 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
             loop:
             //check if the click was a data link anchor
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getDataLinkSize();
-                    i++) {
-                for (int j = 0;
-                        j < m.getEngineDepo().getLogicEngine().getDataLink(i).getPointsSize();
-                        j++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getDataLinkSize();i++) {
+                for (int j = 0;j < m.getEngineDepo().getLogicEngine().getDataLink(i).getPointsSize();j++) {
                     if (m.getEngineDepo().getLogicEngine().getDataLink(i).getPointBounds(j).contains(me.getPoint())) {
                         selected7 = j;
                         selected6 = i;
@@ -441,12 +417,8 @@ public class VisualLogicGL extends GenericSystemPanel {
 
             loop:
             //check if the click was a link anchor
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getLinkArraySize();
-                    i++) {
-                for (int j = 0;
-                        j < m.getEngineDepo().getLogicEngine().getLink(i).getAmountOfAnchors();
-                        j++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getLinkArraySize();i++) {
+                for (int j = 0; j < m.getEngineDepo().getLogicEngine().getLink(i).getAmountOfAnchors();j++) {
                     if (m.getEngineDepo().getLogicEngine().getLink(i).getVirtualAnchor(j).contains(me.getPoint())) {
                         selected2 = i;
                         selected3 = j;
@@ -456,14 +428,10 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
 
             //check if the click was a connection bound
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
-                    i++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getBlockArraySize();i++) {
                 //check if it was a standard logic block connection point
                 loop:
-                for (int j = 0;
-                        j < m.getEngineDepo().getLogicEngine().getBlock(i).getAmountBounds();
-                        j++) {
+                for (int j = 0;j < m.getEngineDepo().getLogicEngine().getBlock(i).getAmountBounds();j++) {
 
                     //check if its under a very specific connection point
                     if (m.getEngineDepo().getLogicEngine().getBlock(i).getConnectionBoundReal(j).contains(me.getPoint())) {
@@ -475,14 +443,10 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
 
             //check if the click was a link rect anchor
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getBlockArraySize();
-                    i++) {
+            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getBlockArraySize();i++) {
                 //check if it was a standard logic block connection point
                 loop:
-                for (int j = 0;
-                        j < m.getEngineDepo().getLogicEngine().getBlock(i).getVariablePointsSize();
-                        j++) {
+                for (int j = 0;j < m.getEngineDepo().getLogicEngine().getBlock(i).getVariablePointsSize(); j++) {
 
                     //check if its under a very specific connection point
                     if (m.getEngineDepo().getLogicEngine().getBlock(i).getVariableConnectRect(j).contains(me.getPoint())) {
@@ -514,16 +478,12 @@ public class VisualLogicGL extends GenericSystemPanel {
                         if (selected1 > -1) {
                             properties.setVisible(true);
                             properties.setLogicBlock(m.getEngineDepo().getLogicEngine().getBlock(selected1));
-                            addX =
-                                    (int) (me.getX() - m.getEngineDepo().getLogicEngine().getBlock(selected1).getBounds().getX());
-                            addY =
-                                    (int) (me.getY() - m.getEngineDepo().getLogicEngine().getBlock(selected1).getBounds().getY());
+                            addX = (int) (me.getX() - m.getEngineDepo().getLogicEngine().getBlock(selected1).getBounds().getX());
+                            addY = (int) (me.getY() - m.getEngineDepo().getLogicEngine().getBlock(selected1).getBounds().getY());
                         } //Okay, it look slike we found a data Block, lets add some neccessary values
                         else if (selected4 > -1) {
-                            addX =
-                                    (int) (me.getX() - m.getEngineDepo().getLogicEngine().getDataBlock(selected4).getBounds().getX());
-                            addY =
-                                    (int) (me.getY() - m.getEngineDepo().getLogicEngine().getDataBlock(selected4).getBounds().getY());
+                            addX = (int) (me.getX() - m.getEngineDepo().getLogicEngine().getDataBlock(selected4).getBounds().getX());
+                            addY = (int) (me.getY() - m.getEngineDepo().getLogicEngine().getDataBlock(selected4).getBounds().getY());
                         }
 
 
@@ -542,8 +502,7 @@ public class VisualLogicGL extends GenericSystemPanel {
                                     link1 = new LogicLink();
 
                                     //add the logic block and its corresponding connection point to the link
-                                    link1.setStartBlock(m.getEngineDepo().getLogicEngine().getBlock(selected1),
-                                            selected8);
+                                    link1.setStartBlock(m.getEngineDepo().getLogicEngine().getBlock(selected1),selected8);
 
                                     canvas.repaint();
 
@@ -559,13 +518,11 @@ public class VisualLogicGL extends GenericSystemPanel {
                                             selected8)) {
 
                                         //add the end of the logic link
-                                        link1.setEndBlock(m.getEngineDepo().getLogicEngine().getBlock(selected1),
-                                                selected8);
+                                        link1.setEndBlock(m.getEngineDepo().getLogicEngine().getBlock(selected1),selected8);
 
                                         try {
 
                                             LogicLink temp = (LogicLink) link1.clone();
-
                                             temp.getStart().addLink(temp);
                                             temp.getEnd().addLink(temp);
 
@@ -695,8 +652,8 @@ public class VisualLogicGL extends GenericSystemPanel {
         }
 
         public void mouseReleased(MouseEvent me) {
-            //unset the set variables
 
+            //unset the set variables
             selected1 = -1;
             selected2 = -1;
             selected3 = -1;

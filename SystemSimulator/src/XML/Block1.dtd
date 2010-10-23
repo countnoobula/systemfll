@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+
+    TODO define vocabulary identification
+    PUBLIC ID: -//vendor//vocabulary//EN
+    SYSTEM ID: http://server/path/Block1.dtd
+
+-->
+
+<!--
+    An example how to use this DTD from your XML document:
+
+    <?xml version="1.0"?>
+
+    <!DOCTYPE logicBlock SYSTEM "Block1.dtd">
+
+    <logicBlock>
+    ...
+    </logicBlock>
+-->
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT logicBlock (connectionPoints|information)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT information (type|description|title)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT title (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT description (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT type (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT connectionPoints (connection)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT connection (rule)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT rule (#PCDATA)>
