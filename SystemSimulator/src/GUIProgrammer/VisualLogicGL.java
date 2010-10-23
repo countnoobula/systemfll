@@ -251,23 +251,14 @@ public class VisualLogicGL extends GenericSystemPanel {
         public void init(GLAutoDrawable glad) {
 
             GL2 gl = glad.getGL().getGL2();
-            //gl.getGL().setSwapInterval(1);
-            //Projection mode is for setting camera
-            gl.glMatrixMode(GL2.GL_PROJECTION);
 
-            //Modelview is for drawing
+            //set up the canvas
             gl.glMatrixMode(GL2.GL_MODELVIEW);
-            //Depth is disabled because we are drawing in 2D
             gl.glDisable(GL2.GL_DEPTH_TEST);
-            //Setting the clear color (in this case black)
-            //and clearing the buffer with this set clear color
-            gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
-
-            //This defines how to blend when a transparent graphics
-            //is placed over another (here we have blended colors of
-            //two consecutively overlapping graphic objects)
             gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
             gl.glEnable(GL2.GL_BLEND);
+            gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+            gl.glEnable(GL2.GL_LINE_SMOOTH);
 
         }
 
@@ -286,16 +277,12 @@ public class VisualLogicGL extends GenericSystemPanel {
                 gl.glVertex2d(i, 0);
                 gl.glVertex2d(i, canvas.getHeight());
                 gl.glEnd();
+
                 gl.glBegin(GL2.GL_LINES);
                 gl.glVertex2d(0, i);
                 gl.glVertex2d(canvas.getWidth(), i);
                 gl.glEnd();
             }
-
-            gl.glEnable(GL2.GL_LINE_SMOOTH);
-
-
-
 
             //draw all the links
             for (int i = 0;i < m.getEngineDepo().getLogicEngine().getLinkArraySize();i++) {
@@ -318,8 +305,6 @@ public class VisualLogicGL extends GenericSystemPanel {
                 m.getEngineDepo().getLogicEngine().getDataBlock(i).drawGL(gl);
             }
 
-            
-            gl.glDisable(GL2.GL_LINE_SMOOTH);
             gl.glColor4d(0, 0.75, 1.0, 0.7);
             //draw flashing blocks
             if (blinker == true) {
@@ -356,6 +341,7 @@ public class VisualLogicGL extends GenericSystemPanel {
 
             //end the graphics stuffs
             gl.glFlush();
+            
 
         }
 
