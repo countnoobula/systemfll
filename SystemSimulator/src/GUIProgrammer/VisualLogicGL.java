@@ -320,7 +320,12 @@ public class VisualLogicGL extends GenericSystemPanel {
                     i++) {
                 m.getEngineDepo().getLogicEngine().getBlock(i).drawGL(gl);
             }
-
+            //draw all the data links
+            for (int i = 0;
+                    i < m.getEngineDepo().getLogicEngine().getDataLinkSize();
+                    i++) {
+                m.getEngineDepo().getLogicEngine().getDataLink(i).drawGL(gl);
+            }
             //draw all the data blocks
             for (int i = 0;
                     i < m.getEngineDepo().getLogicEngine().getDatBlocksSize();
@@ -328,12 +333,7 @@ public class VisualLogicGL extends GenericSystemPanel {
                 m.getEngineDepo().getLogicEngine().getDataBlock(i).drawGL(gl);
             }
 
-            //draw all the data links
-            for (int i = 0;
-                    i < m.getEngineDepo().getLogicEngine().getDataLinkSize();
-                    i++) {
-                m.getEngineDepo().getLogicEngine().getDataLink(i).drawGL(gl);
-            }
+            
             gl.glDisable(GL2.GL_LINE_SMOOTH);
 
             gl.glColor4d(0, 0.75, 1.0, 0.7);
@@ -629,8 +629,6 @@ public class VisualLogicGL extends GenericSystemPanel {
                                     m.getEngineDepo().getLogicEngine().getDataBlock(temp.getDb()).addDataLink(temp);
                                     temp.createLink();
 
-
-
                                     //add to the database
                                     m.getEngineDepo().getLogicEngine().addDataLink(temp);
 
@@ -776,20 +774,66 @@ public class VisualLogicGL extends GenericSystemPanel {
     public class LogicCanvas extends GLCanvas {
 
         public LogicCanvas(GLCapabilities caps) {
+            
             super(caps);
             GLContext gel = new GLContext();
             this.addGLEventListener(gel);
             this.addMouseListener(gel);
             this.addMouseMotionListener(gel);
-            MenuItem m1 = new MenuItem("Add Variable");
-            MenuItem m2 = new MenuItem("Clear");
+            PopupMenu pop2 = new PopupMenu("Add Variable");
+            MenuItem m1 = new MenuItem("Integer");
+            MenuItem m2 = new MenuItem("Double");
+            MenuItem m3 = new MenuItem("float");
+            MenuItem m4 = new MenuItem("Text");
+            MenuItem m5 = new MenuItem("Boolean");
             pop = new PopupMenu();
-            pop.add(m1);
-            pop.add(m2);
+            pop.add(pop2);
+            pop2.add(m1);
+            pop2.add(m2);
+            pop2.add(m3);
+            pop2.add(m4);
+            pop2.add(m5);
+            
             m1.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.Number("Kablam",10,10,100));
+                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.ConstrainedNumber("Number",10,10,100));
+                    temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
+                    m.getEngineDepo().getLogicEngine().addDataBlock(temp);
+                    canvas.repaint();
+                }
+            });
+            m2.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.ConstrainedNumber("Kablam",10,10,100));
+                    temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
+                    m.getEngineDepo().getLogicEngine().addDataBlock(temp);
+                    canvas.repaint();
+                }
+            });
+            m3.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.ConstrainedNumber("Kablam",10,10,100));
+                    temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
+                    m.getEngineDepo().getLogicEngine().addDataBlock(temp);
+                    canvas.repaint();
+                }
+            });
+            m4.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.Text("Kablam","hahahah"));
+                    temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
+                    m.getEngineDepo().getLogicEngine().addDataBlock(temp);
+                    canvas.repaint();
+                }
+            });
+            m5.addActionListener(new ActionListener() {
+
+                public void actionPerformed(ActionEvent e) {
+                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.Boolean("Kablam"));
                     temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
                     m.getEngineDepo().getLogicEngine().addDataBlock(temp);
                     canvas.repaint();

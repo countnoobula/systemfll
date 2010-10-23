@@ -5,7 +5,7 @@ import ProgramGUI.GUIComponents.LogicControls.ControlPoints;
 import ProgramGUI.GUIComponents.LogicControls.Field;
 import ProgramGUI.GUIComponents.LogicControls.Slider;
 import VisualLogicSystem.DataBlocks.DataObject;
-import VisualLogicSystem.DataBlocks.Number;
+import VisualLogicSystem.DataBlocks.ConstrainedNumber;
 import VisualLogicSystem.DataBlocks.Text;
 import VisualLogicSystem.LogicBlock;
 
@@ -79,8 +79,8 @@ public class BlockVariablePane extends JPanel {
         this.setPreferredSize(new Dimension(200, 34 * data.size() + 55));
         for (int i = 0; i < data.size(); i++) {
             gc.gridy = i;
-            if (data.get(i) instanceof VisualLogicSystem.DataBlocks.Number) {
-                this.add(new Slider((Number) data.get(i)), gc);
+            if (data.get(i) instanceof VisualLogicSystem.DataBlocks.ConstrainedNumber) {
+                this.add(new Slider((ConstrainedNumber) data.get(i)), gc);
             }
             if (data.get(i) instanceof VisualLogicSystem.DataBlocks.Text) {
                 this.add(new Field((Text) data.get(i)), gc);

@@ -1,6 +1,7 @@
 package VisualLogicSystem.DataBlockSystem;
 
 import VisualLogicSystem.DataBlocks.DataObject;
+import VisualLogicSystem.DataBlocks.Text;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -53,7 +54,16 @@ public class DataBlock {
 
         //create new instances
         f1 = new Font("Arial",11,11);
+        if(da instanceof Text){
         color = new Color(0,192,255,180);
+        }
+        if(da instanceof VisualLogicSystem.DataBlocks.Boolean){
+        color = new Color(255,129,0,180);
+        }
+        if(da instanceof VisualLogicSystem.DataBlocks.ConstrainedNumber){
+        color = new Color(192,255,0,180);
+        }
+        
 
         width = 50;
         height = 20;

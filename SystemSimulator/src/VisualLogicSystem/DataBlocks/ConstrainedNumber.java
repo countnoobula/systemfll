@@ -4,7 +4,7 @@ package VisualLogicSystem.DataBlocks;
  * This a number value which defines a maximum and a minimum value
  * @author Dylan
  */
-public class Number extends DataObject{
+public class ConstrainedNumber extends DataObject{
 
     //maximum and minimum values
     int min;
@@ -13,7 +13,7 @@ public class Number extends DataObject{
     //the actual value
     int value;
 
-    public Number(String s,int value,int min,int max){
+    public ConstrainedNumber(String s,int value,int min,int max){
         super(s);
 
         //set the values

@@ -22,10 +22,10 @@ public class Slider extends NullPanel implements ControlPoints {
     SystemTextField field;
 
     //this is the actual number variable
-    VisualLogicSystem.DataBlocks.Number num;
+    VisualLogicSystem.DataBlocks.ConstrainedNumber num;
 
 
-    public Slider(VisualLogicSystem.DataBlocks.Number n) {
+    public Slider(VisualLogicSystem.DataBlocks.ConstrainedNumber n) {
 
         num = n;
 
@@ -98,17 +98,15 @@ public class Slider extends NullPanel implements ControlPoints {
                 
             } catch (Exception e) {
             }
-
         }
-
     }
 
 
     public static void main(String[] args) {
 
 
-        VisualLogicSystem.DataBlocks.Number n = new  VisualLogicSystem.DataBlocks.Number("lols",13,0,34);
-        VisualLogicSystem.DataBlocks.Number n2 = new  VisualLogicSystem.DataBlocks.Number("Something else",13,0,1234);
+        VisualLogicSystem.DataBlocks.ConstrainedNumber n = new  VisualLogicSystem.DataBlocks.ConstrainedNumber("lols",13,0,34);
+        VisualLogicSystem.DataBlocks.ConstrainedNumber n2 = new  VisualLogicSystem.DataBlocks.ConstrainedNumber("Something else",13,0,1234);
         Slider s = new Slider(n);
         Slider s2 = new Slider(n2);
         JFrame f = new JFrame();
