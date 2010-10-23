@@ -34,7 +34,7 @@ public class Slider extends NullPanel implements ControlPoints {
         this.field = new SystemTextField();
 
         this.setLayout(null);
-        this.setPreferredSize(new Dimension(400, 34));
+        this.setPreferredSize(new Dimension(200, 50));
 
         this.add(slider);
         this.add(label);
@@ -48,9 +48,9 @@ public class Slider extends NullPanel implements ControlPoints {
 
 
         //lay out components df HG
-        slider.setBounds(10, 10, 180, 22);
-        label.setBounds(245, 10, 140, 22);
-        field.setBounds(195, 10, 40, 22);
+        slider.setBounds(10, 25, 180, 22);
+        label.setBounds(10, 0, 140, 22);
+        field.setBounds(150, 0, 40, 22);
 
         label.setForeground(Color.WHITE);
         field.getDocument().addDocumentListener(new DocumentListener() {
