@@ -47,8 +47,6 @@ public class LogicIF_ELSE extends LogicBlock {
                 new Rectangle(size - 10, 35, 10, 10),
                 new Color(0, 192, 255)));
 
-
-
         int x[] = {(size / 2), size, size, (size / 2) - 6, (size / 2)
             - 6, (size / 2)};
         int y[] = {0, 0, size, size, (size / 2) + 3, (size / 2) - 3};

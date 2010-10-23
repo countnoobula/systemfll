@@ -7,16 +7,21 @@ package VisualLogicSystem.DataBlocks;
 public abstract class DataObject {
 
     String variableName;
-
+    DataObject nested;
     public DataObject(String s) {
         variableName = s;
+        nested = this;
     }
 
     public String getVariableName() {
-        return variableName;
+        return nested.variableName;
     }
 
     public void setVariableName(String s) {
-        variableName = s;
+        nested.variableName = s;
     }
+    public void setDataObject(DataObject db){
+        nested = db;
+    }
+    public abstract String getValueRepresentation();
 }

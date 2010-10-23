@@ -47,6 +47,11 @@ public class Number extends DataObject{
         this.value = value;
     }
 
+    @Override
+    public String getValueRepresentation() {
+        return ""+value;
+    }
+
 
 
 }

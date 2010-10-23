@@ -1,4 +1,3 @@
-
 package VisualLogicSystem.DataBlocks;
 
 /**
@@ -8,15 +7,22 @@ package VisualLogicSystem.DataBlocks;
 public class Text extends DataObject {
 
     String value;
-    public Text(String variableName,String value){
+
+    public Text(String variableName, String value) {
         super(variableName);
         this.value = value;
     }
-    public String getValue(){
+
+    public String getValue() {
         return value;
     }
-    public void setValue(String value){
+
+    public void setValue(String value) {
         this.value = value;
     }
 
+    @Override
+    public String getValueRepresentation() {
+        return value;
+    }
 }

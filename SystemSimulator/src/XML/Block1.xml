@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : Block1.xml
+    Created on : October 22, 2010, 11:01 AM
+    Author     : Dylan
+    Description: Logic Block
+-->
+
+<logicBlock>
+    <information>
+
+
+        <title>Logic Block - 1</title>
+        <description>
+            This is a description for a logic block
+        </description>
+        <type>block</type>
+
+
+    </information>
+
+    <connectionPoints>
+
+        <!-- First square -->
+        <connection>
+            <rule>1</rule>
+            
+        </connection>
+        <!-- 2nd square -->
+        <connection>
+
+        </connection>
+        <!-- 3rd square -->
+        <connection>
+
+        </connection>
+
+    </connectionPoints>
+
+</logicBlock>

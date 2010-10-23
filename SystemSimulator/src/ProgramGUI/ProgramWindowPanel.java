@@ -30,6 +30,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import java.awt.Insets;
+import java.awt.Paint;
 import javax.imageio.ImageIO;
 
 /**
@@ -45,7 +46,7 @@ public class ProgramWindowPanel extends JPanel {
     private SectionTopSub panel_4;
     private SectionCenterSidePanels leftPanel, rightPanel;
 
-    private GradientPaint gp1;
+    private Paint gp1;
     private Image i;
     private int insetSize;
 
@@ -77,9 +78,7 @@ public class ProgramWindowPanel extends JPanel {
 
         this.insetSize = 4;
 
-        gp1 =
- new GradientPaint(0, 40, new Color(30, 30, 30,200), 0, 100, new Color(0, 0,
-                                                                      0,200));
+        gp1 = new Color(0,0,0,200);
 
         //build the window
         this.initComponents();

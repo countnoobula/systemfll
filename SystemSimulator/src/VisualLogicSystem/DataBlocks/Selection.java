@@ -30,6 +30,10 @@ public class Selection  extends DataObject{
     public void setSelected(int selected) {
         this.selected = selected;
     }
+    @Override
+    public String getValueRepresentation() {
+        return ""+select[selected];
+    }
 
 
 

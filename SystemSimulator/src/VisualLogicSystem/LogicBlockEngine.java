@@ -1,5 +1,7 @@
 package VisualLogicSystem;
 
+import VisualLogicSystem.DataBlockSystem.DataBlock;
+import VisualLogicSystem.DataBlockSystem.DataLink;
 import java.util.ArrayList;
 
 /**
@@ -7,11 +9,24 @@ import java.util.ArrayList;
  */
 public class LogicBlockEngine {
 
+    //variables
     static ArrayList<LogicBlockInterface> blocks;
     private ArrayList<LogicLink> links;
-    public static boolean isTop = false;
+    private ArrayList<DataBlock> dataBlocks;
+    private ArrayList<DataLink> dataLinks;
+
+    public LogicBlockEngine() {
+
+        //create new instances
+        this.blocks = new ArrayList<LogicBlockInterface>();
+        this.links = new ArrayList<LogicLink>();
+        this.dataBlocks = new ArrayList<DataBlock>();
+        this.dataLinks = new ArrayList<DataLink>();
+
+    }
 
     public static ArrayList<CodeBlock> compile() {
+
         ArrayList<CodeBlock> b = new ArrayList<CodeBlock>(0);
         LogicBlock first = null;
 
@@ -128,7 +143,7 @@ public class LogicBlockEngine {
 
                     int currentSquare = Integer.parseInt(b.getLinkInfo(i));
                     if (currentSquare == b.getCurrentCompileString()) {
-                            //add the first part of the code block
+                        //add the first part of the code block
 
 
 
@@ -137,7 +152,7 @@ public class LogicBlockEngine {
                             blocks.add(b.getConnectionPoint(i).getC());
                             System.out.println("added at insert loop");
                         }
-                        
+
 
 
                         //this means that we are going to  run the connection lines from top to bottom
@@ -156,7 +171,6 @@ public class LogicBlockEngine {
                                 }
 
 
-
                             } else if (b.getNodes().get(j).getEnd().equals(b)) {
 
                                 //check whether this line's start or end points match the current one
@@ -169,7 +183,6 @@ public class LogicBlockEngine {
                             }
                         }
 
-
                         //and then increase the string for the next row
                         b.setCurrentCompileString(b.getCurrentCompileString() + 1);
                     }
@@ -180,12 +193,6 @@ public class LogicBlockEngine {
                 }
             }
         }
-    }
-
-    public LogicBlockEngine() {
-        this.blocks = new ArrayList<LogicBlockInterface>();
-        this.links = new ArrayList<LogicLink>();
-
     }
 
     public static boolean canLinkBlocks(LogicBlock block1, int rect1,
@@ -237,40 +244,56 @@ public class LogicBlockEngine {
 
 
         }
-
         blocks.remove(b);
-
     }
+    public void removeDataBlock(DataBlock b) {
 
+        for (int i = 0; i < b.getDataLinkSize(); i++) {
+            dataLinks.remove(b.getDataLink(i));
+        }
+        this.dataBlocks.remove(b);
+    }
     public void removeLink(LogicLink l) {
         l.getStart().removeLink(l);
         l.getEnd().removeLink(l);
         links.remove(l);
-
     }
-
     public int getBlockArraySize() {
         return blocks.size();
     }
-
     public LogicBlock getBlock(int i) {
         return (LogicBlock) blocks.get(i);
     }
-
     public int getLinkArraySize() {
         return links.size();
     }
-
     public LogicLink getLink(int i) {
         return links.get(i);
     }
-
     public void addLogicLink(LogicLink l) {
         links.add(l);
-
-
-
-
-
     }
+    public void addDataBlock(DataBlock b){
+        this.dataBlocks.add(b);
+    }
+    public int getDatBlocksSize(){
+        return this.dataBlocks.size();
+    }
+    public DataBlock getDataBlock(int i){
+        return this.dataBlocks.get(i);
+    }
+
+    public DataBlock getDataBlock(DataBlock d){
+        return this.dataBlocks.get(this.dataBlocks.indexOf(d));
+    }
+    public void addDataLink(DataLink dl){
+        this.dataLinks.add(dl);
+    }
+    public int getDataLinkSize(){
+        return this.dataLinks.size();
+    }
+    public DataLink getDataLink(int index){
+        return this.dataLinks.get(index);
+    }
+
 }

@@ -2,6 +2,7 @@
 package VisualLogicSystem;
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.Rectangle;
 
 /**
@@ -18,7 +19,7 @@ public class ConnectionPoint {
     private double colG;
     private double colB;
     private int connectionRule;
-
+    private Point p;
     /**
      * Heres what you need in order to create a connection point
      * @param compilerRules
@@ -47,6 +48,7 @@ public class ConnectionPoint {
         this.colG = (color.getGreen()/255);
         this.colB = (color.getBlue()/255);
         this.connectionRule = connectionRule;
+        p = new Point((int)rect.getX()+5,(int)rect.getY()+5);
 
     }
 
@@ -81,6 +83,11 @@ public class ConnectionPoint {
     public Rectangle getRect() {
         return rect;
     }
+
+    public Point getP() {
+        return p;
+    }
+
 
 
 

@@ -25,4 +25,9 @@ public class Boolean extends DataObject{
         return value;
     }
 
+    @Override
+    public String getValueRepresentation() {
+        return ""+value;
+    }
+
 }

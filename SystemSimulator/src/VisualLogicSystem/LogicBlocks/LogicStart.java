@@ -5,6 +5,7 @@ import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.ConnectionPoint;
 import VisualLogicSystem.DataBlocks.*;
 import VisualLogicSystem.LogicBlock;
+import VisualLogicSystem.VariableConnectionPoint;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -41,6 +42,21 @@ public class LogicStart extends LogicBlock {
                 code1,
                 new Rectangle(super.size - 10, 5, 10, 10),
                 new Color(0, 192, 255)));
+
+        this.addVariableConnectionPoint(new VariableConnectionPoint(
+                this,
+                data.get(0),
+                "Point 1",
+                new Color(0, 192, 255),
+                true));
+        
+        this.addVariableConnectionPoint(new VariableConnectionPoint(
+                this,
+                data.get(1),
+                "Point 2",
+                new Color(0, 192, 255),
+                true));
+
 
         //!---- graphics drawing -----
 

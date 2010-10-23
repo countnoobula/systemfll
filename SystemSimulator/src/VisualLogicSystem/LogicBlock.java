@@ -36,25 +36,33 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public Rectangle bounds;
     public BufferedImage bi;
     public WritableRaster raster;
+    public ByteBuffer dest = null;
     public int size = 50;
     public String type = "";
-    public ByteBuffer dest = null;
+    public boolean displaySensorRack = false;
     public int currentCompileString = 0;
     //ID data
     public int ID;
     public ArrayList<LogicLink> nodes;
     public ArrayList<DataObject> data;
+    public ArrayList<VariableConnectionPoint> variablePoints;
     public ArrayList<ConnectionPoint> connectionPoints;
+    public Rectangle rectUp, rectBot;
 
     public LogicBlock() {
 
 
         bounds = new Rectangle();
 
+
         //create the data objects
         nodes = new ArrayList<LogicLink>(0);
         data = new ArrayList<DataObject>(0);
+        variablePoints = new ArrayList<VariableConnectionPoint>(0);
         connectionPoints = new ArrayList<ConnectionPoint>(0);
+
+        rectUp = new Rectangle(0, -15, 2, 13);
+        rectBot = new Rectangle(0, size + 2, 2, 13);
 
         //!-------- Begin Initialization --------!
 
@@ -116,6 +124,19 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
 
     }
 
+    public void addVariableConnectionPoint(VariableConnectionPoint v) {
+        variablePoints.add(v);
+        if (v.isInput()) {
+            rectUp.setSize((int) (rectUp.getWidth() + 12), 13);
+            v.setRect(new Rectangle((int) (rectUp.getWidth() - 12), -15, 10, 10));
+            v.setRealRect(new Rectangle((int) (rectUp.getWidth() - 12), -15, 10, 10));
+        } else {
+            rectBot.setSize((int) (rectBot.getWidth() + 12), 13);
+            v.setRect(new Rectangle((int) (rectBot.getWidth() - 12), size + 4, 10, 10));
+            v.setRealRect(new Rectangle((int) (rectBot.getWidth() - 12), size + 4, 10, 10));
+        }
+    }
+
     /**
      * Draws the Block in OpenGL
      * @param gl the GL context
@@ -123,9 +144,45 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public void drawGL(GL2 gl) {
 
         gl.glRasterPos2i(getX(), getY() + size + 10);
-        gl.glDrawPixels(size + 10, size + 10,
-                GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE,
-                dest);
+        gl.glDrawPixels(size + 10, size + 10, GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE, dest);
+
+
+
+        if (rectUp.getWidth() > 2) {
+            //draw input blocks
+            gl.glColor3d(0.2, 0.2, 0.2);
+            gl.glBegin(GL2.GL_POLYGON);
+            gl.glVertex2d(rectUp.getX(), rectUp.getY());
+            gl.glVertex2d(rectUp.getX() + rectUp.getWidth(), rectUp.getY());
+            gl.glColor3d(0.4, 0.4, 0.4);
+            gl.glVertex2d(rectUp.getX() + rectUp.getWidth(), rectUp.getY() + rectUp.getHeight());
+            gl.glVertex2d(rectUp.getX(), rectUp.getY() + rectUp.getHeight());
+            gl.glEnd();
+        }
+        if (rectBot.getWidth() > 2) {
+            //draw output blocks
+            gl.glColor3d(0.4, 0.4, 0.4);
+            gl.glBegin(GL2.GL_POLYGON);
+            gl.glVertex2d(rectBot.getX(), rectBot.getY());
+            gl.glVertex2d(rectBot.getX() + rectBot.getWidth(), rectBot.getY());
+            gl.glColor3d(0.2, 0.2, 0.2);
+            gl.glVertex2d(rectBot.getX() + rectBot.getWidth(), rectBot.getY() + rectBot.getHeight());
+            gl.glVertex2d(rectBot.getX(), rectBot.getY() + rectBot.getHeight());
+            gl.glEnd();
+        }
+
+
+        for (int i = 0; i < getVariablePointsSize(); i++) {
+            //drawFlashingblocks
+            gl.glColor3d(0.0, 0.75, 1.0);
+            gl.glBegin(GL2.GL_POLYGON);
+            Rectangle rect = getVariableConnectRect(i);
+            gl.glVertex2d(rect.getX(), rect.getY());
+            gl.glVertex2d(rect.getX() + rect.getWidth(), rect.getY());
+            gl.glVertex2d(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight());
+            gl.glVertex2d(rect.getX(), rect.getY() + rect.getHeight());
+            gl.glEnd();
+        }
     }
 
     //!---------- Methods for generating a LogicBlock ---------!
@@ -158,12 +215,11 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
         dest.rewind(); // <- NEW STUFF NEEDED BY JSR231
     }
 
-
-
     public int getID() {
         return ID;
     }
-    public ConnectionPoint getConnectionPoint(int i){
+
+    public ConnectionPoint getConnectionPoint(int i) {
         return this.connectionPoints.get(i);
     }
     public String compileProperty = "";
@@ -249,7 +305,17 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     }
 
     public void setLocation(int x, int y) {
+
         this.bounds.setLocation(x, y);
+        rectUp.setLocation(x, (y - 15));
+        rectBot.setLocation(x, (y + size + 2));
+        for(int i = 0;i < variablePoints.size();i++){
+            variablePoints.get(i).getRealRect().setLocation(
+                    (int)variablePoints.get(i).getRect().getX()+x,
+                    (int)variablePoints.get(i).getRect().getY()+y);
+        }
+        
+
     }
 
     public Rectangle getConnectionBoundReal(int index) {
@@ -307,5 +373,19 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    public int getVariablePointsSize() {
+        return this.variablePoints.size();
+    }
+    public VariableConnectionPoint getVariableConnectionPoint(int index){
+        return this.variablePoints.get(index);
+    }
+
+    public Rectangle getVariableConnectRect(int index) {
+        return variablePoints.get(index).getRealRect();
+    }
+    public void setDataObject(DataObject olddb,DataObject newdb ){
+        this.data.set(data.indexOf(olddb),newdb );
     }
 }
