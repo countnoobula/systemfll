@@ -1,7 +1,6 @@
 package VisualLogicSystem.DataBlockSystem;
 
 import VisualLogicSystem.DataBlocks.DataObject;
-import VisualLogicSystem.DataBlocks.Text;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
@@ -54,13 +53,13 @@ public class DataBlock {
 
         //create new instances
         f1 = new Font("Arial",11,11);
-        if(da instanceof Text){
+        if(da.getControlType() == DataObject.TEXTFIELD){
         color = new Color(0,192,255,180);
         }
-        if(da instanceof VisualLogicSystem.DataBlocks.Boolean){
+        if(da.getControlType() == DataObject.SLIDER){
         color = new Color(255,129,0,180);
         }
-        if(da instanceof VisualLogicSystem.DataBlocks.ConstrainedNumber){
+        if(da.getControlType() == DataObject.YES_NO){
         color = new Color(192,255,0,180);
         }
         
@@ -131,7 +130,7 @@ public class DataBlock {
         g2d.setPaint(Color.BLACK);
         g2d.drawString(data.getVariableName(), 5, 8);
         g2d.setPaint(Color.WHITE);
-        g2d.drawString(data.getValueRepresentation(), 5, 18);
+        g2d.drawString(data.getValue(), 5, 18);
         GenerateGLBlock();
 
     }

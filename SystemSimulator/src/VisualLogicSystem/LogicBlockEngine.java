@@ -249,7 +249,9 @@ public class LogicBlockEngine {
     public void removeDataBlock(DataBlock b) {
 
         for (int i = 0; i < b.getDataLinkSize(); i++) {
-            dataLinks.remove(b.getDataLink(i));
+            DataLink temp = b.getDataLink(i);
+            temp.resetLink();
+            dataLinks.remove(temp);
         }
         this.dataBlocks.remove(b);
     }

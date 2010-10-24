@@ -1,7 +1,5 @@
 package VisualLogicSystem;
 
-import VisualLogicSystem.DataBlocks.Text;
-
 public class CodeBlock {
 
     private int ID;
@@ -18,16 +16,13 @@ public class CodeBlock {
         String value = compileCode;
 
         for (int i = 0; i < block.getData().size(); i++) {
-            if (block.getData().get(i) instanceof Text) {
-                value = value.replace("#" + (i + 1) + "#", "" + ((Text) block.getData().get(i)).getValue());
-            } else if (block.getData().get(i) instanceof VisualLogicSystem.DataBlocks.ConstrainedNumber) {
-                value = value.replace("#" + (i + 1) + "#", "" + ((VisualLogicSystem.DataBlocks.ConstrainedNumber) block.getData().get(i)).getValue());
-            }
-
-
+            if(block.getData().get(i).isGlobal()){
+                value = value.replace("#" + (i + 1) + "#", "" + block.getData().get(i).getVariableName());
+            }else{
+                 value = value.replace("#" + (i + 1) + "#", "" + block.getData().get(i).getValue());
+            }           
         }
         return value;
-
     }
 
     public int getID() {

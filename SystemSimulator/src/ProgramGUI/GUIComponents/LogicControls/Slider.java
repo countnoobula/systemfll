@@ -3,6 +3,7 @@ package ProgramGUI.GUIComponents.LogicControls;
 import ProgramGUI.GUIComponents.Panes.NullPanel;
 import ProgramGUI.GUIComponents.SystemSlider;
 import ProgramGUI.GUIComponents.SystemTextField;
+import VisualLogicSystem.DataBlocks.DataObject;
 import java.awt.Color;
 
 import java.awt.Dimension;
@@ -20,14 +21,11 @@ public class Slider extends NullPanel implements ControlPoints {
     SystemSlider slider;
     JLabel label;
     SystemTextField field;
+    DataObject d;
 
-    //this is the actual number variable
-    VisualLogicSystem.DataBlocks.ConstrainedNumber num;
+    public Slider(DataObject d) {
 
-
-    public Slider(VisualLogicSystem.DataBlocks.ConstrainedNumber n) {
-
-        num = n;
+        this.d = d;
 
         this.slider = new SystemSlider();
         this.label = new JLabel();
@@ -40,11 +38,14 @@ public class Slider extends NullPanel implements ControlPoints {
         this.add(label);
         this.add(field);
 
-        slider.setMinimum(n.getMin());
-        slider.setMaximum(n.getMax());
-        label.setText(num.getVariableName());
-        slider.setValue(num.getValue());
-        field.setText(""+num.getValue());
+        slider.setMinimum(d.getMin());
+        slider.setMaximum(d.getMax());
+        if(d.isGlobal()){
+        label.setText(d.getVariableName());
+        }
+        
+        slider.setValue(Integer.parseInt(d.getValue()));
+        field.setText(""+Integer.parseInt(d.getValue()));
 
 
         //lay out components df HG
@@ -82,7 +83,7 @@ public class Slider extends NullPanel implements ControlPoints {
 
 
     public void encodeData(){
-        num.setValue(slider.getValue());
+       d.setValue(""+slider.getValue());
     }
     //method to called by the listener abstract methods
 
@@ -101,23 +102,4 @@ public class Slider extends NullPanel implements ControlPoints {
         }
     }
 
-
-    public static void main(String[] args) {
-
-
-        VisualLogicSystem.DataBlocks.ConstrainedNumber n = new  VisualLogicSystem.DataBlocks.ConstrainedNumber("lols",13,0,34);
-        VisualLogicSystem.DataBlocks.ConstrainedNumber n2 = new  VisualLogicSystem.DataBlocks.ConstrainedNumber("Something else",13,0,1234);
-        Slider s = new Slider(n);
-        Slider s2 = new Slider(n2);
-        JFrame f = new JFrame();
-
-        f.add(s);
-        f.add(s2);
-        f.setLayout(new FlowLayout());
-        f.setBackground(new Color(40, 40, 40));
-        f.setBounds(10, 10, 500, 300);
-
-        f.setVisible(true);
-
-    }
 }

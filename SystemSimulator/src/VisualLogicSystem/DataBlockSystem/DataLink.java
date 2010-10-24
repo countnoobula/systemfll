@@ -4,7 +4,6 @@
  */
 package VisualLogicSystem.DataBlockSystem;
 
-import VisualLogicSystem.DataBlocks.DataObject;
 import VisualLogicSystem.VariableConnectionPoint;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -40,6 +39,9 @@ public class DataLink implements Cloneable {
     }
     public void createLink(){
         this.variableConnectionPoint.getLogicBlock().setDataObject(variableConnectionPoint.getData(), db.getData());
+    }
+    public void resetLink(){
+        this.variableConnectionPoint.getLogicBlock().setDataObject(db.getData(), variableConnectionPoint.getOldData());
     }
 
     public DataBlock getDb() {

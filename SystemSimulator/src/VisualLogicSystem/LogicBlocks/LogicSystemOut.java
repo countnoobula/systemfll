@@ -3,8 +3,9 @@ package VisualLogicSystem.LogicBlocks;
 import Resources.Images.ImageLoader;
 import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.ConnectionPoint;
-import VisualLogicSystem.DataBlocks.Text;
+import VisualLogicSystem.DataBlocks.DataObject;
 import VisualLogicSystem.LogicBlock;
+import VisualLogicSystem.VariableConnectionPoint;
 
 import java.awt.Color;
 import java.awt.Rectangle;
@@ -19,9 +20,8 @@ public class LogicSystemOut extends LogicBlock {
 
 
     public LogicSystemOut() {
-        super();
-
-        super.data.add(new Text("Output","KABLAM!"));
+    
+        super.data.add(new DataObject("Hello World!",DataObject.TEXTFIELD));
 
         CodeBlock code1 = new CodeBlock(this);
         code1.setCompileCode("\n System.out.println('#1#');");
@@ -43,6 +43,13 @@ public class LogicSystemOut extends LogicBlock {
                 null,
                 new Rectangle(0, 5, 10, 10),
                 new Color(0, 192, 255)));
+        
+        this.addVariableConnectionPoint(new VariableConnectionPoint(
+                this,
+                data.get(0),
+                "Display Output",
+                Color.YELLOW,
+                true));
 
 
 

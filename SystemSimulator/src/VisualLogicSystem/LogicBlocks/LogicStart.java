@@ -23,8 +23,8 @@ public class LogicStart extends LogicBlock {
 
         super.type = "start";
 
-        super.data.add(new Text("Author", "Buzzy bodi kitteh"));
-        super.data.add(new Text("Class Name", "Program"));
+        super.data.add(new DataObject("Dylan Vorster",DataObject.TEXTFIELD));
+        super.data.add(new DataObject("Program",DataObject.TEXTFIELD));
 
 
         CodeBlock code1 = new CodeBlock(this);
@@ -46,14 +46,14 @@ public class LogicStart extends LogicBlock {
         this.addVariableConnectionPoint(new VariableConnectionPoint(
                 this,
                 data.get(0),
-                "Point 1",
+                "Program Author",
                 new Color(0, 192, 255),
                 true));
         
         this.addVariableConnectionPoint(new VariableConnectionPoint(
                 this,
                 data.get(1),
-                "Point 2",
+                "Class Name",
                 new Color(0, 192, 255),
                 true));
 

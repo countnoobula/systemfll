@@ -9,6 +9,7 @@ import ProgramGUI.GUIComponents.Panes.NullPanel;
 import Resources.Images.ImageLoader;
 import VisualLogicSystem.DataBlockSystem.DataBlock;
 import VisualLogicSystem.DataBlockSystem.DataLink;
+import VisualLogicSystem.DataBlocks.DataObject;
 import VisualLogicSystem.LogicBlockEngine;
 import VisualLogicSystem.LogicBlocks.Library;
 import VisualLogicSystem.LogicLink;
@@ -136,7 +137,7 @@ public class VisualLogicGL extends GenericSystemPanel {
                 properties.setVisible(false);
             }
         });
-        
+
 
     }
 
@@ -257,7 +258,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             gl.glDisable(GL2.GL_DEPTH_TEST);
             gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
             gl.glEnable(GL2.GL_BLEND);
-            gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+
             gl.glEnable(GL2.GL_LINE_SMOOTH);
 
         }
@@ -268,6 +269,7 @@ public class VisualLogicGL extends GenericSystemPanel {
         public void display(GLAutoDrawable glad) {
             GL2 gl = glad.getGL().getGL2();
 
+            gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
             gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
             gl.glColor3d(0.15, 0.15, 0.15);
 
@@ -284,8 +286,11 @@ public class VisualLogicGL extends GenericSystemPanel {
                 gl.glEnd();
             }
 
+
+
+
             //draw all the links
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getLinkArraySize();i++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getLinkArraySize(); i++) {
 
                 gl.glLineWidth(3.0f);
                 m.getEngineDepo().getLogicEngine().getLink(i).drawGL(gl);
@@ -293,15 +298,15 @@ public class VisualLogicGL extends GenericSystemPanel {
                 m.getEngineDepo().getLogicEngine().getLink(i).drawAnchors(gl);
             }
             //draw all the logic blocks
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getBlockArraySize();i++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getBlockArraySize(); i++) {
                 m.getEngineDepo().getLogicEngine().getBlock(i).drawGL(gl);
             }
             //draw all the data links
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getDataLinkSize();i++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDataLinkSize(); i++) {
                 m.getEngineDepo().getLogicEngine().getDataLink(i).drawGL(gl);
             }
             //draw all the data blocks
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getDatBlocksSize();i++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDatBlocksSize(); i++) {
                 m.getEngineDepo().getLogicEngine().getDataBlock(i).drawGL(gl);
             }
 
@@ -311,7 +316,7 @@ public class VisualLogicGL extends GenericSystemPanel {
 
                 if (selected1 != -1) {
 
-                    for (int j = 0;j < m.getEngineDepo().getLogicEngine().getBlock(selected1).getAmountBounds();j++) {
+                    for (int j = 0; j < m.getEngineDepo().getLogicEngine().getBlock(selected1).getAmountBounds(); j++) {
 
                         //drawFlashingblocks
                         gl.glBegin(GL2.GL_POLYGON);
@@ -341,7 +346,7 @@ public class VisualLogicGL extends GenericSystemPanel {
 
             //end the graphics stuffs
             gl.glFlush();
-            
+
 
         }
 
@@ -349,8 +354,6 @@ public class VisualLogicGL extends GenericSystemPanel {
             GL2 gl = glad.getGL().getGL2();
             //Projection mode is for setting camera
             gl.glMatrixMode(GL2.GL_PROJECTION);
-            //This will set the camera for orthographic projection and allow 2D view
-
             gl.glLoadIdentity();
             gl.glOrtho(0, canvas.getWidth(), canvas.getHeight(), 0, 0, 1);
 
@@ -360,11 +363,9 @@ public class VisualLogicGL extends GenericSystemPanel {
         }
 
         public void mouseEntered(MouseEvent me) {
-
         }
 
         public void mouseExited(MouseEvent me) {
-
         }
 
         public void mousePressed(MouseEvent me) {
@@ -375,7 +376,7 @@ public class VisualLogicGL extends GenericSystemPanel {
 
             loop:
             //check if the click was a logic block
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getBlockArraySize();i++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getBlockArraySize(); i++) {
                 if (m.getEngineDepo().getLogicEngine().getBlock(i).getBounds().contains(me.getPoint())) {
                     selected1 = i;
                     break loop;
@@ -383,7 +384,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
             loop:
             //check if the click was a data block
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getDatBlocksSize();i++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDatBlocksSize(); i++) {
                 if (m.getEngineDepo().getLogicEngine().getDataBlock(i).getBounds().contains(me.getPoint())) {
                     selected4 = i;
                     break loop;
@@ -391,8 +392,8 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
             loop:
             //check if the click was a data link anchor
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getDataLinkSize();i++) {
-                for (int j = 0;j < m.getEngineDepo().getLogicEngine().getDataLink(i).getPointsSize();j++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDataLinkSize(); i++) {
+                for (int j = 0; j < m.getEngineDepo().getLogicEngine().getDataLink(i).getPointsSize(); j++) {
                     if (m.getEngineDepo().getLogicEngine().getDataLink(i).getPointBounds(j).contains(me.getPoint())) {
                         selected7 = j;
                         selected6 = i;
@@ -403,8 +404,8 @@ public class VisualLogicGL extends GenericSystemPanel {
 
             loop:
             //check if the click was a link anchor
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getLinkArraySize();i++) {
-                for (int j = 0; j < m.getEngineDepo().getLogicEngine().getLink(i).getAmountOfAnchors();j++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getLinkArraySize(); i++) {
+                for (int j = 0; j < m.getEngineDepo().getLogicEngine().getLink(i).getAmountOfAnchors(); j++) {
                     if (m.getEngineDepo().getLogicEngine().getLink(i).getVirtualAnchor(j).contains(me.getPoint())) {
                         selected2 = i;
                         selected3 = j;
@@ -414,10 +415,10 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
 
             //check if the click was a connection bound
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getBlockArraySize();i++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getBlockArraySize(); i++) {
                 //check if it was a standard logic block connection point
                 loop:
-                for (int j = 0;j < m.getEngineDepo().getLogicEngine().getBlock(i).getAmountBounds();j++) {
+                for (int j = 0; j < m.getEngineDepo().getLogicEngine().getBlock(i).getAmountBounds(); j++) {
 
                     //check if its under a very specific connection point
                     if (m.getEngineDepo().getLogicEngine().getBlock(i).getConnectionBoundReal(j).contains(me.getPoint())) {
@@ -429,10 +430,10 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
 
             //check if the click was a link rect anchor
-            for (int i = 0;i < m.getEngineDepo().getLogicEngine().getBlockArraySize();i++) {
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getBlockArraySize(); i++) {
                 //check if it was a standard logic block connection point
                 loop:
-                for (int j = 0;j < m.getEngineDepo().getLogicEngine().getBlock(i).getVariablePointsSize(); j++) {
+                for (int j = 0; j < m.getEngineDepo().getLogicEngine().getBlock(i).getVariablePointsSize(); j++) {
 
                     //check if its under a very specific connection point
                     if (m.getEngineDepo().getLogicEngine().getBlock(i).getVariableConnectRect(j).contains(me.getPoint())) {
@@ -488,7 +489,7 @@ public class VisualLogicGL extends GenericSystemPanel {
                                     link1 = new LogicLink();
 
                                     //add the logic block and its corresponding connection point to the link
-                                    link1.setStartBlock(m.getEngineDepo().getLogicEngine().getBlock(selected1),selected8);
+                                    link1.setStartBlock(m.getEngineDepo().getLogicEngine().getBlock(selected1), selected8);
 
                                     canvas.repaint();
 
@@ -504,7 +505,7 @@ public class VisualLogicGL extends GenericSystemPanel {
                                             selected8)) {
 
                                         //add the end of the logic link
-                                        link1.setEndBlock(m.getEngineDepo().getLogicEngine().getBlock(selected1),selected8);
+                                        link1.setEndBlock(m.getEngineDepo().getLogicEngine().getBlock(selected1), selected8);
 
                                         try {
 
@@ -717,7 +718,7 @@ public class VisualLogicGL extends GenericSystemPanel {
     public class LogicCanvas extends GLCanvas {
 
         public LogicCanvas(GLCapabilities caps) {
-            
+
             super(caps);
             GLContext gel = new GLContext();
             this.addGLEventListener(gel);
@@ -726,7 +727,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             PopupMenu pop2 = new PopupMenu("Add Variable");
             MenuItem m1 = new MenuItem("Integer");
             MenuItem m2 = new MenuItem("Double");
-            MenuItem m3 = new MenuItem("float");
+            MenuItem m3 = new MenuItem("Float");
             MenuItem m4 = new MenuItem("Text");
             MenuItem m5 = new MenuItem("Boolean");
             pop = new PopupMenu();
@@ -736,12 +737,12 @@ public class VisualLogicGL extends GenericSystemPanel {
             pop2.add(m3);
             pop2.add(m4);
             pop2.add(m5);
-            
+
             m1.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.ConstrainedNumber("Number",10,10,100));
-                    temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
+                    DataBlock temp = new DataBlock(new DataObject("int", "variable" + (m.getEngineDepo().getLogicEngine().getDatBlocksSize() + 1), "0", DataObject.TEXTFIELD));
+                    temp.setLocation((int) mousePoint.getX(), (int) mousePoint.getY());
                     m.getEngineDepo().getLogicEngine().addDataBlock(temp);
                     canvas.repaint();
                 }
@@ -749,8 +750,8 @@ public class VisualLogicGL extends GenericSystemPanel {
             m2.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.ConstrainedNumber("Kablam",10,10,100));
-                    temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
+                    DataBlock temp = new DataBlock(new DataObject("double", "variable" + (m.getEngineDepo().getLogicEngine().getDatBlocksSize() + 1), "0.0", DataObject.TEXTFIELD));
+                    temp.setLocation((int) mousePoint.getX(), (int) mousePoint.getY());
                     m.getEngineDepo().getLogicEngine().addDataBlock(temp);
                     canvas.repaint();
                 }
@@ -758,8 +759,8 @@ public class VisualLogicGL extends GenericSystemPanel {
             m3.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.ConstrainedNumber("Kablam",10,10,100));
-                    temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
+                    DataBlock temp = new DataBlock(new DataObject("float", "variable" + (m.getEngineDepo().getLogicEngine().getDatBlocksSize() + 1), "0.0f", DataObject.TEXTFIELD));
+                    temp.setLocation((int) mousePoint.getX(), (int) mousePoint.getY());
                     m.getEngineDepo().getLogicEngine().addDataBlock(temp);
                     canvas.repaint();
                 }
@@ -767,8 +768,8 @@ public class VisualLogicGL extends GenericSystemPanel {
             m4.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.Text("Kablam","hahahah"));
-                    temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
+                    DataBlock temp = new DataBlock(new DataObject("String", "variable" + (m.getEngineDepo().getLogicEngine().getDatBlocksSize() + 1), "hello", DataObject.TEXTFIELD));
+                    temp.setLocation((int) mousePoint.getX(), (int) mousePoint.getY());
                     m.getEngineDepo().getLogicEngine().addDataBlock(temp);
                     canvas.repaint();
                 }
@@ -776,12 +777,14 @@ public class VisualLogicGL extends GenericSystemPanel {
             m5.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    DataBlock temp = new DataBlock(new VisualLogicSystem.DataBlocks.Boolean("Kablam"));
-                    temp.setLocation((int)mousePoint.getX(),(int)mousePoint.getY());
+                    DataBlock temp = new DataBlock(new DataObject("boolean", "variable" + (m.getEngineDepo().getLogicEngine().getDatBlocksSize() + 1), "false", DataObject.TEXTFIELD));
+                    temp.setLocation((int) mousePoint.getX(), (int) mousePoint.getY());
                     m.getEngineDepo().getLogicEngine().addDataBlock(temp);
                     canvas.repaint();
                 }
             });
+
+
             this.add(pop);
         }
     }

@@ -17,22 +17,24 @@ public class VariableConnectionPoint {
 
     //variables
     String name;
-    DataObject data;
+    DataObject data1;
+    DataObject data2;
     Rectangle rect;
     Rectangle realRect;
     double colR;
     double colG;
     double colB;
     boolean input;
-    boolean active;
     LogicBlock logicBlock;
 
 
     public VariableConnectionPoint(LogicBlock l,DataObject data,String name,Color color,boolean input){
-        this.data = data;
+        this.data1 = data;
+        this.data2 = data;
+
         this.name = name;
         this.input = input;
-        this.active = false;
+ 
         this.logicBlock = l;
 
         //generate a color object
@@ -40,22 +42,11 @@ public class VariableConnectionPoint {
         this.colG = (color.getGreen()/255);
         this.colB = (color.getBlue()/255);
     }
-    public void setDataObject(DataObject db){
-        data= db;
-    }
-
-    public boolean isActive() {
-        return active;
-    }
 
     public LogicBlock getLogicBlock() {
         return logicBlock;
     }
 
-
-    public void setActive(boolean active) {
-        this.active = active;
-    }
 
 
     public boolean isInput() {
@@ -76,7 +67,10 @@ public class VariableConnectionPoint {
     }
 
     public DataObject getData() {
-        return data;
+          return data1;   
+    }
+    public DataObject getOldData(){
+        return data2;
     }
 
     public String getName() {
