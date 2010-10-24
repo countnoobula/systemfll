@@ -48,6 +48,7 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     public ArrayList<VariableConnectionPoint> variablePoints;
     public ArrayList<ConnectionPoint> connectionPoints;
     public Rectangle rectUp, rectBot;
+    public String imports[];
 
     public LogicBlock() {
 
@@ -387,5 +388,8 @@ public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
     }
     public void setDataObject(DataObject olddb,DataObject newdb ){
         this.data.set(data.indexOf(olddb),newdb );
+    }
+    public String[] getImports(){
+        return imports;
     }
 }

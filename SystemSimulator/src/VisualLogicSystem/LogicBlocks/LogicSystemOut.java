@@ -24,7 +24,7 @@ public class LogicSystemOut extends LogicBlock {
         super.data.add(new DataObject("Hello World!",DataObject.TEXTFIELD));
 
         CodeBlock code1 = new CodeBlock(this);
-        code1.setCompileCode("\n System.out.println('#1#');");
+        code1.setCompileCode("System.out.println(#'1'#);");
 
 
         super.connectionPoints.add(new ConnectionPoint(

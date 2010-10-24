@@ -768,7 +768,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             m4.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    DataBlock temp = new DataBlock(new DataObject("String", "variable" + (m.getEngineDepo().getLogicEngine().getDatBlocksSize() + 1), "hello", DataObject.TEXTFIELD));
+                    DataBlock temp = new DataBlock(new DataObject("String", "variable" + (m.getEngineDepo().getLogicEngine().getDatBlocksSize() + 1), "\"hello\"", DataObject.TEXTFIELD));
                     temp.setLocation((int) mousePoint.getX(), (int) mousePoint.getY());
                     m.getEngineDepo().getLogicEngine().addDataBlock(temp);
                     canvas.repaint();

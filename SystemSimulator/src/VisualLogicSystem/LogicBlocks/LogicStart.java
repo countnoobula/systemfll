@@ -24,15 +24,15 @@ public class LogicStart extends LogicBlock {
         super.type = "start";
 
         super.data.add(new DataObject("Dylan Vorster",DataObject.TEXTFIELD));
-        super.data.add(new DataObject("Program",DataObject.TEXTFIELD));
-
-
         CodeBlock code1 = new CodeBlock(this);
-        code1.setCompileCode("import lejos.nxt.*;\n"
-                + "      \n"
-                + "\n//Author: #1#"
-                + "      \npublic class #2# {\n"
-                + "        public static void main (String[] args) {\n\n");
+        String imports2[] = {"import lejos.nxt.*;",
+        "import lejos.nxt.*;",
+        "import lejos.nxt.*;",
+        "import lejos.nxt.*;"};
+        this.imports = imports2;
+        code1.setCompileCode(
+                "\n//Author: #1#"
+                + "\npublic static void main (String[] args) {");
 
 
         super.connectionPoints.add(new ConnectionPoint(
@@ -43,17 +43,11 @@ public class LogicStart extends LogicBlock {
                 new Rectangle(super.size - 10, 5, 10, 10),
                 new Color(0, 192, 255)));
 
+        
         this.addVariableConnectionPoint(new VariableConnectionPoint(
                 this,
                 data.get(0),
                 "Program Author",
-                new Color(0, 192, 255),
-                true));
-        
-        this.addVariableConnectionPoint(new VariableConnectionPoint(
-                this,
-                data.get(1),
-                "Class Name",
                 new Color(0, 192, 255),
                 true));
 

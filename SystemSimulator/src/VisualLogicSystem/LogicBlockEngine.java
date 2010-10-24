@@ -12,7 +12,7 @@ public class LogicBlockEngine {
     //variables
     static ArrayList<LogicBlockInterface> blocks;
     private ArrayList<LogicLink> links;
-    private ArrayList<DataBlock> dataBlocks;
+    static private ArrayList<DataBlock> dataBlocks;
     private ArrayList<DataLink> dataLinks;
 
     public LogicBlockEngine() {
@@ -44,11 +44,27 @@ public class LogicBlockEngine {
 
         if (first != null) {
 
+            b.add(new CodeBlock());
+            for (int i = 0; i < blocks.size(); i++) {
+                if (((LogicBlock) blocks.get(i)).getImports() != null) {
+                    b.get(0).addClusterCode(((LogicBlock) blocks.get(i)).getImports());
+                }
+
+            }
+            b.add(new CodeBlock());
+            b.get(1).setCompileCode("\npublic class Dylan{\n");
+
             System.out.println("starting recursion:");
             System.out.println("--------------------------");
 
             //start recursive MIND FUCK!!!!!!!!!!!!!!!!!!!!!!
             addNextBlock(first, b, null);
+            //add variables
+            CodeBlock cb = new CodeBlock();
+            for (int i = 0; i < dataBlocks.size(); i++) {
+                cb.addVariableCode(dataBlocks.get(i).getData());
+            }
+            b.add(2, cb);
 
             //kablamo it finished, now reset compile variables
             for (int i = 0; i < blocks.size(); i++) {
@@ -90,7 +106,10 @@ public class LogicBlockEngine {
                     //blocks.add(b.getCodeBlocks().get(0));
                     if (b.getConnectionPoint(l.getStartConnection()).getC() != null) {
                         blocks.add(b.getConnectionPoint(l.getStartConnection()).getC());
-                        System.out.println("added at insert 1");
+
+
+
+
                     }
 
                 } else if (b.getLinkInfo(l.getStartConnection()).equals("next")) {
@@ -99,7 +118,9 @@ public class LogicBlockEngine {
                     //blocks.add(b.getCodeBlocks().get(1));
                     if (b.getConnectionPoint(l.getStartConnection()).getC() != null) {
                         blocks.add(b.getConnectionPoint(l.getStartConnection()).getC());
-                        System.out.println("added at insert 2");
+
+
+
                     }
                     breaker = true;
                 }
@@ -113,7 +134,8 @@ public class LogicBlockEngine {
                     //blocks.add(b.getCodeBlocks().get(0));
                     if (b.getConnectionPoint(l.getEndConnection()).getC() != null) {
                         blocks.add(b.getConnectionPoint(l.getEndConnection()).getC());
-                        System.out.println("added at insert 3");
+
+
                     }
 
 
@@ -123,7 +145,8 @@ public class LogicBlockEngine {
                     //blocks.add(b.getCodeBlocks().get(1));
                     if (b.getConnectionPoint(l.getEndConnection()).getC() != null) {
                         blocks.add(b.getConnectionPoint(l.getEndConnection()).getC());
-                        System.out.println("added at insert 4");
+
+
                     }
                     breaker = true;
                 }
@@ -246,6 +269,7 @@ public class LogicBlockEngine {
         }
         blocks.remove(b);
     }
+
     public void removeDataBlock(DataBlock b) {
 
         for (int i = 0; i < b.getDataLinkSize(); i++) {
@@ -255,47 +279,58 @@ public class LogicBlockEngine {
         }
         this.dataBlocks.remove(b);
     }
+
     public void removeLink(LogicLink l) {
         l.getStart().removeLink(l);
         l.getEnd().removeLink(l);
         links.remove(l);
     }
+
     public int getBlockArraySize() {
         return blocks.size();
     }
+
     public LogicBlock getBlock(int i) {
         return (LogicBlock) blocks.get(i);
     }
+
     public int getLinkArraySize() {
         return links.size();
     }
+
     public LogicLink getLink(int i) {
         return links.get(i);
     }
+
     public void addLogicLink(LogicLink l) {
         links.add(l);
     }
-    public void addDataBlock(DataBlock b){
+
+    public void addDataBlock(DataBlock b) {
         this.dataBlocks.add(b);
     }
-    public int getDatBlocksSize(){
+
+    public int getDatBlocksSize() {
         return this.dataBlocks.size();
     }
-    public DataBlock getDataBlock(int i){
+
+    public DataBlock getDataBlock(int i) {
         return this.dataBlocks.get(i);
     }
 
-    public DataBlock getDataBlock(DataBlock d){
+    public DataBlock getDataBlock(DataBlock d) {
         return this.dataBlocks.get(this.dataBlocks.indexOf(d));
     }
-    public void addDataLink(DataLink dl){
+
+    public void addDataLink(DataLink dl) {
         this.dataLinks.add(dl);
     }
-    public int getDataLinkSize(){
+
+    public int getDataLinkSize() {
         return this.dataLinks.size();
     }
-    public DataLink getDataLink(int index){
+
+    public DataLink getDataLink(int index) {
         return this.dataLinks.get(index);
     }
-
 }
