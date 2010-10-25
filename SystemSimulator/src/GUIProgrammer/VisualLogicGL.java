@@ -258,8 +258,8 @@ public class VisualLogicGL extends GenericSystemPanel {
             gl.glDisable(GL2.GL_DEPTH_TEST);
             gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
             gl.glEnable(GL2.GL_BLEND);
-
             gl.glEnable(GL2.GL_LINE_SMOOTH);
+            gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
 
         }
 
@@ -268,8 +268,6 @@ public class VisualLogicGL extends GenericSystemPanel {
 
         public void display(GLAutoDrawable glad) {
             GL2 gl = glad.getGL().getGL2();
-
-            gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
             gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
             gl.glColor3d(0.15, 0.15, 0.15);
 
