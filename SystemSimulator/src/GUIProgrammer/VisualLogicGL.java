@@ -76,8 +76,6 @@ public class VisualLogicGL extends GenericSystemPanel {
         GLProfile.initSingleton();
         GLProfile glp = GLProfile.getDefault();
         GLCapabilities caps = new GLCapabilities(glp);
-        caps.setDoubleBuffered(true);
-        this.setDoubleBuffered(false);
 
         //new instances
         menu = new TopBar();
@@ -259,7 +257,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
             gl.glEnable(GL2.GL_BLEND);
             gl.glEnable(GL2.GL_LINE_SMOOTH);
-            gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+            gl.glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 
         }
 
