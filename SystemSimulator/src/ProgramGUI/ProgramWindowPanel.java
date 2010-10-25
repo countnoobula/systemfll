@@ -54,7 +54,6 @@ public class ProgramWindowPanel extends JPanel {
 
     public ProgramWindowPanel(Main m2) {
         this.m = m2;
-        this.setOpaque(false);
 //        if(m.getPrefs().getBoolean("showStartAnimation", true)==true){
 //          this.setVisible(false);
 //        }
@@ -78,7 +77,7 @@ public class ProgramWindowPanel extends JPanel {
 
         this.insetSize = 4;
 
-        gp1 = new Color(0,0,0,200);
+        gp1 = new Color(0,0,0);
 
         //build the window
         this.initComponents();

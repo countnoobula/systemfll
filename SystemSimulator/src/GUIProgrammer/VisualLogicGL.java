@@ -269,77 +269,77 @@ public class VisualLogicGL extends GenericSystemPanel {
         public void display(GLAutoDrawable glad) {
             GL2 gl = glad.getGL().getGL2();
             gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-//            gl.glColor3d(0.15, 0.15, 0.15);
-//
-//            for (int i = 0; i < canvas.getWidth(); i += 30) {
-//
-//                gl.glBegin(GL2.GL_LINES);
-//                gl.glVertex2d(i, 0);
-//                gl.glVertex2d(i, canvas.getHeight());
-//                gl.glEnd();
-//
-//                gl.glBegin(GL2.GL_LINES);
-//                gl.glVertex2d(0, i);
-//                gl.glVertex2d(canvas.getWidth(), i);
-//                gl.glEnd();
-//            }
-//
-//
-//
-//
-//            //draw all the links
-//            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getLinkArraySize(); i++) {
-//
-//                gl.glLineWidth(3.0f);
-//                m.getEngineDepo().getLogicEngine().getLink(i).drawGL(gl);
-//
-//                m.getEngineDepo().getLogicEngine().getLink(i).drawAnchors(gl);
-//            }
-//            //draw all the logic blocks
-//            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getBlockArraySize(); i++) {
-//                m.getEngineDepo().getLogicEngine().getBlock(i).drawGL(gl);
-//            }
-//            //draw all the data links
-//            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDataLinkSize(); i++) {
-//                m.getEngineDepo().getLogicEngine().getDataLink(i).drawGL(gl);
-//            }
-//            //draw all the data blocks
-//            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDatBlocksSize(); i++) {
-//                m.getEngineDepo().getLogicEngine().getDataBlock(i).drawGL(gl);
-//            }
-//
-//            gl.glColor4d(0, 0.75, 1.0, 0.7);
-//            //draw flashing blocks
-//            if (blinker == true) {
-//
-//                if (selected1 != -1) {
-//
-//                    for (int j = 0; j < m.getEngineDepo().getLogicEngine().getBlock(selected1).getAmountBounds(); j++) {
-//
-//                        //drawFlashingblocks
-//                        gl.glBegin(GL2.GL_POLYGON);
-//
-//                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
-//                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX(),
-//                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
-//                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY());
-//                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
-//                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX() + 10,
-//                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
-//                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY());
-//                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
-//                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX() + 10,
-//                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
-//                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY() + 10);
-//                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
-//                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX(),
-//                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
-//                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY() + 10);
-//                        gl.glEnd();
-//
-//                    }
-//                }
-//            }
+            gl.glColor3d(0.15, 0.15, 0.15);
+
+            for (int i = 0; i < canvas.getWidth(); i += 30) {
+
+                gl.glBegin(GL2.GL_LINES);
+                gl.glVertex2d(i, 0);
+                gl.glVertex2d(i, canvas.getHeight());
+                gl.glEnd();
+
+                gl.glBegin(GL2.GL_LINES);
+                gl.glVertex2d(0, i);
+                gl.glVertex2d(canvas.getWidth(), i);
+                gl.glEnd();
+            }
+
+
+
+
+            //draw all the links
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getLinkArraySize(); i++) {
+
+                gl.glLineWidth(3.0f);
+                m.getEngineDepo().getLogicEngine().getLink(i).drawGL(gl);
+
+                m.getEngineDepo().getLogicEngine().getLink(i).drawAnchors(gl);
+            }
+            //draw all the logic blocks
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getBlockArraySize(); i++) {
+                m.getEngineDepo().getLogicEngine().getBlock(i).drawGL(gl);
+            }
+            //draw all the data links
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDataLinkSize(); i++) {
+                m.getEngineDepo().getLogicEngine().getDataLink(i).drawGL(gl);
+            }
+            //draw all the data blocks
+            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDatBlocksSize(); i++) {
+                m.getEngineDepo().getLogicEngine().getDataBlock(i).drawGL(gl);
+            }
+
+            gl.glColor4d(0, 0.75, 1.0, 0.7);
+            //draw flashing blocks
+            if (blinker == true) {
+
+                if (selected1 != -1) {
+
+                    for (int j = 0; j < m.getEngineDepo().getLogicEngine().getBlock(selected1).getAmountBounds(); j++) {
+
+                        //drawFlashingblocks
+                        gl.glBegin(GL2.GL_POLYGON);
+
+                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX(),
+                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY());
+                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX() + 10,
+                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY());
+                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX() + 10,
+                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY() + 10);
+                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX(),
+                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
+                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY() + 10);
+                        gl.glEnd();
+
+                    }
+                }
+            }
 
 
             //end the graphics stuffs

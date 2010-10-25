@@ -45,8 +45,6 @@ public class Main {
         f.setVisible(true);
         this.mainWindow = new ProgramWindow(this,f);
         mainWindow.setVisible(true);
-        AWTUtilitiesWrapper.setWindowOpaque(mainWindow, false);
-
     }
 
     /**
