@@ -73,11 +73,10 @@ public class VisualLogicGL extends GenericSystemPanel {
     public VisualLogicGL(Main m2) {
         super();
         this.m = m2;
-        GLProfile.initSingleton();
 
         //new instances
         menu = new TopBar();
-        canvas = new LogicCanvas(null);
+        canvas = new LogicCanvas();
         drawer = new LogicBlocksDrawer(m);
         panes = new JLayeredPane();
         topLayer = new NullPanel();
@@ -658,9 +657,7 @@ public class VisualLogicGL extends GenericSystemPanel {
 
     public class LogicCanvas extends GLCanvas {
 
-        public LogicCanvas(GLCapabilities caps) {
-
-            super(caps);
+        public LogicCanvas() {
             GLContext gel = new GLContext();
             this.addGLEventListener(gel);
             this.addMouseListener(gel);
