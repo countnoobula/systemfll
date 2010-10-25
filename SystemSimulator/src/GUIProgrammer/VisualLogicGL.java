@@ -271,6 +271,10 @@ public class VisualLogicGL extends GenericSystemPanel {
               //and clearing the buffer with this set clear color
                 gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
                 gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
+                 //is placed over another (here we have blended colors of
+              //two consecutively overlapping graphic objects)
+                gl.glBlendFunc (GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
+                gl.glEnable (GL2.GL_BLEND);
 
             for (int i = 0; i < canvas.getWidth(); i += 30) {
 
