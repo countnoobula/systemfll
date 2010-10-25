@@ -206,6 +206,10 @@ public class VisualLogicGL extends GenericSystemPanel {
         private DataLink link2 = null;
         boolean repaintAgain = false;
 
+        public void dispose(GLAutoDrawable glad) {
+            
+        }
+
         private class hoverChecker implements ActionListener {
 
             public void actionPerformed(ActionEvent e) {
@@ -245,24 +249,16 @@ public class VisualLogicGL extends GenericSystemPanel {
             }
         }
 
-        public void init(GLAutoDrawable glad) {
-
-            GL2 gl = glad.getGL().getGL2();
-            
-
-        }
-
-        public void dispose(GLAutoDrawable glad) {
-        }
-
-        public void display(GLAutoDrawable glad) {
-            GL2 gl = glad.getGL().getGL2();
-            //Projection mode is for setting camera
+         @Override
+            public void display(GLAutoDrawable drawable) {
+                System.out.println("DISPLAY CALLED");
+            	GL2 gl = drawable.getGL().getGL2();
+              //Projection mode is for setting camera
             	gl.glMatrixMode(GL2.GL_PROJECTION);
               //This will set the camera for orthographic projection and allow 2D view
               //Our projection will be on 400 X 400 screen
                 gl.glLoadIdentity();
-                gl.glOrtho(0, canvas.getWidth(), canvas.getHeight(), 0, 0, 1);
+                gl.glOrtho(0, 400, 400, 0, 0, 1);
               //Modelview is for drawing
                 gl.glMatrixMode(GL2.GL_MODELVIEW);
               //Depth is disabled because we are drawing in 2D
@@ -271,96 +267,38 @@ public class VisualLogicGL extends GenericSystemPanel {
               //and clearing the buffer with this set clear color
                 gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
                 gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-                 //is placed over another (here we have blended colors of
+              //This defines how to blend when a transparent graphics
+              //is placed over another (here we have blended colors of
               //two consecutively overlapping graphic objects)
                 gl.glBlendFunc (GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
                 gl.glEnable (GL2.GL_BLEND);
+              //After this we start the drawing of object
+              //We want to draw a triangle which is a type of polygon
+                gl.glBegin(GL2.GL_POLYGON);
+              //We want to draw triangle in red color
+              //So setting the gl color to red
+                gl.glColor4f(1, 0, 0, 1);
+              //Making vertices of the triangle
+                gl.glVertex2d(100, 100);
+            	gl.glVertex2d(100, 200);
+            	gl.glVertex2d(200, 200);
+              //Our polygon ends here
+            	gl.glEnd();
+                gl.glFlush();
+            }
+ 
 
-            for (int i = 0; i < canvas.getWidth(); i += 30) {
-
-                gl.glBegin(GL2.GL_LINES);
-                gl.glVertex2d(i, 0);
-                gl.glVertex2d(i, canvas.getHeight());
-                gl.glEnd();
-
-                gl.glBegin(GL2.GL_LINES);
-                gl.glVertex2d(0, i);
-                gl.glVertex2d(canvas.getWidth(), i);
-                gl.glEnd();
+            @Override
+            public void init(GLAutoDrawable drawable) {
+                    System.out.println("INIT CALLED");
             }
 
+            @Override
+            public void reshape(GLAutoDrawable arg0, int arg1, int arg2, int arg3,
+                            int arg4) {
+                    System.out.println("RESHAPE CALLED");
 
-
-
-            //draw all the links
-            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getLinkArraySize(); i++) {
-
-                gl.glLineWidth(3.0f);
-                m.getEngineDepo().getLogicEngine().getLink(i).drawGL(gl);
-
-                m.getEngineDepo().getLogicEngine().getLink(i).drawAnchors(gl);
             }
-            //draw all the logic blocks
-            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getBlockArraySize(); i++) {
-                m.getEngineDepo().getLogicEngine().getBlock(i).drawGL(gl);
-            }
-            //draw all the data links
-            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDataLinkSize(); i++) {
-                m.getEngineDepo().getLogicEngine().getDataLink(i).drawGL(gl);
-            }
-            //draw all the data blocks
-            for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDatBlocksSize(); i++) {
-                m.getEngineDepo().getLogicEngine().getDataBlock(i).drawGL(gl);
-            }
-
-            gl.glColor4d(0, 0.75, 1.0, 0.7);
-            //draw flashing blocks
-            if (blinker == true) {
-
-                if (selected1 != -1) {
-
-                    for (int j = 0; j < m.getEngineDepo().getLogicEngine().getBlock(selected1).getAmountBounds(); j++) {
-
-                        //drawFlashingblocks
-                        gl.glBegin(GL2.GL_POLYGON);
-
-                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
-                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX(),
-                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
-                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY());
-                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
-                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX() + 10,
-                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
-                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY());
-                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
-                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX() + 10,
-                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
-                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY() + 10);
-                        gl.glVertex2d((int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getX()
-                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getX(),
-                                (int) m.getEngineDepo().getLogicEngine().getBlock(selected1).getConnectionBound(j).getY()
-                                + m.getEngineDepo().getLogicEngine().getBlock(selected1).getY() + 10);
-                        gl.glEnd();
-
-                    }
-                }
-            }
-
-
-            //end the graphics stuffs
-            gl.glFlush();
-
-
-        }
-
-        public void reshape(GLAutoDrawable glad, int x, int y, int w, int h) {
-            GL2 gl = glad.getGL().getGL2();
-            //Projection mode is for setting camera
-            gl.glMatrixMode(GL2.GL_PROJECTION);
-            gl.glLoadIdentity();
-            gl.glOrtho(0, canvas.getWidth(), canvas.getHeight(), 0, 0, 1);
-
-        }
 
         public void mouseClicked(MouseEvent me) {
         }
