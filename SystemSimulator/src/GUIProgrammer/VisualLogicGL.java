@@ -74,12 +74,10 @@ public class VisualLogicGL extends GenericSystemPanel {
         super();
         this.m = m2;
         GLProfile.initSingleton();
-        GLProfile glp = GLProfile.getDefault();
-        GLCapabilities caps = new GLCapabilities(glp);
 
         //new instances
         menu = new TopBar();
-        canvas = new LogicCanvas(caps);
+        canvas = new LogicCanvas(null);
         drawer = new LogicBlocksDrawer(m);
         panes = new JLayeredPane();
         topLayer = new NullPanel();
