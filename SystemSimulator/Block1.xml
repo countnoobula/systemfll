@@ -37,47 +37,51 @@
     <!-- This is a list of imports -->
     <imports>
         <import>import lejos.nxt.*;</import>
-        <import>import lejos.nxt.*;</import>
-        <import>import lejos.nxt.*;</import>
-        <import>import lejos.nxt.*;</import>
+        <import>import java.lang.*;</import>
     </imports>
 
 
     <!-- These are the connection points with their code blocks -->
     <connectionPoints>
+        <connection>
 
-        <flowRule>0</flowRule>
-        <linkRule>1</linkRule>
+            <flowRule>0</flowRule>
+            <linkRule>1</linkRule>
 
-        <description>begins the constructor</description>
+            <description>begins the constructor</description>
 
-        <code>\n//Author: #1#\npublic static void main (String[] args) {</code>
+            <code>//Author: #1#
+public static void main (String[] args) {
+</code>
 
-        <rectangle>
-            <x>40</x>
-            <y>5</y>
-            <width>10</width>
-            <height>10</height>
-        </rectangle>
+            <rectangle>
+                <x>40</x>
+                <y>5</y>
+                <width>10</width>
+                <height>10</height>
+            </rectangle>
 
-        <color>
-            <r>0</r>
-            <g>192</g>
-            <b>255</b>
-        </color>
+            <color>
+                <r>0</r>
+                <g>192</g>
+                <b>255</b>
+            </color>
+        </connection>
         
     </connectionPoints>
 
     <!-- Variable IO -->
     <variablePoints>
-        <dataID>0</dataID>
-        <title>Program Author</title>
-         <color>
-            <r>0</r>
-            <g>192</g>
-            <b>255</b>
-        </color>
-        <input>true</input>
+        <connection>
+            <dataID>0</dataID>
+            <title>Program Author</title>
+            <color>
+                <r>0</r>
+                <g>192</g>
+                <b>255</b>
+            </color>
+            <input>true</input>
+        </connection>
 
     </variablePoints>
 
