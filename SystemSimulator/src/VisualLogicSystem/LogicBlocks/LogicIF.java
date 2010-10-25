@@ -25,7 +25,7 @@ public class LogicIF extends LogicBlock {
         code1.setCompileCode("if(true){");
 
         CodeBlock code2 = new CodeBlock(this);
-        code2.setCompileCode("}else{");
+        code2.setCompileCode("}\nelse{");
 
 
         super.connectionPoints.add(new ConnectionPoint("next",

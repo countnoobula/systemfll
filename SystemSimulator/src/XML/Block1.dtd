@@ -1,7 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 
 <!--
-
     TODO define vocabulary identification
     PUBLIC ID: -//vendor//vocabulary//EN
     SYSTEM ID: http://server/path/Block1.dtd
@@ -21,7 +20,7 @@
 -->
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT logicBlock (connectionPoints|information)*>
+<!ELEMENT logicBlock (variablePoints|connectionPoints|imports|data|graphics|information)*>
 
 <!--- Put your DTDDoc comment here. -->
 <!ELEMENT information (type|description|title)*>
@@ -36,10 +35,73 @@
 <!ELEMENT type (#PCDATA)>
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT connectionPoints (connection)*>
+<!ELEMENT graphics (height|width|icon)*>
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT connection (rule)*>
+<!ELEMENT icon (#PCDATA)>
 
 <!--- Put your DTDDoc comment here. -->
-<!ELEMENT rule (#PCDATA)>
+<!ELEMENT width (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT height (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT data (dataObject)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT dataObject (type|value)*>
+<!ATTLIST dataObject
+    id CDATA #IMPLIED
+  >
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT value (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT imports (import)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT import (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT connectionPoints (color|rectangle|code|description|linkRule|flowRule)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT flowRule (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT linkRule (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT code (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT rectangle (height|width|y|x)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT x (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT y (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT color (b|g|r)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT r (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT g (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT b (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT variablePoints (input|color|title|dataID)*>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT dataID (#PCDATA)>
+
+<!--- Put your DTDDoc comment here. -->
+<!ELEMENT input (#PCDATA)>

@@ -18,7 +18,7 @@ public class LogicElse extends LogicBlock {
         super();
 
         CodeBlock code1 = new CodeBlock(this);
-        code1.setCompileCode("\n}\n");
+        code1.setCompileCode("}");
 
 
         super.connectionPoints.add(new ConnectionPoint(
