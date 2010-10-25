@@ -42,7 +42,7 @@ public class ConnectionPoint {
     public ConnectionPoint(String compilerRules,String description,int connectionRule, CodeBlock c,Rectangle rect,Color color){
         this.compilerRules = compilerRules;
         this.description = description;
-        this.c = c;
+        this.c = new CodeBlock();
         this.rect = rect;
         this.colR = (color.getRed()/255);
         this.colG = (color.getGreen()/255);
