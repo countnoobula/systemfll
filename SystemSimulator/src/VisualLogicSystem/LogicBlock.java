@@ -137,6 +137,21 @@ public class LogicBlock implements LogicBlockInterface, Cloneable {
             v.setRealRect(new Rectangle((int) (rectBot.getWidth() - 12), size + 4, 10, 10));
         }
     }
+    public void addConnectionPoint(ConnectionPoint cp){
+        this.connectionPoints.add(cp);
+    }
+    public void addDataObject(int i,DataObject db){
+        this.data.add(i,db);
+    }
+    public void setType(String type){
+        this.type = type;
+    }
+    public void setImports(String imports[]){
+        this.imports = imports;
+    }
+    public void setSize(int size){
+        this.size = size;
+    }
 
     /**
      * Draws the Block in OpenGL
@@ -269,9 +284,6 @@ public class LogicBlock implements LogicBlockInterface, Cloneable {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public ArrayList<LogicLink> getNodes() {
         return nodes;

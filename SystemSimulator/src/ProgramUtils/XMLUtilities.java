@@ -8,6 +8,7 @@ import VisualLogicSystem.CodeBlock;
 import VisualLogicSystem.ConnectionPoint;
 import VisualLogicSystem.DataBlocks.DataObject;
 import VisualLogicSystem.LogicBlock;
+import VisualLogicSystem.VariableConnectionPoint;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.io.File;
@@ -66,7 +67,7 @@ public class XMLUtilities {
                     ArrayList<DataObject> dataObjects = new ArrayList<DataObject>(0);
                     for (int i = 0; i < dataObject.size(); i++) {
                         if (dataObject.get(i).getChildText("type").equals("textfield")) {
-                            dataObjects.add(Integer.parseInt(dataObject.get(i).getAttribute("id").getValue()),
+                            temp.addDataObject(Integer.parseInt(dataObject.get(i).getAttribute("id").getValue()),
                                     new DataObject(""
                                     + dataObject.get(i).getChildText("value"),
                                     DataObject.TEXTFIELD));
@@ -89,11 +90,13 @@ public class XMLUtilities {
                         String code = connectionPoint.get(i).getChildText("code");
 
                         CodeBlock cb = null;
+
                         if (code != null) {
                             cb = new CodeBlock(temp);
                             cb.setCompileCode(code);
 
                         }
+
                         //generate the rectangle for this connecion points
                         Rectangle tempRect = new Rectangle(
                                 Integer.parseInt(connectionPoint.get(i).getChild("rectangle").getChildText("x")),
@@ -105,14 +108,51 @@ public class XMLUtilities {
                                 Integer.parseInt(connectionPoint.get(i).getChild("color").getChildText("g")),
                                 Integer.parseInt(connectionPoint.get(i).getChild("color").getChildText("b")));
 
-                        
+
                         connections1.add(new ConnectionPoint(
-                                flowRule,desc,Integer.parseInt(linkRule),cb,tempRect,colTemp
-                                ));
+                                flowRule, desc, Integer.parseInt(linkRule), cb, tempRect, colTemp));
+
+                    }
+                    //load variable connection points
+                    Element variablePoints = root.getChild("variablePoints");
+
+                    List<Element> variablePoint = (List<Element>) connectionPoints.getChildren();
+
+
+                    for (int i = 0; i < variablePoint.size();
+                            i++) {
+
+
+                        String dataID = variablePoint.get(i).getChildText("dataID");
+                        String title2 = variablePoint.get(i).getChildText("title");
+                        String input = connectionPoint.get(i).getChildText("input");
+
+                        boolean inp = false;
+                        if (input.equals("true")) {
+                            inp = true;
+                        }
+                        if (input.equals("false")) {
+                            inp = false;
+                        }
+                        Color colTemp2 = new Color(
+                                Integer.parseInt(variablePoint.get(i).getChild("color").getChildText("r")),
+                                Integer.parseInt(variablePoint.get(i).getChild("color").getChildText("g")),
+                                Integer.parseInt(variablePoint.get(i).getChild("color").getChildText("b")));
+
+
+                        temp.addVariableConnectionPoint(new VariableConnectionPoint(
+                                temp,
+                                temp.getData().get(Integer.parseInt(dataID)),
+                                title2, colTemp2, inp));
+
 
                         //load variable connection points
 
-                       
+                        temp.setType(type);
+                        temp.setSize(Integer.parseInt(width));
+                        temp.setImports(importList);
+
+
 
 
                     }
@@ -120,7 +160,10 @@ public class XMLUtilities {
 
                 } catch (Exception e) {
                 }
+
+
             }
+
 
         }
         return temp;
@@ -128,5 +171,7 @@ public class XMLUtilities {
 
     public static void main(String args[]) {
         XMLUtilities.loadLogicBlocks(new File("block1.xml"));
+
+
     }
 }
