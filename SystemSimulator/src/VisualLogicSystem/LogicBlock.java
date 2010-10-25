@@ -2,6 +2,7 @@ package VisualLogicSystem;
 
 //imports
 import ProgramGUI.GUIComponents.BlockVariablePane;
+import ProgramGUI.GUIComponents.Buttons.NullButton;
 import VisualLogicSystem.DataBlocks.DataObject;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -49,6 +50,7 @@ public class LogicBlock implements LogicBlockInterface, Cloneable {
     public ArrayList<ConnectionPoint> connectionPoints;
     public Rectangle rectUp, rectBot;
     public String imports[];
+    public BufferedImage bi2;
 
     public LogicBlock() {
 
@@ -357,17 +359,25 @@ public class LogicBlock implements LogicBlockInterface, Cloneable {
     //!-------- The button class --------------
     private class LogicButtonUI extends BasicButtonUI {
 
+        
         @Override
         public void paint(Graphics g, JComponent c) {
-            g.drawImage(bi, 0, 0, null);
+            g.drawImage(bi2, 0, 0, null);
         }
     }
 
     public JButton getButton() {
 
-        JButton temp = new JButton("");
+        bi2 = new BufferedImage(60,60,BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g23 = bi2.createGraphics();
+        AffineTransform gt = new AffineTransform();
+        gt.translate(0, size + 10);
 
-        ImageIcon i = new ImageIcon(bi);
+        gt.scale(1, -1d);
+        g23.transform(gt);
+        g23.drawImage(bi, 0, 0,null);
+        NullButton temp = new NullButton("");
+
         temp.setUI(new LogicButtonUI());
         temp.setOpaque(false);
         temp.setPreferredSize(new Dimension(size + 10, size + 10));
