@@ -29,7 +29,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-public abstract class LogicBlock implements LogicBlockInterface, Cloneable {
+public class LogicBlock implements LogicBlockInterface, Cloneable {
 
     public Paint gp1, gp2, gp3, gp4, gp5;
     public Graphics2D g2d;
