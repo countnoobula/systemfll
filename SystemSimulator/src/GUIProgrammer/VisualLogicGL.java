@@ -248,14 +248,7 @@ public class VisualLogicGL extends GenericSystemPanel {
         public void init(GLAutoDrawable glad) {
 
             GL2 gl = glad.getGL().getGL2();
-
-            //set up the canvas
-            gl.glMatrixMode(GL2.GL_MODELVIEW);
-            gl.glDisable(GL2.GL_DEPTH_TEST);
-            gl.glBlendFunc(GL2.GL_SRC_ALPHA, GL2.GL_ONE_MINUS_SRC_ALPHA);
-            gl.glEnable(GL2.GL_BLEND);
-            gl.glEnable(GL2.GL_LINE_SMOOTH);
-            gl.glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+            
 
         }
 
@@ -264,8 +257,20 @@ public class VisualLogicGL extends GenericSystemPanel {
 
         public void display(GLAutoDrawable glad) {
             GL2 gl = glad.getGL().getGL2();
-            gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-            gl.glColor3d(0.15, 0.15, 0.15);
+            //Projection mode is for setting camera
+            	gl.glMatrixMode(GL2.GL_PROJECTION);
+              //This will set the camera for orthographic projection and allow 2D view
+              //Our projection will be on 400 X 400 screen
+                gl.glLoadIdentity();
+                gl.glOrtho(0, canvas.getWidth(), canvas.getHeight(), 0, 0, 1);
+              //Modelview is for drawing
+                gl.glMatrixMode(GL2.GL_MODELVIEW);
+              //Depth is disabled because we are drawing in 2D
+                gl.glDisable(GL2.GL_DEPTH_TEST);
+              //Setting the clear color (in this case black)
+              //and clearing the buffer with this set clear color
+                gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+                gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
 
             for (int i = 0; i < canvas.getWidth(); i += 30) {
 
