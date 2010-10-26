@@ -11,28 +11,22 @@
 
     <!-- This is information about the block and what it does -->
     <information>
-        <title>RCX Start</title>
+        <title>RCX IF</title>
         <description>
-            This is the start of an RCX program which is run through
-            the Lejos operating system. Use this to start a program off
+            A general RCX if
         </description>
         <type>block</type>
     </information>
 
     <!-- Everything regarding the graphics of the logic block -->
     <graphics>
-        <icon>2.png</icon>
+        <icon>3.png</icon>
         <width>50</width>
         <height>50</height>
     </graphics>
 
     <!-- These are data variables used in the code -->
-    <data>
-        <dataObject id="0">
-            <value>Hello World!</value>
-            <type>textfield</type>
-        </dataObject>
-    </data>
+
 
     <!-- This is a list of imports -->
     <imports>
@@ -48,11 +42,33 @@
 
             <description>begins the constructor</description>
 
-            <code>System.out.println(#'1'#);</code>
+            <code>if(true){</code>
 
             <rectangle>
                 <x>40</x>
                 <y>5</y>
+                <width>10</width>
+                <height>10</height>
+            </rectangle>
+
+            <color>
+                <r>0</r>
+                <g>192</g>
+                <b>255</b>
+            </color>
+        </connection>
+         <connection>
+
+            <flowRule>1</flowRule>
+            <linkRule>1</linkRule>
+
+            <description>begins the constructor</description>
+
+            <code>}else{</code>
+
+            <rectangle>
+                <x>40</x>
+                <y>35</y>
                 <width>10</width>
                 <height>10</height>
             </rectangle>
@@ -85,21 +101,6 @@
         </connection>
         
     </connectionPoints>
-
-    <!-- Variable IO -->
-    <variablePoints>
-        <connection>
-            <dataID>0</dataID>
-            <title>Program Author</title>
-            <color>
-                <r>0</r>
-                <g>192</g>
-                <b>255</b>
-            </color>
-            <input>true</input>
-        </connection>
-
-    </variablePoints>
 
 
 </logicBlock>

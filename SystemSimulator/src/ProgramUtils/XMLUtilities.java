@@ -4,7 +4,6 @@
  */
 package ProgramUtils;
 
-import java.io.IOException;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
@@ -61,13 +60,15 @@ public class XMLUtilities {
                     for (int i = 0; i < listOfImports.size(); i++) {
                         importList[i] = listOfImports.get(i).getText();
                     }
-                    //load connection points
-                    Element data = root.getChild("data");
-                    List<Element> dataObject = (List<Element>) data.getChildren();
-                    ArrayList<DataObject> dataObjects = new ArrayList<DataObject>(0);
-                    for (int i = 0; i < dataObject.size(); i++) {
-                        if (dataObject.get(i).getChildText("type").equals("textfield")) {
-                            temp.addDataObject(new DataObject("" + dataObject.get(i).getChildText("value"), DataObject.TEXTFIELD));
+                    if (root.getChild("data") != null) {
+                        //load data points
+                        Element data = root.getChild("data");
+                        List<Element> dataObject = (List<Element>) data.getChildren();
+                        ArrayList<DataObject> dataObjects = new ArrayList<DataObject>(0);
+                        for (int i = 0; i < dataObject.size(); i++) {
+                            if (dataObject.get(i).getChildText("type").equals("textfield")) {
+                                temp.addDataObject(new DataObject("" + dataObject.get(i).getChildText("value"), DataObject.TEXTFIELD));
+                            }
                         }
                     }
                     //load connection points
@@ -86,32 +87,40 @@ public class XMLUtilities {
                         Rectangle tempRect = new Rectangle(Integer.parseInt(connectionPoint.get(i).getChild("rectangle").getChildText("x")), Integer.parseInt(connectionPoint.get(i).getChild("rectangle").getChildText("y")), Integer.parseInt(connectionPoint.get(i).getChild("rectangle").getChildText("width")), Integer.parseInt(connectionPoint.get(i).getChild("rectangle").getChildText("height")));
                         Color colTemp = new Color(Integer.parseInt(connectionPoint.get(i).getChild("color").getChildText("r")), Integer.parseInt(connectionPoint.get(i).getChild("color").getChildText("g")), Integer.parseInt(connectionPoint.get(i).getChild("color").getChildText("b")));
                         temp.addConnectionPoint(new ConnectionPoint(flowRule, desc, Integer.parseInt(linkRule), cb, tempRect, colTemp));
-                       
+
                     }
-                    //load variable connection points
-                    Element variablePoints = root.getChild("variablePoints");
-                    List<Element> variablePoint = (List<Element>) variablePoints.getChildren();
-                    for (int i = 0; i < variablePoint.size(); i++) {
-                        String dataID = variablePoint.get(i).getChildText("dataID");
-                        String title2 = variablePoint.get(i).getChildText("title");
-                        String input = variablePoint.get(i).getChildText("input");
-                        boolean inp = false;
-                        if (input.equals("true")) {
-                            inp = true;
-                        }
-                        if (input.equals("false")) {
-                            inp = false;
-                        }
-                        Color colTemp2 = new Color(Integer.parseInt(variablePoint.get(i).getChild("color").getChildText("r")), Integer.parseInt(variablePoint.get(i).getChild("color").getChildText("g")), Integer.parseInt(variablePoint.get(i).getChild("color").getChildText("b")));
-                        temp.addVariableConnectionPoint(new VariableConnectionPoint(temp, temp.getData().get(Integer.parseInt(dataID)), title2, colTemp2, inp));
+                    if (root.getChild("variablePoints") != null) {
+
+
                         //load variable connection points
-                        Image im = ImageIO.read(new File("logicBlocks/images/" + icon));
-                        
-                        temp.setType(type);
-                        temp.setImports(importList);
-                        temp.setImage(im);
-                        temp.GenerateGLBlock();
+                        Element variablePoints = root.getChild("variablePoints");
+                        List<Element> variablePoint = (List<Element>) variablePoints.getChildren();
+                        for (int i = 0; i < variablePoint.size(); i++) {
+                            String dataID = variablePoint.get(i).getChildText("dataID");
+                            String title2 = variablePoint.get(i).getChildText("title");
+                            String input = variablePoint.get(i).getChildText("input");
+                            boolean inp = false;
+                            if (input.equals("true")) {
+                                inp = true;
+                            }
+                            if (input.equals("false")) {
+                                inp = false;
+                            }
+                            Color colTemp2 = new Color(Integer.parseInt(variablePoint.get(i).getChild("color").getChildText("r")), Integer.parseInt(variablePoint.get(i).getChild("color").getChildText("g")), Integer.parseInt(variablePoint.get(i).getChild("color").getChildText("b")));
+                            temp.addVariableConnectionPoint(new VariableConnectionPoint(temp, temp.getData().get(Integer.parseInt(dataID)), title2, colTemp2, inp));
+
+
+
+                        }
+
                     }
+                    //load image
+                    Image im = ImageIO.read(new File("logicBlocks/images/" + icon));
+                    temp.setType(type);
+                    temp.setImports(importList);
+                    temp.setImage(im);
+                    temp.setSize(Integer.parseInt(width), Integer.parseInt(height));
+                    temp.GenerateGLBlock();
                 } catch (JDOMException ex) {
                     System.out.println("something weird");
                 } catch (IOException ex) {
@@ -121,7 +130,8 @@ public class XMLUtilities {
         }
         return temp;
     }
-     /**
+
+    /**
      * Returns a copy of the object, or null if the object cannot
      * be serialized.
      */
@@ -138,18 +148,15 @@ public class XMLUtilities {
             // Make an input stream from the byte array and read
             // a copy of the object back in.
             ObjectInputStream in = new ObjectInputStream(
-                new ByteArrayInputStream(bos.toByteArray()));
+                    new ByteArrayInputStream(bos.toByteArray()));
             obj = in.readObject();
-        }
-        catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch(ClassNotFoundException cnfe) {
+        } catch (ClassNotFoundException cnfe) {
             cnfe.printStackTrace();
         }
         return obj;
     }
-
 
     public static void main(String args[]) {
         XMLUtilities.loadLogicBlocks(new File("/SystemSimulator/logicBlocks/Block1.xml"));

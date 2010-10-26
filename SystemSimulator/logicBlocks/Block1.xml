@@ -21,7 +21,7 @@
 
     <!-- Everything regarding the graphics of the logic block -->
     <graphics>
-        <icon>1.jpg</icon>
+        <icon>1.png</icon>
         <width>50</width>
         <height>50</height>
     </graphics>
@@ -55,7 +55,7 @@ public static void main (String[] args) {
 </code>
 
             <rectangle>
-                <x>40</x>
+                <x>30</x>
                 <y>5</y>
                 <width>10</width>
                 <height>10</height>
@@ -70,7 +70,6 @@ public static void main (String[] args) {
         
     </connectionPoints>
 
-    <!-- Variable IO -->
     <variablePoints>
         <connection>
             <dataID>0</dataID>

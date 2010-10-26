@@ -20,7 +20,6 @@ import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
-import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -29,7 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-public class LogicBlock implements LogicBlockInterface,Cloneable {
+public class LogicBlock implements LogicBlockInterface, Cloneable {
 
     public Paint gp1, gp2, gp3, gp4, gp5;
     public Graphics2D g2d;
@@ -37,7 +36,8 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
     public BufferedImage bi;
     public WritableRaster raster;
     public ByteBuffer dest = null;
-    public int size = 50;
+    public int width = 50;
+    public int height = 50;
     public String type = "";
     public boolean displaySensorRack = false;
     public int currentCompileString = 0;
@@ -64,19 +64,19 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
         connectionPoints = new ArrayList<ConnectionPoint>(0);
 
         rectUp = new Rectangle(0, -15, 2, 13);
-        rectBot = new Rectangle(0, size + 2, 2, 13);
+        rectBot = new Rectangle(0, height + 2, 2, 13);
 
         //!-------- Begin Initialization --------!
 
 
-        bounds.setSize(size, size);
+        bounds.setSize(width, height);
 
 
         //prepare the image for JOGL
         raster =
                 Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE,
-                size + 10,
-                size + 10,
+                width,
+                height,
                 4,
                 null);
         ComponentColorModel colorModel =
@@ -94,7 +94,7 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
                 null);
         g2d = bi.createGraphics();
         AffineTransform gt = new AffineTransform();
-        gt.translate(0, size + 10);
+        gt.translate(0, height);
 
         gt.scale(1, -1d);
         g2d.transform(gt);
@@ -102,26 +102,6 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
 
-
-
-        // a few graphics objects which are useful
-        gp1 = new Color(20, 20, 20);
-        gp2 = new Color(160, 160, 160);
-        gp3 =
-                new GradientPaint(size, 0, new Color(0, 0, 0, 100), size + 10, 0, new Color(0,
-                0,
-                0,
-                0));
-        gp4 =
-                new GradientPaint(0, size, new Color(0, 0, 0, 100), 0, size + 10, new Color(0,
-                0,
-                0,
-                0));
-        gp5 =
-                new GradientPaint(size, size, new Color(0, 0, 0, 100), size + 5, size + 5,
-                new Color(0, 0, 0, 0));
-
-        drawBackground();
 
 
     }
@@ -134,24 +114,30 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
             v.setRealRect(new Rectangle((int) (rectUp.getWidth() - 12), -15, 10, 10));
         } else {
             rectBot.setSize((int) (rectBot.getWidth() + 12), 13);
-            v.setRect(new Rectangle((int) (rectBot.getWidth() - 12), size + 4, 10, 10));
-            v.setRealRect(new Rectangle((int) (rectBot.getWidth() - 12), size + 4, 10, 10));
+            v.setRect(new Rectangle((int) (rectBot.getWidth() - 12), height + 4, 10, 10));
+            v.setRealRect(new Rectangle((int) (rectBot.getWidth() - 12), height + 4, 10, 10));
         }
     }
-    public void addConnectionPoint(ConnectionPoint cp){
+
+    public void addConnectionPoint(ConnectionPoint cp) {
         this.connectionPoints.add(cp);
     }
-    public void addDataObject(DataObject db){
+
+    public void addDataObject(DataObject db) {
         this.data.add(db);
     }
-    public void setType(String type){
+
+    public void setType(String type) {
         this.type = type;
     }
-    public void setImports(String imports[]){
+
+    public void setImports(String imports[]) {
         this.imports = imports;
     }
-    public void setSize(int size){
-        this.size = size;
+
+    public void setSize(int width,int height) {
+        this.width = width;
+        this.height = height;
     }
 
     /**
@@ -160,8 +146,8 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
      */
     public void drawGL(GL2 gl) {
 
-        gl.glRasterPos2i(getX(), getY() + size + 10);
-        gl.glDrawPixels(size + 10, size + 10, GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE, dest);
+        gl.glRasterPos2i(getX(), getY() +height);
+        gl.glDrawPixels(width, height, GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE, dest);
 
         if (rectUp.getWidth() > 2) {
             //draw input blocks
@@ -200,21 +186,6 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
         }
     }
 
-    //!---------- Methods for generating a LogicBlock ---------!
-    public void drawBackground() {
-
-        g2d.setPaint(gp1);
-        g2d.fillRect(0, 0, size, size);
-        g2d.setPaint(gp3);
-        g2d.fillRect(size, 5, 10, size - 5);
-        g2d.setPaint(gp4);
-        g2d.fillRect(5, size, size - 5, 10);
-        g2d.setPaint(gp5);
-        g2d.fillRect(size, size, 10, 10);
-        g2d.setPaint(gp2);
-        g2d.drawRect(0, 0, size, size);
-
-    }
 
     public void GenerateGLBlock() {
 
@@ -283,7 +254,6 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
         return type;
     }
 
-
     public ArrayList<LogicLink> getNodes() {
         return nodes;
     }
@@ -320,13 +290,13 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
 
         this.bounds.setLocation(x, y);
         rectUp.setLocation(x, (y - 15));
-        rectBot.setLocation(x, (y + size + 2));
-        for(int i = 0;i < variablePoints.size();i++){
+        rectBot.setLocation(x, (y + height + 2));
+        for (int i = 0; i < variablePoints.size(); i++) {
             variablePoints.get(i).getRealRect().setLocation(
-                    (int)variablePoints.get(i).getRect().getX()+x,
-                    (int)variablePoints.get(i).getRect().getY()+y);
+                    (int) variablePoints.get(i).getRect().getX() + x,
+                    (int) variablePoints.get(i).getRect().getY() + y);
         }
-        
+
 
     }
 
@@ -356,29 +326,27 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
     //!-------- The button class --------------
     private class LogicButtonUI extends BasicButtonUI {
 
-        
         @Override
         public void paint(Graphics g, JComponent c) {
             g.drawImage(bi2, 0, 0, null);
         }
     }
 
-
     public JButton getButton() {
 
-        bi2 = new BufferedImage(60,60,BufferedImage.TYPE_INT_ARGB);
+        bi2 = new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g23 = bi2.createGraphics();
         AffineTransform gt = new AffineTransform();
-        gt.translate(0, size + 10);
+        gt.translate(0, height);
 
         gt.scale(1, -1d);
         g23.transform(gt);
-        g23.drawImage(bi, 0, 0,null);
+        g23.drawImage(bi, 0, 0, null);
         NullButton temp = new NullButton("");
 
         temp.setUI(new LogicButtonUI());
         temp.setOpaque(false);
-        temp.setPreferredSize(new Dimension(size + 10, size + 10));
+        temp.setPreferredSize(new Dimension(width, height));
         temp.addActionListener(new LogicBlockAddition(this));
         return temp;
     }
@@ -400,55 +368,57 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
         clone.rectUp = (Rectangle) rectUp.clone();
 
         ArrayList<DataObject> clone2 = new ArrayList<DataObject>();
-        for(int i = 0;i < this.data.size();i++){
+        for (int i = 0; i < this.data.size(); i++) {
             clone2.add(this.data.get(i));
 
         }
 
         ArrayList<ConnectionPoint> clone3 = new ArrayList<ConnectionPoint>();
-        for(int i = 0;i < this.connectionPoints.size();i++){
+        for (int i = 0; i < this.connectionPoints.size(); i++) {
             clone.connectionPoints.get(i).setData(clone2);
             clone3.add((ConnectionPoint) this.connectionPoints.get(i).clone());
-            
+
         }
 
         ArrayList<VariableConnectionPoint> clone1 = new ArrayList<VariableConnectionPoint>();
-        for(int i = 0;i < this.variablePoints.size();i++){
+        for (int i = 0; i < this.variablePoints.size(); i++) {
             clone1.add((VariableConnectionPoint) this.variablePoints.get(i).clone());
             clone1.get(i).setData(clone, clone2.get(i));
         }
-        
+
         clone.data = clone2;
         clone.variablePoints = clone1;
         clone.connectionPoints = clone3;
 
         clone.nodes = new ArrayList<LogicLink>();
         clone.rectBot = (Rectangle) rectBot.clone();
-        clone.rectUp = (Rectangle) rectUp.clone();   
-        
-        
+        clone.rectUp = (Rectangle) rectUp.clone();
+
+
         return clone;
     }
 
     public int getVariablePointsSize() {
         return this.variablePoints.size();
     }
-    public VariableConnectionPoint getVariableConnectionPoint(int index){
+
+    public VariableConnectionPoint getVariableConnectionPoint(int index) {
         return this.variablePoints.get(index);
     }
-
 
     public Rectangle getVariableConnectRect(int index) {
         return variablePoints.get(index).getRealRect();
     }
-    public void setDataObject(DataObject olddb,DataObject newdb ){
-        this.data.set(data.indexOf(olddb),newdb );
-    }
-    public String[] getImports(){
-        return imports;
-    }
-    public void setImage(Image i){
-        g2d.drawImage(i, 0, 0,null);
+
+    public void setDataObject(DataObject olddb, DataObject newdb) {
+        this.data.set(data.indexOf(olddb), newdb);
     }
 
+    public String[] getImports() {
+        return imports;
+    }
+
+    public void setImage(Image i) {
+        g2d.drawImage(i, 0, 0, null);
+    }
 }

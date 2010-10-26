@@ -106,12 +106,4 @@ public class VariableConnectionPoint  implements Cloneable{
         this.logicBlock = l;
     }
 
-
-
-
-
-
-
-
-
 }

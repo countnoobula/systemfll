@@ -23,8 +23,11 @@ public class SystemDepo {
     }
     public void loadLibrary(File directory){
         for(int i = 0;i < directory.listFiles().length;i++){
-            
-            logicLibrary.add(XMLUtilities.loadLogicBlocks(directory.listFiles()[i]));
+            if(directory.listFiles()[i].isFile()){
+                if(directory.listFiles()[i].getName().contains(".xml")){
+                  logicLibrary.add(XMLUtilities.loadLogicBlocks(directory.listFiles()[i]));
+                }  
+            }
         }
     }
 
