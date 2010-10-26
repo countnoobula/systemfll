@@ -1,6 +1,5 @@
 package MainClasses;
 
-
 import DataSystem.PlannerDatabase;
 
 import ProgramGUI.GUIEngine;
@@ -13,7 +12,6 @@ import javax.swing.JFrame;
 
 import javax.swing.SwingUtilities;
 import translucentshapes.AWTUtilitiesWrapper;
-
 
 /**
  * The Main method for the program
@@ -28,6 +26,7 @@ public class Main {
     public FontLoader fonts;
     public Preferences prefs;
     public EngineDepo engineDepo;
+    public SystemDepo systemDepo;
 
     public Main() {
 
@@ -36,14 +35,18 @@ public class Main {
 
         //create new instances of all the objects
         this.engineDepo = new EngineDepo();
+        this.systemDepo = new SystemDepo();
+
         this.systemProject = new SystemProject("Temp", "Dylan Vorster");
         this.fonts = new FontLoader();
         this.guiEngine = new GUIEngine(this);
+
         JFrame f = new JFrame();
-        f.setSize(0,0);
+        f.setSize(0, 0);
         f.setUndecorated(true);
         f.setVisible(true);
-        this.mainWindow = new ProgramWindow(this,f);
+        this.mainWindow = new ProgramWindow(this, f);
+
         mainWindow.setVisible(true);
     }
 
@@ -58,21 +61,16 @@ public class Main {
          * Kapow!
          */
         SwingUtilities.invokeLater(new Runnable() {
-              
 
-                public void run() {
-                    
-                    Main main = new Main();
-    
-                        main.getGuiEngine().makeVisible(main.getMainWindow().getProgramWindowPanel().getPanel_2().getPanel_1());
+            public void run() {
 
-                    
-                }
-            });
-
-
+                Main main = new Main();
+                main.getGuiEngine().makeVisible(main.getMainWindow().getProgramWindowPanel().getPanel_2().getPanel_1());
+                main.getMainWindow().getProgramWindowPanel().getPanel_2().getPanel_4().getPanel_3().getDrawer().setLogicBlocks(
+                        main.getSystemDepo().getLogicLibrary());
+            }
+        });
     }
-
 
     public ProgramWindow getMainWindow() {
         return mainWindow;
@@ -105,4 +103,9 @@ public class Main {
     public EngineDepo getEngineDepo() {
         return engineDepo;
     }
+
+    public SystemDepo getSystemDepo() {
+        return systemDepo;
+    }
+
 }

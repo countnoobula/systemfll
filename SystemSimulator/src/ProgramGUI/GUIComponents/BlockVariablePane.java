@@ -4,7 +4,7 @@ import ProgramGUI.GUIComponents.Buttons.SystemButton;
 import ProgramGUI.GUIComponents.LogicControls.ControlPoints;
 import ProgramGUI.GUIComponents.LogicControls.Field;
 import ProgramGUI.GUIComponents.LogicControls.Slider;
-import VisualLogicSystem.DataBlocks.DataObject;
+import VisualLogicSystem.DataObject;
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;

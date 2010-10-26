@@ -4,12 +4,14 @@ package VisualLogicSystem;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * This a connection point object which is added to a logic block.
  * @author Dylan
  */
-public class ConnectionPoint {
+public class ConnectionPoint  implements Cloneable{
 
     private String compilerRules;
     private String description;
@@ -42,7 +44,7 @@ public class ConnectionPoint {
     public ConnectionPoint(String compilerRules,String description,int connectionRule, CodeBlock c,Rectangle rect,Color color){
         this.compilerRules = compilerRules;
         this.description = description;
-        this.c = new CodeBlock();
+        this.c = c;
         this.rect = rect;
         this.colR = (color.getRed()/255);
         this.colG = (color.getGreen()/255);
@@ -87,6 +89,22 @@ public class ConnectionPoint {
     public Point getP() {
         return p;
     }
+
+    public void setData(ArrayList<DataObject> data){
+        if(c!=null){
+        this.c.setCode(data);
+        }
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        ConnectionPoint clone = (ConnectionPoint) super.clone();
+        if(c!= null){
+        clone.c = (CodeBlock) c.clone();
+        }
+        return clone;
+    }
+
 
 
 

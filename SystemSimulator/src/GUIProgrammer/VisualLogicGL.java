@@ -9,9 +9,8 @@ import ProgramGUI.GUIComponents.Panes.NullPanel;
 import Resources.Images.ImageLoader;
 import VisualLogicSystem.DataBlockSystem.DataBlock;
 import VisualLogicSystem.DataBlockSystem.DataLink;
-import VisualLogicSystem.DataBlocks.DataObject;
+import VisualLogicSystem.DataObject;
 import VisualLogicSystem.LogicBlockEngine;
-import VisualLogicSystem.LogicBlocks.Library;
 import VisualLogicSystem.LogicLink;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -114,8 +113,6 @@ public class VisualLogicGL extends GenericSystemPanel {
         this.add(panes, BorderLayout.CENTER);
         this.add(drawer, BorderLayout.EAST);
         this.setFocusTraversalKeysEnabled(false);
-        Library l = new Library();
-        this.drawer.setLogicBlocks(l.getLibrary());
         tools[0].setSelected(true);
 
         //resize manager
@@ -791,6 +788,15 @@ public class VisualLogicGL extends GenericSystemPanel {
     public static LogicCanvas getCanvas() {
         return canvas;
     }
+
+    public LogicBlocksDrawer getDrawer() {
+        return drawer;
+    }
+
+    public void setDrawer(LogicBlocksDrawer drawer) {
+        this.drawer = drawer;
+    }
+
 
     public static void setCanvas(LogicCanvas canvas) {
         VisualLogicGL.canvas = canvas;

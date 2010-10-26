@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 
 import MainClasses.Main;
 
+
 import VisualLogicSystem.LogicBlock;
 
 import java.awt.Color;
@@ -55,4 +56,7 @@ public class LogicBlocksDrawer extends JPanel {
         g2d.setPaint(Color.BLACK);
         g2d.drawLine(0, 0, 0, getHeight());
     }
+
+  
+
 }

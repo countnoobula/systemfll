@@ -1,18 +1,22 @@
 package VisualLogicSystem;
 
-import VisualLogicSystem.DataBlocks.DataObject;
+import java.io.Serializable;
+import java.util.ArrayList;
 
-public class CodeBlock {
+public class CodeBlock implements Cloneable{
 
     private int ID;
     private String compileCode = "";
-    private LogicBlock block;
+    private ArrayList<DataObject> block;
     private boolean isLocked;
 
 
-    public CodeBlock(LogicBlock b) {
-        this.block = b;
+    public CodeBlock(ArrayList<DataObject> d) {
+        this.block = d;
         this.isLocked = false;
+    }
+    public void setCode(ArrayList<DataObject> d){
+        this.block = d;
     }
     public CodeBlock() {
         block = null;
@@ -23,15 +27,15 @@ public class CodeBlock {
         String value = compileCode;
 
         if(block != null){
-        for (int i = 0; i < block.getData().size(); i++) {
-            if(block.getData().get(i).isGlobal()){
-                value = value.replace("#" + (i + 1) + "#", "" + block.getData().get(i).getVariableName());
-                value = value.replace("#'" + (i + 1) + "'#", "" + block.getData().get(i).getVariableName());
+        for (int i = 0; i < block.size(); i++) {
+            if(block.get(i).isGlobal()){
+                value = value.replace("#" + (i + 1) + "#", "" + block.get(i).getVariableName());
+                value = value.replace("#'" + (i + 1) + "'#", "" + block.get(i).getVariableName());
                 
                 
             }else{
-                 value = value.replace("#" + (i + 1) + "#", "" + block.getData().get(i).getValue());
-                 value = value.replace("#'" + (i + 1) + "'#", "\"" + block.getData().get(i).getValue()+"\"");
+                 value = value.replace("#" + (i + 1) + "#", "" + block.get(i).getValue());
+                 value = value.replace("#'" + (i + 1) + "'#", "\"" + block.get(i).getValue()+"\"");
             }           
         }
         }
@@ -56,7 +60,16 @@ public class CodeBlock {
         }
     }
     public void addVariableCode(DataObject db){
-
            compileCode += db.getVariableType()+" "+db.getVariableName() +" = "+db.getValue()+";\n";
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        CodeBlock clone = (CodeBlock) super.clone();
+        return clone;
+    }
+
+
+
+
 }

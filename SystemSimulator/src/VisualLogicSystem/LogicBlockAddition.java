@@ -13,18 +13,14 @@ public class LogicBlockAddition implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-
         try {
-            //get the type of logic block
-            Class c = b.getClass();
-            //add it to the engine
-            LogicBlockEngine.addBlock((LogicBlock) c.newInstance());
-            //repaint
-            VisualLogicGL.getCanvas().repaint();
-        } catch (InstantiationException f) {
-            System.out.println("should not happen");
-        } catch (IllegalAccessException f) {
-            System.out.println("should not happen");
+            LogicBlockEngine.addBlock((LogicBlock) b.clone());
+        } catch (CloneNotSupportedException ex) {
+            System.out.println("oh fuck!");
         }
+           
+                //repaint
+                VisualLogicGL.getCanvas().repaint();
+        
     }
 }

@@ -3,7 +3,7 @@ package ProgramGUI.GUIComponents.LogicControls;
 import ProgramGUI.GUIComponents.Panes.NullPanel;
 import ProgramGUI.GUIComponents.SystemSlider;
 import ProgramGUI.GUIComponents.SystemTextField;
-import VisualLogicSystem.DataBlocks.DataObject;
+import VisualLogicSystem.DataObject;
 import java.awt.Color;
 
 import java.awt.Dimension;

@@ -1,6 +1,6 @@
 package VisualLogicSystem.DataBlockSystem;
 
-import VisualLogicSystem.DataBlocks.DataObject;
+import VisualLogicSystem.DataObject;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;

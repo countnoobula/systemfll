@@ -21,7 +21,7 @@
 
     <!-- Everything regarding the graphics of the logic block -->
     <graphics>
-        <icon>lib/image1.png</icon>
+        <icon>1.jpg</icon>
         <width>50</width>
         <height>50</height>
     </graphics>
@@ -29,7 +29,7 @@
     <!-- These are data variables used in the code -->
     <data>
         <dataObject id="0">
-            <value>Dylan Vorster</value>
+            <value>Hello World!</value>
             <type>textfield</type>
         </dataObject>
     </data>
@@ -50,12 +50,30 @@
 
             <description>begins the constructor</description>
 
-            <code>//Author: #1#
-public static void main (String[] args) {
-</code>
+            <code>System.out.println(#'1'#);</code>
 
             <rectangle>
                 <x>40</x>
+                <y>5</y>
+                <width>10</width>
+                <height>10</height>
+            </rectangle>
+
+            <color>
+                <r>0</r>
+                <g>192</g>
+                <b>255</b>
+            </color>
+        </connection>
+        <connection>
+
+            <flowRule>next</flowRule>
+            <linkRule>2</linkRule>
+
+            <description>begins the next block</description>
+
+            <rectangle>
+                <x>0</x>
                 <y>5</y>
                 <width>10</width>
                 <height>10</height>

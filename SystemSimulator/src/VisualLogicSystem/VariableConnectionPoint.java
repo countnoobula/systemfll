@@ -5,15 +5,15 @@
 
 package VisualLogicSystem;
 
-import VisualLogicSystem.DataBlocks.DataObject;
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.io.Serializable;
 
 /**
  *
  * @author Dylan
  */
-public class VariableConnectionPoint {
+public class VariableConnectionPoint  implements Cloneable{
 
     //variables
     String name;
@@ -92,6 +92,21 @@ public class VariableConnectionPoint {
     public void setRealRect(Rectangle realRect) {
         this.realRect = realRect;
     }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        VariableConnectionPoint clone = (VariableConnectionPoint) super.clone();
+        clone.realRect = (Rectangle) realRect.clone();
+        clone.rect = (Rectangle) rect.clone();
+        return clone;
+    }
+    public void setData(LogicBlock l,DataObject db){
+        this.data1 = db;
+        this.data2 = db;
+        this.logicBlock = l;
+    }
+
+
 
 
 
