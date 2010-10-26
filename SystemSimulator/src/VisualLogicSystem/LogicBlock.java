@@ -407,7 +407,7 @@ public class LogicBlock implements LogicBlockInterface,Cloneable {
 
         ArrayList<ConnectionPoint> clone3 = new ArrayList<ConnectionPoint>();
         for(int i = 0;i < this.connectionPoints.size();i++){
-            clone3.get(i).setData(clone2);
+            clone.connectionPoints.get(i).setData(clone2);
             clone3.add((ConnectionPoint) this.connectionPoints.get(i).clone());
             
         }
