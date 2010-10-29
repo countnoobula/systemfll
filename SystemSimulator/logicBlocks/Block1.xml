@@ -55,7 +55,7 @@ public static void main (String[] args) {
 </code>
 
             <rectangle>
-                <x>30</x>
+                <x>40</x>
                 <y>5</y>
                 <width>10</width>
                 <height>10</height>
@@ -69,20 +69,5 @@ public static void main (String[] args) {
         </connection>
         
     </connectionPoints>
-
-    <variablePoints>
-        <connection>
-            <dataID>0</dataID>
-            <title>Program Author</title>
-            <color>
-                <r>0</r>
-                <g>192</g>
-                <b>255</b>
-            </color>
-            <input>true</input>
-        </connection>
-
-    </variablePoints>
-
 
 </logicBlock>

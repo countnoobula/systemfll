@@ -11,9 +11,9 @@
 
     <!-- This is information about the block and what it does -->
     <information>
-        <title>RCX IF</title>
+        <title>IF</title>
         <description>
-            A general RCX if
+            A general RCX IF
         </description>
         <type>block</type>
     </information>

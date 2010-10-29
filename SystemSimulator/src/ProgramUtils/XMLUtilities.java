@@ -14,6 +14,7 @@ import VisualLogicSystem.DataObject;
 import VisualLogicSystem.LogicBlock;
 import VisualLogicSystem.VariableConnectionPoint;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.io.File;
@@ -40,9 +41,11 @@ public class XMLUtilities {
                 try {
                     SAXBuilder parser = new SAXBuilder();
                     Document doc = parser.build("" + xml.getPath());
+                    
                     //start loading some of the entities
                     Element root = doc.getRootElement();
                     Element information = root.getChild("information");
+                    
                     //load the information
                     String title = information.getChildText("title");
                     String description = information.getChildText("description");
@@ -52,7 +55,9 @@ public class XMLUtilities {
                     String icon = graphics.getChildText("icon");
                     String width = graphics.getChildText("width");
                     String height = graphics.getChildText("height");
+
                     Element imports = root.getChild("imports");
+                    
                     //load the imports
                     @SuppressWarnings(value = "unchecked")
                     List<Element> listOfImports = (List<Element>) imports.getChildren();
@@ -114,15 +119,27 @@ public class XMLUtilities {
                         }
 
                     }
-                    //load image
-                    Image im = ImageIO.read(new File("logicBlocks/images/" + icon));
+                    temp.setSize(Integer.parseInt(width), Integer.parseInt(height));
+                    if (icon == null) {
+                        temp.g2d.setColor(new Color(0, 0, 0, 100));
+                        temp.g2d.fillRect(0, 0, Integer.parseInt(width), Integer.parseInt(height));
+                        temp.g2d.setColor(new Color(200, 200, 200, 100));
+                        temp.g2d.drawRect(0, 0, Integer.parseInt(width) - 1, Integer.parseInt(height) - 1);
+                        temp.g2d.setColor(new Color(255, 255, 255));
+                        temp.g2d.setFont(new Font("Arial", 12, 12));
+                        temp.g2d.drawString("" + title, 5, 30);
+                    } else {
+                        //load image
+                        Image im = ImageIO.read(new File("logicBlocks/images/" + icon));
+                        temp.setImage(im);
+                    }
                     temp.setType(type);
                     temp.setImports(importList);
-                    temp.setImage(im);
-                    temp.setSize(Integer.parseInt(width), Integer.parseInt(height));
+
+
                     temp.GenerateGLBlock();
                 } catch (JDOMException ex) {
-                    System.out.println("something weird");
+                    System.out.println(""+ex.getMessage());
                 } catch (IOException ex) {
                     System.out.println("io exception");
                 }
@@ -159,7 +176,7 @@ public class XMLUtilities {
     }
 
     public static void main(String args[]) {
-        XMLUtilities.loadLogicBlocks(new File("/SystemSimulator/logicBlocks/Block1.xml"));
+        XMLUtilities.loadLogicBlocks(new File("/SystemSimulator/logicBlocks/Block5.xml"));
 
 
     }
