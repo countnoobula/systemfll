@@ -1,49 +1,36 @@
 package GUIMainPanels;
 
-
+//imports
 import ProgramUtils.FileTreeModel;
-
 import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 import ProgramGUI.GUIComponents.SystemTreeViewer;
-
 import Resources.Images.ImageLoader;
-
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-
 import java.io.FileReader;
 import java.io.IOException;
-
 import javax.swing.JEditorPane;
-
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.parser.ParserDelegator;
-
 import java.util.ArrayList;
-
 import java.io.File;
-
-import java.net.URL;
-
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
 import javax.swing.tree.*;
-
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
-
 import javax.swing.tree.DefaultTreeCellRenderer;
 
 public class HelpScreen extends GenericSystemPanel {
 
     private SystemTreeViewer panel_1;
     private HTMLViewer panel_2;
-    GridBagConstraints gc;
+    private GridBagConstraints gc;
 
 
     public HelpScreen() {
@@ -56,8 +43,6 @@ public class HelpScreen extends GenericSystemPanel {
 
         this.panel_1.setPreferredSize(new Dimension(250, 0));
 
-
-        
         File f = new File("public_html");
         //File f = new File("http://voidblog.com");
 

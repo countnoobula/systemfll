@@ -1,5 +1,6 @@
-package VisualLogicSystem;
+package VisualLogicSystem.LogicObjects;
 
+import VisualLogicSystem.LogicObjects.LogicBlock;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;

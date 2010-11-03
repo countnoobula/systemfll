@@ -3,19 +3,14 @@ package GUIMainPanels.PreferencePanels;
 import ProgramGUI.GUIComponents.Panes.NullPanel;
 import ProgramGUI.GUIComponents.SystemCheckBox;
 import ProgramGUI.GUIComponents.SystemLabel;
-
 import MainClasses.Main;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-
 import java.util.ArrayList;
-import java.util.prefs.Preferences;
 
 public class General extends NullPanel {
 
+    //the settings
     ArrayList<SystemLabel> labels;
     ArrayList<SystemCheckBox> checks;
 

@@ -1,12 +1,10 @@
 package MainClasses;
 
+import DataSystem.LogicDatabase;
 import java.io.Serializable;
-
 import DataSystem.ObjectDatabase;
 import DataSystem.PlannerDatabase;
-
 import java.text.DateFormat;
-
 import java.util.Date;
 
 public class SystemProject implements Serializable {
@@ -18,6 +16,7 @@ public class SystemProject implements Serializable {
 
     private ObjectDatabase objectDatabase;
     private PlannerDatabase plannerDatabase;
+    private LogicDatabase logicDatabase;
 
     /**
      * Create a new System project with the following paramaters:
@@ -42,6 +41,7 @@ public class SystemProject implements Serializable {
         //Create the databases
         this.objectDatabase = new ObjectDatabase();
         this.plannerDatabase = new PlannerDatabase();
+        this.logicDatabase = new LogicDatabase();
     }
 
     /**
@@ -93,4 +93,9 @@ public class SystemProject implements Serializable {
     public double getSaveVersion() {
         return saveVersion;
     }
+
+    public LogicDatabase getLogicDatabase() {
+        return logicDatabase;
+    }
+    
 }

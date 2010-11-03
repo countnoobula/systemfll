@@ -1,5 +1,6 @@
-package VisualLogicSystem;
+package VisualLogicSystem.LogicObjects;
 
+import VisualLogicSystem.DataBlockSystem.DataObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 

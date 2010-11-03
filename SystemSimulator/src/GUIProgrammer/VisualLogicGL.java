@@ -1,6 +1,7 @@
 package GUIProgrammer;
 
 //imports
+import GUIProgrammer.VisualLogic.LogicBlocksDrawer;
 import MainClasses.Main;
 import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 import ProgramGUI.GUIComponents.Buttons.SystemSmallTool;
@@ -9,9 +10,9 @@ import ProgramGUI.GUIComponents.Panes.NullPanel;
 import Resources.Images.ImageLoader;
 import VisualLogicSystem.DataBlockSystem.DataBlock;
 import VisualLogicSystem.DataBlockSystem.DataLink;
-import VisualLogicSystem.DataObject;
+import VisualLogicSystem.DataBlockSystem.DataObject;
 import VisualLogicSystem.LogicBlockEngine;
-import VisualLogicSystem.LogicLink;
+import VisualLogicSystem.LogicObjects.LogicLink;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;

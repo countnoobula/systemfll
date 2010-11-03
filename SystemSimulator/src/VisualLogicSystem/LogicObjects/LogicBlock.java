@@ -1,8 +1,10 @@
-package VisualLogicSystem;
+package VisualLogicSystem.LogicObjects;
 
 //imports
 import ProgramGUI.GUIComponents.BlockVariablePane;
 import ProgramGUI.GUIComponents.Buttons.NullButton;
+import VisualLogicSystem.DataBlockSystem.DataObject;
+import VisualLogicSystem.LogicBlockAddition;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -26,7 +28,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-public class LogicBlock implements LogicBlockInterface, Cloneable {
+public class LogicBlock implements Cloneable {
 
     //methods are public for the XML utilites
     public Paint gp1, gp2, gp3, gp4, gp5;

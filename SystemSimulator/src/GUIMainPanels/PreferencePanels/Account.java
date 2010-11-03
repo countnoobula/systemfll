@@ -5,10 +5,8 @@ import MainClasses.Main;
 import ProgramGUI.GUIComponents.Panes.NullPanel;
 import ProgramGUI.GUIComponents.SystemCheckBox;
 import ProgramGUI.GUIComponents.SystemLabel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.util.ArrayList;
 
 public class Account extends NullPanel {

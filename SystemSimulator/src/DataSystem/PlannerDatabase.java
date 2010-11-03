@@ -2,7 +2,7 @@ package DataSystem;
 
 import java.io.Serializable;
 
-import Planner.PlannerNoteData;
+import PlannerSystem.PlannerNoteData;
 
 import java.util.ArrayList;
 

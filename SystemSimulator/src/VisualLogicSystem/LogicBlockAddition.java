@@ -1,5 +1,7 @@
 package VisualLogicSystem;
 
+import VisualLogicSystem.LogicObjects.LogicBlock;
+import DataSystem.LogicDatabase;
 import GUIProgrammer.VisualLogicGL;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,13 +16,12 @@ public class LogicBlockAddition implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         try {
-            LogicBlockEngine.addBlock((LogicBlock) b.clone());
+            LogicDatabase.blocks.add((LogicBlock) b.clone());
         } catch (CloneNotSupportedException ex) {
             System.out.println("oh fuck!");
         }
-           
-                //repaint
-                VisualLogicGL.getCanvas().repaint();
-        
+
+        //repaint
+        VisualLogicGL.getCanvas().repaint();
     }
 }

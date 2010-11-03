@@ -6,7 +6,7 @@
 package MainClasses;
 
 import ProgramUtils.XMLUtilities;
-import VisualLogicSystem.LogicBlock;
+import VisualLogicSystem.LogicObjects.LogicBlock;
 import java.io.File;
 import java.util.ArrayList;
 

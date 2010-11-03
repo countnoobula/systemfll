@@ -1,7 +1,6 @@
 package GUIPlanner;
 
 import ProgramGUI.GUIComponents.Panes.TabbedPane;
-
 import MainClasses.Main;
 
 public class PlannerPanel extends TabbedPane {

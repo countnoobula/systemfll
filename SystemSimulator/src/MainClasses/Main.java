@@ -1,17 +1,12 @@
 package MainClasses;
 
 import DataSystem.PlannerDatabase;
-
 import ProgramGUI.GUIEngine;
 import ProgramGUI.ProgramWindow;
-
 import Resources.Fonts.FontLoader;
-
 import java.util.prefs.Preferences;
 import javax.swing.JFrame;
-
 import javax.swing.SwingUtilities;
-import translucentshapes.AWTUtilitiesWrapper;
 
 /**
  * The Main method for the program
@@ -20,7 +15,10 @@ import translucentshapes.AWTUtilitiesWrapper;
  */
 public class Main {
 
+    //is always made first
     public SystemProject systemProject;
+
+    //instances of all the engines etc...
     public GUIEngine guiEngine;
     public ProgramWindow mainWindow;
     public FontLoader fonts;
@@ -30,14 +28,14 @@ public class Main {
 
     public Main() {
 
+        this.systemProject = new SystemProject("Temp", "Dylan Vorster");
+
         //register the preferences
-        prefs = Preferences.userNodeForPackage(getClass());
+        this.prefs = Preferences.userNodeForPackage(getClass());
 
         //create new instances of all the objects
-        this.engineDepo = new EngineDepo();
+        this.engineDepo = new EngineDepo(this);
         this.systemDepo = new SystemDepo();
-
-        this.systemProject = new SystemProject("Temp", "Dylan Vorster");
         this.fonts = new FontLoader();
         this.guiEngine = new GUIEngine(this);
 
@@ -47,7 +45,8 @@ public class Main {
         f.setVisible(true);
         this.mainWindow = new ProgramWindow(this, f);
 
-        mainWindow.setVisible(true);
+        //make the frame visible
+        this.mainWindow.setVisible(true);
     }
 
     /**
@@ -57,9 +56,6 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        /**
-         * Kapow!
-         */
         SwingUtilities.invokeLater(new Runnable() {
 
             public void run() {
@@ -107,5 +103,4 @@ public class Main {
     public SystemDepo getSystemDepo() {
         return systemDepo;
     }
-
 }

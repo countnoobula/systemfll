@@ -1,4 +1,4 @@
-package VisualLogicSystem;
+package VisualLogicSystem.DataBlockSystem;
 
 import java.io.Serializable;
 

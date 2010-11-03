@@ -1,7 +1,6 @@
 package GUIProgrammer;
 
 import ProgramGUI.GUIComponents.Panes.TabbedPane;
-
 import MainClasses.Main;
 import javax.swing.Timer;
 
@@ -22,7 +21,7 @@ public class ProgrammerHome extends TabbedPane {
         
         //create new instances
         this.panel_1 = new CoderAPI();
-        this.panel_2 = new CodingScreen();
+        this.panel_2 = new CodingScreen(m);
         this.panel_3 = new VisualLogicGL(m);
         
         //add components

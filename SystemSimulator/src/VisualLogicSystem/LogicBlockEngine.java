@@ -1,5 +1,10 @@
 package VisualLogicSystem;
 
+import VisualLogicSystem.LogicObjects.LogicLink;
+import VisualLogicSystem.LogicObjects.CodeBlock;
+import VisualLogicSystem.LogicObjects.LogicBlock;
+import DataSystem.LogicDatabase;
+import MainClasses.Main;
 import VisualLogicSystem.DataBlockSystem.DataBlock;
 import VisualLogicSystem.DataBlockSystem.DataLink;
 import java.util.ArrayList;
@@ -10,32 +15,33 @@ import java.util.ArrayList;
 public class LogicBlockEngine {
 
     //variables
-    static ArrayList<LogicBlockInterface> blocks;
+    private ArrayList<LogicBlock> blocks;
     private ArrayList<LogicLink> links;
-    static private ArrayList<DataBlock> dataBlocks;
+    private ArrayList<DataBlock> dataBlocks;
     private ArrayList<DataLink> dataLinks;
 
-    public LogicBlockEngine() {
+
+    public LogicBlockEngine(Main m) {
 
         //create new instances
-        this.blocks = new ArrayList<LogicBlockInterface>();
-        this.links = new ArrayList<LogicLink>();
-        this.dataBlocks = new ArrayList<DataBlock>();
-        this.dataLinks = new ArrayList<DataLink>();
+        this.blocks = m.getSystemProject().getLogicDatabase().getBlocks();
+        this.links =  m.getSystemProject().getLogicDatabase().getLinks();
+        this.dataBlocks = m.getSystemProject().getLogicDatabase().getDataBlocks();
+        this.dataLinks =  m.getSystemProject().getLogicDatabase().getDataLinks();
 
     }
 
-    public static ArrayList<CodeBlock> compile() {
+    public ArrayList<CodeBlock> compile() {
 
         ArrayList<CodeBlock> b = new ArrayList<CodeBlock>(0);
         LogicBlock first = null;
 
         loop:
         for (int i = 0; i < blocks.size(); i++) {
-            if (((LogicBlock) blocks.get(i)).getType().equals("start")) {
+            if (blocks.get(i).getType().equals("start")) {
                 //hahah, yes, we found the first one :D
 
-                first = (LogicBlock) blocks.get(i);
+                first = blocks.get(i);
                 break loop;
 
 
@@ -244,9 +250,8 @@ public class LogicBlockEngine {
         return false;
     }
 
-    public static void addBlock(LogicBlock b) {
+    public void addBlock(LogicBlock b) {
         blocks.add(b);
-
     }
 
     public void removeBlock(LogicBlock b) {

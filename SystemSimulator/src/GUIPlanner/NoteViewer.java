@@ -1,16 +1,9 @@
 package GUIPlanner;
 
 import MainClasses.Main;
-
-
-import Planner.PlannerNoteData;
-
-import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
-
+import PlannerSystem.PlannerNoteData;
 import ProgramGUI.GUIComponents.Buttons.SmallRoundedButton;
-
 import Resources.Images.ImageLoader;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,18 +15,12 @@ import java.awt.GridBagLayout;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.Insets;
-
 import java.awt.TexturePaint;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import java.io.IOException;
-
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
-
 import javax.swing.JPanel;
 
 /**
@@ -43,11 +30,10 @@ import javax.swing.JPanel;
 public class NoteViewer extends JPanel {
 
     private TopBar utilityBar;
-    public BarkPanel mainCanvas;
+    private BarkPanel mainCanvas;
     private Main m;
     private NoteViewer nv;
     private ArrayList<PlannerNote> notes;
-
 
     public NoteViewer(Main m2) {
         this.m = m2;
@@ -62,13 +48,11 @@ public class NoteViewer extends JPanel {
         //do some basic layouts
         this.add(utilityBar, BorderLayout.NORTH);
         this.add(mainCanvas, BorderLayout.CENTER);
-
     }
 
     public NoteViewer.BarkPanel getMainCanvas() {
         return mainCanvas;
     }
-
 
     private class TopBar extends JPanel {
 
@@ -84,7 +68,7 @@ public class NoteViewer extends JPanel {
 
 
             gp1 =
- new GradientPaint(0, 0, new Color(20, 20, 20), 0, 24, new Color(40, 40, 40));
+                    new GradientPaint(0, 0, new Color(20, 20, 20), 0, 24, new Color(40, 40, 40));
             initComponents();
         }
 
@@ -100,27 +84,29 @@ public class NoteViewer extends JPanel {
             c.weighty = 1;
             bt1 = new SmallRoundedButton("Add Note");
             bt2 = new SmallRoundedButton("Clear Notes");
-            
+
             bt1.addActionListener(new ActionListener() {
-                  public void actionPerformed(ActionEvent e) {
+
+                public void actionPerformed(ActionEvent e) {
                     // create a temporary note and add it to the note panel stack
                     PlannerNoteData tempNote = new PlannerNoteData();
-                    tempNote.setX((int)Math.random() * 300);
-                    tempNote.setY((int)Math.random() * 300);
+                    tempNote.setX((int) Math.random() * 300);
+                    tempNote.setY((int) Math.random() * 300);
 
                     m.getPlanDatabase().addPlannerNote(tempNote);
-                    notes.add(new PlannerNote(nv, tempNote, new Color((int)Math.round(Math.random()*255), (int)Math.round(Math.random()*255), (int)Math.round(Math.random()*255), 200), new Color((int)Math.round(Math.random()*255), (int)Math.round(Math.random()*255), (int)Math.round(Math.random()*255), 200)));
+                    notes.add(new PlannerNote(nv, tempNote, new Color((int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255), 200), new Color((int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255), 200)));
                     mainCanvas.resetComponents();
-                  }
-              });
+                }
+            });
             bt2.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        m.getPlanDatabase().clearNotes();
-                        notes.clear();
-                        mainCanvas.resetComponents();
-                    }
-                });
-            
+
+                public void actionPerformed(ActionEvent e) {
+                    m.getPlanDatabase().clearNotes();
+                    notes.clear();
+                    mainCanvas.resetComponents();
+                }
+            });
+
             this.add(bt1, c);
             c.gridx = 1;
             c.weightx = 0;
@@ -130,7 +116,7 @@ public class NoteViewer extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            Graphics2D g2d = (Graphics2D)g;
+            Graphics2D g2d = (Graphics2D) g;
             g2d.setPaint(gp1);
             g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
@@ -147,8 +133,8 @@ public class NoteViewer extends JPanel {
             Rectangle r = new Rectangle(0, 0, 100, 100);
             try {
                 gp1 =
- new TexturePaint(ImageIO.read(ImageLoader.class.getResource("Planner/bark.png")),
-                  r);
+                        new TexturePaint(ImageIO.read(ImageLoader.class.getResource("Planner/bark.png")),
+                        r);
             } catch (IOException e) {
                 System.out.println("Cant load the bloody bark, shit!");
             }
@@ -157,13 +143,13 @@ public class NoteViewer extends JPanel {
         public void resetComponents() {
             this.removeAll();
             for (int i = 0; i < m.getPlanDatabase().getAmountOfPlannerNotes();
-                 i++) {
+                    i++) {
 
                 this.add(notes.get(i));
                 notes.get(i).setBounds(notes.get(i).getXPos(),
-                                       notes.get(i).getYPos(),
-                                       notes.get(i).getWidth(),
-                                       notes.get(i).getHeight());
+                        notes.get(i).getYPos(),
+                        notes.get(i).getWidth(),
+                        notes.get(i).getHeight());
             }
             this.revalidate();
             this.updateUI();
@@ -176,11 +162,10 @@ public class NoteViewer extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
-            Graphics2D g2d = (Graphics2D)g;
+            Graphics2D g2d = (Graphics2D) g;
             g2d.setPaint(gp1);
             g2d.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         }
     }
-
 }

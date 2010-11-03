@@ -8,7 +8,7 @@ import ProgramGUI.GUIComponents.BlockVariablePane;
 import ProgramGUI.GUIComponents.Buttons.NullButton;
 import ProgramGUI.GUIComponents.Buttons.SystemSmallBarButton;
 import Resources.Images.ImageLoader;
-import VisualLogicSystem.LogicBlock;
+import VisualLogicSystem.LogicObjects.LogicBlock;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

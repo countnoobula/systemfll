@@ -3,8 +3,10 @@
  * and open the template in the editor.
  */
 
-package VisualLogicSystem;
+package VisualLogicSystem.LogicObjects;
 
+import VisualLogicSystem.DataBlockSystem.DataObject;
+import VisualLogicSystem.LogicObjects.LogicBlock;
 import java.awt.Color;
 import java.awt.Rectangle;
 import java.io.Serializable;

@@ -6,12 +6,12 @@ public class EngineDepo {
 
     private LogicBlockEngine logicEngine;
 
-    public EngineDepo() {
-        logicEngine = new LogicBlockEngine();
+    public EngineDepo(Main m) {
+        logicEngine = new LogicBlockEngine(m);
     }
 
     /**
-     * Returns the logic engine for dealing with logig blocks
+     * Returns the logic engine for dealing with logic blocks
      * @return
      * The logic Engine
      */

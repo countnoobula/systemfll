@@ -1,21 +1,15 @@
-package GUIProgrammer;
+package GUIProgrammer.VisualLogic;
 
 import java.awt.Graphics;
-
 import javax.swing.JPanel;
-
 import MainClasses.Main;
-
-
-import VisualLogicSystem.LogicBlock;
-
+import VisualLogicSystem.LogicObjects.LogicBlock;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
 import java.awt.Paint;
-
 import java.util.ArrayList;
 
 public class LogicBlocksDrawer extends JPanel {

@@ -1,7 +1,8 @@
 package GUIProgrammer;
 
+import MainClasses.Main;
 import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
-import VisualLogicSystem.CodeBlock;
+import VisualLogicSystem.LogicObjects.CodeBlock;
 import VisualLogicSystem.LogicBlockEngine;
 
 import java.awt.BorderLayout;
@@ -13,18 +14,17 @@ import java.awt.Paint;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.ArrayList;
-
 import javax.swing.JEditorPane;
-
 import javax.swing.JScrollPane;
 
 public class CodingScreen extends GenericSystemPanel {
 
     JEditorPane edit;
+    Main m;
+    public CodingScreen(Main m2) {
 
-    public CodingScreen() {
 
-        super();
+        this.m = m2;
 
         this.setLayout(new BorderLayout());
         edit = new JEditorPane();
@@ -35,7 +35,7 @@ public class CodingScreen extends GenericSystemPanel {
         scroll.setOpaque(false);
         edit.setOpaque(false);
         edit.setForeground(Color.WHITE);
-        edit.setFont(new Font("Monospaced",13,13));
+        edit.setFont(new Font("Monospaced", 13, 13));
         this.addComponentListener(new ComponentListener() {
 
             public void componentResized(ComponentEvent ce) {
@@ -47,7 +47,7 @@ public class CodingScreen extends GenericSystemPanel {
             public void componentShown(ComponentEvent ce) {
                 String text = "";
 
-                ArrayList<CodeBlock> logic = LogicBlockEngine.compile();
+                ArrayList<CodeBlock> logic = m.getEngineDepo().getLogicEngine().compile();
 
                 for (int i = 0; i < logic.size(); i++) {
                     text = text + logic.get(i).getCompileCode();

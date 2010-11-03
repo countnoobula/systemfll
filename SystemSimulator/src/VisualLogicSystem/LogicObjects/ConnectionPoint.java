@@ -1,6 +1,7 @@
 
-package VisualLogicSystem;
+package VisualLogicSystem.LogicObjects;
 
+import VisualLogicSystem.DataBlockSystem.DataObject;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.Rectangle;
