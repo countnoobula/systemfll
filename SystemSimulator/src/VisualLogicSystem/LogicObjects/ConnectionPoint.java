@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * This a connection point object which is added to a logic block.
  * @author Dylan
  */
-public class ConnectionPoint  implements Cloneable{
+public class ConnectionPoint  implements Cloneable,Serializable {
 
     private String compilerRules;
     private String description;

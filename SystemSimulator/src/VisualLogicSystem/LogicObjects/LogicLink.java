@@ -13,7 +13,7 @@ import java.awt.Polygon;
 import java.io.Serializable;
 import javax.media.opengl.GL2;
 
-public class LogicLink implements Cloneable {
+public class LogicLink implements Cloneable,Serializable  {
 
     ArrayList<Point> points;
     LogicBlock start;

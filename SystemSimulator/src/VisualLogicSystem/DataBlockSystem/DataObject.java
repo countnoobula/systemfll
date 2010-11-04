@@ -6,7 +6,7 @@ import java.io.Serializable;
  * This is a generic Data Block otherwise known as a variable
  * @author Dylan
  */
-public class DataObject implements Cloneable{
+public class DataObject implements Cloneable,Serializable {
 
     String variableType;
     String variableName;

@@ -17,6 +17,9 @@ public class GUIEngine {
     public GUIEngine(Main m2) {
         this.m = m2;
     }
+    public void repaint(){
+        
+    }
 
     public void makeVisible(Component c) {
         this.c = c;

@@ -7,6 +7,7 @@ package VisualLogicSystem.DataBlockSystem;
 import VisualLogicSystem.LogicObjects.VariableConnectionPoint;
 import java.awt.Point;
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.ArrayList;
 import javax.media.opengl.GL2;
 
@@ -14,7 +15,7 @@ import javax.media.opengl.GL2;
  * A link object which connects the data objects to the system
  * @author Dylan
  */
-public class DataLink implements Cloneable {
+public class DataLink implements Cloneable,Serializable  {
 
     //variables
     private ArrayList<Point> points;

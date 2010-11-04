@@ -20,6 +20,7 @@ import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-public class LogicBlock implements Cloneable {
+public class LogicBlock implements Cloneable,Serializable {
 
     //methods are public for the XML utilites
     public Paint gp1, gp2, gp3, gp4, gp5;

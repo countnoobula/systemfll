@@ -14,6 +14,7 @@ import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
+import java.io.Serializable;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ import javax.media.opengl.GL2;
  * A data variable used in the visual logic system
  * @author Dylan
  */
-public class DataBlock {
+public class DataBlock implements Serializable  {
 
     //sizing variables
     private int x;

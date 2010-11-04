@@ -5,6 +5,7 @@ import VisualLogicSystem.LogicObjects.CodeBlock;
 import VisualLogicSystem.LogicObjects.LogicBlock;
 import DataSystem.LogicDatabase;
 import MainClasses.Main;
+import MainClasses.SystemProject;
 import VisualLogicSystem.DataBlockSystem.DataBlock;
 import VisualLogicSystem.DataBlockSystem.DataLink;
 import java.util.ArrayList;
@@ -29,6 +30,13 @@ public class LogicBlockEngine {
         this.dataBlocks = m.getSystemProject().getLogicDatabase().getDataBlocks();
         this.dataLinks =  m.getSystemProject().getLogicDatabase().getDataLinks();
 
+    }
+    public void updateData(SystemProject pro){
+         //create new instances
+        this.blocks = pro.getLogicDatabase().getBlocks();
+        this.links =  pro.getLogicDatabase().getLinks();
+        this.dataBlocks = pro.getLogicDatabase().getDataBlocks();
+        this.dataLinks =  pro.getLogicDatabase().getDataLinks();
     }
 
     public ArrayList<CodeBlock> compile() {

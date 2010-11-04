@@ -18,4 +18,7 @@ public class EngineDepo {
     public LogicBlockEngine getLogicEngine() {
         return logicEngine;
     }
+    public void updateData(SystemProject pro){
+        this.logicEngine.updateData(pro);
+    }
 }

@@ -147,13 +147,13 @@ public class VisualLogicGL extends GenericSystemPanel {
 
             this.setLayout(null);
             try {
-                tools[0] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon1.png")));
-                tools[1] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon2.png")));
-                tools[2] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon3.png")));
-                tools[3] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon4.png")));
-                tools[4] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon5.png")));
-                tools[5] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon6.png")));
-                tools[6] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("LogicGate/icon7.png")));
+                tools[0] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("VisualLogic/icon1.png")));
+                tools[1] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("VisualLogic/icon2.png")));
+                tools[2] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("VisualLogic/icon3.png")));
+                tools[3] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("VisualLogic/icon4.png")));
+                tools[4] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("VisualLogic/icon5.png")));
+                tools[5] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("VisualLogic/icon6.png")));
+                tools[6] = new SystemSmallTool(ImageIO.read(ImageLoader.class.getResource("VisualLogic/icon7.png")));
 
             } catch (Exception e) {
                 System.out.println("Could not load the logic gate tools");
@@ -258,7 +258,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             gl.glEnable(GL2.GL_BLEND);
 
             gl.glEnable(GL2.GL_LINE_SMOOTH);
-            gl.glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+            gl.glClearColor(0.9f, 0.9f, 0.9f, 0.0f);
 
         }
 
@@ -268,9 +268,9 @@ public class VisualLogicGL extends GenericSystemPanel {
         public void display(GLAutoDrawable glad) {
             GL2 gl = glad.getGL().getGL2();
             gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-            gl.glColor3d(0.15, 0.15, 0.15);
+            gl.glColor3d(0.8, 0.8, 0.8);
 
-            for (int i = 0; i < canvas.getWidth(); i += 30) {
+            for (int i = 0; i < canvas.getWidth(); i += 20) {
 
                 gl.glBegin(GL2.GL_LINES);
                 gl.glVertex2d(i, 0);

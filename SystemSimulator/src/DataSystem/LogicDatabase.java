@@ -5,13 +5,14 @@ import VisualLogicSystem.DataBlockSystem.DataBlock;
 import VisualLogicSystem.DataBlockSystem.DataLink;
 import VisualLogicSystem.LogicObjects.LogicBlock;
 import VisualLogicSystem.LogicObjects.LogicLink;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author dylan
  */
-public class LogicDatabase {
+public class LogicDatabase implements Serializable  {
 
     //variables
     public static ArrayList<LogicBlock> blocks;

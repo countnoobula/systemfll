@@ -3,6 +3,7 @@ package MainClasses;
 import DataSystem.PlannerDatabase;
 import ProgramGUI.GUIEngine;
 import ProgramGUI.ProgramWindow;
+import ProgramGUI.SystemGUIWindows;
 import Resources.Fonts.FontLoader;
 import java.util.prefs.Preferences;
 import javax.swing.JFrame;
@@ -26,24 +27,33 @@ public class Main {
     public EngineDepo engineDepo;
     public SystemDepo systemDepo;
 
+    public SystemGUIWindows windows;
+
     public Main() {
 
         this.systemProject = new SystemProject("Temp", "Dylan Vorster");
 
+        
         //register the preferences
         this.prefs = Preferences.userNodeForPackage(getClass());
+        this.fonts = new FontLoader();
 
+        
         //create new instances of all the objects
         this.engineDepo = new EngineDepo(this);
         this.systemDepo = new SystemDepo();
-        this.fonts = new FontLoader();
         this.guiEngine = new GUIEngine(this);
+
+        //register the windows
+        windows = new SystemGUIWindows(this);
 
         JFrame f = new JFrame();
         f.setSize(0, 0);
         f.setUndecorated(true);
         f.setVisible(true);
         this.mainWindow = new ProgramWindow(this, f);
+
+        
 
         //make the frame visible
         this.mainWindow.setVisible(true);
@@ -61,8 +71,8 @@ public class Main {
             public void run() {
 
                 Main main = new Main();
-                main.getGuiEngine().makeVisible(main.getMainWindow().getProgramWindowPanel().getPanel_2().getPanel_1());
-                main.getMainWindow().getProgramWindowPanel().getPanel_2().getPanel_4().getPanel_3().getDrawer().setLogicBlocks(
+                main.getGuiEngine().makeVisible(main.getWindows().getPanel_1());
+                main.getWindows().getPanel_4().getPanel_3().getDrawer().setLogicBlocks(
                         main.getSystemDepo().getLogicLibrary());
             }
         });
@@ -90,6 +100,8 @@ public class Main {
 
     public void setSystemProject(SystemProject systemProject) {
         this.systemProject = systemProject;
+        this.engineDepo.updateData(systemProject);
+        this.getMainWindow().repaint();
     }
 
     public SystemProject getSystemProject() {
@@ -103,4 +115,10 @@ public class Main {
     public SystemDepo getSystemDepo() {
         return systemDepo;
     }
+
+    public SystemGUIWindows getWindows() {
+        return windows;
+    }
+
+
 }

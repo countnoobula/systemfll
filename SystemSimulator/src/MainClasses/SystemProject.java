@@ -97,5 +97,9 @@ public class SystemProject implements Serializable {
     public LogicDatabase getLogicDatabase() {
         return logicDatabase;
     }
+    public void updateData(EngineDepo depo){
+        
+    }
+
     
 }

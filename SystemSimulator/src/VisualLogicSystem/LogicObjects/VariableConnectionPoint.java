@@ -15,7 +15,7 @@ import java.io.Serializable;
  *
  * @author Dylan
  */
-public class VariableConnectionPoint  implements Cloneable{
+public class VariableConnectionPoint  implements Cloneable,Serializable {
 
     //variables
     String name;

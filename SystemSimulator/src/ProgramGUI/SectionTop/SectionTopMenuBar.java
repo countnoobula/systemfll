@@ -1,5 +1,6 @@
 package ProgramGUI.SectionTop;
 
+import InputOutput.Output;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -13,6 +14,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 import MainClasses.Main;
+import MainClasses.SystemProject;
 import ProgramGUI.GUIComponents.Buttons.NullButton;
 import ProgramGUI.GUIComponents.Panes.NullPanel;
 
@@ -94,6 +96,30 @@ public class SectionTopMenuBar extends JPanel {
 
         pop3 = new SystemPopUp();
         pop3.add(new SystemPopupMenuItem("Refresh Sockets"));
+
+        ((SystemPopupMenuItem)pop1.getComponent(0)).addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent ae) {
+                m.setSystemProject(new SystemProject("Temp","Untitled"));
+                
+            }
+        });
+        pop3.add(new SystemPopupMenuItem("Refresh Sockets"));
+
+        ((SystemPopupMenuItem)pop1.getComponent(1)).addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent ae) {
+                m.setSystemProject((SystemProject)Output.readDatabase("project"));
+            }
+        });
+        pop3.add(new SystemPopupMenuItem("Refresh Sockets"));
+
+        ((SystemPopupMenuItem)pop1.getComponent(2)).addActionListener(new ActionListener(){
+
+            public void actionPerformed(ActionEvent ae) {
+                Output.writeDatabase(m.getSystemProject(),"project");
+            }
+        });
         end1.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {

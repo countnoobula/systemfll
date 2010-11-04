@@ -4,7 +4,7 @@ import VisualLogicSystem.DataBlockSystem.DataObject;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CodeBlock implements Cloneable{
+public class CodeBlock implements Cloneable,Serializable {
 
     private int ID;
     private String compileCode = "";
