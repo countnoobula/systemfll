@@ -25,6 +25,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import MainClasses.Main;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 import javax.swing.JOptionPane;
 
 public class PortalScreen extends GenericSystemPanel {
@@ -35,8 +36,8 @@ public class PortalScreen extends GenericSystemPanel {
     GridBagConstraints gc;
     Main m;
 
-    public PortalScreen(Main m2) {
-        super();
+    public PortalScreen(TabbedPane p,String n,Main m2) {
+        super(p,n);
         this.m = m2;
         gc = new GridBagConstraints();
         panel_1 = new CenterLogin();

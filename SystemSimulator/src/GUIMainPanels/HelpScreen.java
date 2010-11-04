@@ -3,6 +3,7 @@ package GUIMainPanels;
 //imports
 import ProgramUtils.FileTreeModel;
 import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 import ProgramGUI.GUIComponents.SystemTreeViewer;
 import Resources.Images.ImageLoader;
 import java.awt.Color;
@@ -33,8 +34,8 @@ public class HelpScreen extends GenericSystemPanel {
     private GridBagConstraints gc;
 
 
-    public HelpScreen() {
-        super();
+    public HelpScreen(TabbedPane p,String n) {
+        super(p,n);
         gc = new GridBagConstraints();
         this.setLayout(new GridBagLayout());
 

@@ -3,6 +3,8 @@ package GUIPlanner;
 import MainClasses.Main;
 import PlannerSystem.PlannerNoteData;
 import ProgramGUI.GUIComponents.Buttons.SmallRoundedButton;
+import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 import Resources.Images.ImageLoader;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -27,7 +29,7 @@ import javax.swing.JPanel;
  * The note viewer is a panel on the Planner which allows users to view and organize notes
  * which they make as they use the program
  */
-public class NoteViewer extends JPanel {
+public class NoteViewer extends GenericSystemPanel {
 
     private TopBar utilityBar;
     private BarkPanel mainCanvas;
@@ -35,7 +37,9 @@ public class NoteViewer extends JPanel {
     private NoteViewer nv;
     private ArrayList<PlannerNote> notes;
 
-    public NoteViewer(Main m2) {
+    public NoteViewer(TabbedPane p,String s,Main m2) {
+        super(p,s);
+        
         this.m = m2;
         nv = this;
 

@@ -14,11 +14,12 @@ public class OrganizerHome extends TabbedPane{
         super(m2);
         //create new instances
         this.m = m2;
-        this.panel_1 = new PartsDBScreen();
-        this.panel_2 = new ProjectManagerScreen();
+        String names[] = {"Project Manager","Parts Database"};
+        this.panel_1 = new PartsDBScreen(this,names[0]);
+        this.panel_2 = new ProjectManagerScreen(this,names[1]);
         
         //add components
-        this.add("Project Manager", panel_2);
-        this.add("Parts Database", panel_1);
+        this.add(names[0], panel_2);
+        this.add(names[1], panel_1);
     }
 }

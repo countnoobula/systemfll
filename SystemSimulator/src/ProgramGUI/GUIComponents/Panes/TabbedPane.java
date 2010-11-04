@@ -9,11 +9,14 @@ import java.awt.Graphics2D;
 
 import java.awt.Paint;
 import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JTabbedPane;
 import javax.swing.plaf.basic.BasicTabbedPaneUI;
 
 import MainClasses.Main;
+import ProgramGUI.GUIEngine;
+import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 
 import org.jdesktop.animation.transitions.ScreenTransition;
@@ -21,19 +24,52 @@ import org.jdesktop.animation.transitions.ScreenTransition;
 public class TabbedPane extends JTabbedPane {
 
     TabbedPane nested;
+    TabbedPaneUI UI;
     private ScreenTransition transition;
     Main m;
 
     public TabbedPane(Main m2) {
         super();
 
+
         this.nested = this;
+        UI = new TabbedPaneUI();
         this.m = m2;
         this.setOpaque(false);
-        this.setUI(new TabbedPaneUI());
+        this.setUI(UI);
         this.setFocusable(false);
         this.setBackground(new Color(0, 0, 0, 0));
         this.setBorder(BorderFactory.createEmptyBorder());
+        this.addMouseListener(new MouseListener(){
+
+            public void mouseClicked(MouseEvent me) {
+                if(me.getButton() == MouseEvent.BUTTON3){
+                    for(int i = 0;i < nested.getTabCount();i++){
+                        if(UI.getTabBounds(nested, i).contains(me.getPoint())){
+                            m.getGuiEngine().openInNewWindow(nested.getComponent(i));
+                        }
+                    }
+                 
+                }
+            }
+
+            public void mousePressed(MouseEvent me) {
+
+
+            }
+
+            public void mouseReleased(MouseEvent me) {
+
+            }
+
+            public void mouseEntered(MouseEvent me) {
+
+            }
+
+            public void mouseExited(MouseEvent me) {
+
+            }
+        });
 
     }
 
@@ -46,6 +82,7 @@ public class TabbedPane extends JTabbedPane {
         }
 
         return super.add(title, component);
+        
     }
 
     private class TabbedPaneUI extends BasicTabbedPaneUI {

@@ -12,12 +12,11 @@ public class PlannerPanel extends TabbedPane {
         super(m2);
         this.m = m2;
 
-        this.panel_1 = new NoteViewer(m);
+        String names[] = {"Sticky Notes"};
+        this.panel_1 = new NoteViewer(this, names[0], m);
 
-        this.add("Notes", panel_1);
+        this.add(names[0], panel_1);
         this.setVisible(false);
 
     }
-
-
 }

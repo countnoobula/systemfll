@@ -2,6 +2,7 @@ package GUIProgrammer;
 
 import MainClasses.Main;
 import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 import VisualLogicSystem.LogicObjects.CodeBlock;
 import VisualLogicSystem.LogicBlockEngine;
 
@@ -21,8 +22,8 @@ public class CodingScreen extends GenericSystemPanel {
 
     JEditorPane edit;
     Main m;
-    public CodingScreen(Main m2) {
-
+    public CodingScreen(TabbedPane p,String n,Main m2) {
+        super(p,n);
 
         this.m = m2;
 

@@ -7,6 +7,7 @@ import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
 import ProgramGUI.GUIComponents.Buttons.SystemSmallTool;
 import ProgramGUI.GUIComponents.Panes.BlockPropertyEditor;
 import ProgramGUI.GUIComponents.Panes.NullPanel;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 import Resources.Images.ImageLoader;
 import VisualLogicSystem.DataBlockSystem.DataBlock;
 import VisualLogicSystem.DataBlockSystem.DataLink;
@@ -70,8 +71,8 @@ public class VisualLogicGL extends GenericSystemPanel {
     //some interesting variables
     SystemSmallTool tools[] = new SystemSmallTool[7];
 
-    public VisualLogicGL(Main m2) {
-        super();
+    public VisualLogicGL(TabbedPane p,String n,Main m2) {
+        super(p,n);
         this.m = m2;
         GLProfile.initSingleton();
         GLProfile glp = GLProfile.getDefault();

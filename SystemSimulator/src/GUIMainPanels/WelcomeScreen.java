@@ -3,6 +3,7 @@ package GUIMainPanels;
 import MainClasses.SystemInformation;
 
 import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 
 import Resources.Images.ImageLoader;
 
@@ -14,11 +15,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class WelcomeScreen extends GenericSystemPanel{
+public class WelcomeScreen extends GenericSystemPanel {
+
     Image i1;
-    public WelcomeScreen() {
-        
-        super();
+
+    public WelcomeScreen(TabbedPane p,String n) {
+
+        super(p,n);
         try {
             i1 = ImageIO.read(ImageLoader.class.getResource("SystemLogo2.png"));
         } catch (IOException e) {
@@ -29,11 +32,11 @@ public class WelcomeScreen extends GenericSystemPanel{
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-      g.drawImage(i1, (this.getWidth() / 2) - (i1.getWidth(null) / 2),
-                    (this.getHeight() / 2) - (i1.getHeight(null) / 2),
-                    null);
-      g.setColor(Color.GRAY);
-      g.drawString("Build: "+SystemInformation.buildCodeName+"  "+SystemInformation.buildVersion, this.getWidth()-200, this.getHeight()-35);
-      g.drawString("Version: "+SystemInformation.SystemVersion, this.getWidth()-200, this.getHeight()-15);
+        g.drawImage(i1, (this.getWidth() / 2) - (i1.getWidth(null) / 2),
+                (this.getHeight() / 2) - (i1.getHeight(null) / 2),
+                null);
+        g.setColor(Color.GRAY);
+        g.drawString("Build: " + SystemInformation.buildCodeName + "  " + SystemInformation.buildVersion, this.getWidth() - 200, this.getHeight() - 35);
+        g.drawString("Version: " + SystemInformation.SystemVersion, this.getWidth() - 200, this.getHeight() - 15);
     }
 }

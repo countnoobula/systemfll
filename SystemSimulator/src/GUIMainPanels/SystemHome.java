@@ -20,23 +20,30 @@ public class SystemHome extends TabbedPane {
     public SystemHome(Main m2) {
         super(m2);
 
+        String names[] = {
+            "Home",
+            "Help",
+            "Preferences",
+            "News",
+            "Portal",
+            "Updates"};
         //create variables
         this.m = m2;
-        this.panel_1 = new WelcomeScreen();
-        this.panel_2 = new NewsScreen();
-        this.panel_3 = new PortalScreen(m);
-        this.panel_4 = new UpdateScreen();
-        this.panel_5 = new PreferencesScreen(m);
-        this.panel_6 = new HelpScreen();
+        this.panel_1 = new WelcomeScreen(this, names[0]);
+        this.panel_2 = new NewsScreen(this, names[1]);
+        this.panel_3 = new PortalScreen(this, names[2], m);
+        this.panel_4 = new UpdateScreen(this, names[3]);
+        this.panel_5 = new PreferencesScreen(this, names[4], m);
+        this.panel_6 = new HelpScreen(this, names[5]);
 
         //add all the components
-        this.add("Home", panel_1);
-        this.add("Help", panel_6);
-        this.add("Preferences", panel_5);
-        this.add("News", panel_2);
-        this.add("Portal", panel_3);
-        this.add("Updates", panel_4);
-        
+        this.add(names[0], panel_1);
+        this.add(names[1], panel_6);
+        this.add(names[2], panel_5);
+        this.add(names[3], panel_2);
+        this.add(names[4], panel_3);
+        this.add(names[5], panel_4);
+
 
     }
 

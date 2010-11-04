@@ -18,16 +18,18 @@ public class ProgrammerHome extends TabbedPane {
     public ProgrammerHome(Main m2) {
         super(m2);
         this.m = m2;
+
+        String names[] = {"Coding API","Scripter","Visual Logic"};
         
         //create new instances
-        this.panel_1 = new CoderAPI();
-        this.panel_2 = new CodingScreen(m);
-        this.panel_3 = new VisualLogicGL(m);
+        this.panel_1 = new CoderAPI(this,names[0]);
+        this.panel_2 = new CodingScreen(this,names[1],m);
+        this.panel_3 = new VisualLogicGL(this,names[2],m);
         
         //add components
-        this.add("Coding API", panel_1);
-        this.add("Scripter", panel_2);
-        this.add("Visual Logic", panel_3);
+        this.add(names[0], panel_1);
+        this.add(names[1], panel_2);
+        this.add(names[2], panel_3);
         panel_3.setOpaque(false);
         panel_3.setDoubleBuffered(false);
   

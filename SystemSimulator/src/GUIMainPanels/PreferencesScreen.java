@@ -12,6 +12,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import MainClasses.Main;
+import ProgramGUI.GUIComponents.Panes.TabbedPane;
 
 import java.awt.Component;
 import java.awt.Insets;
@@ -36,8 +37,8 @@ public class PreferencesScreen extends GenericSystemPanel {
     //main program call
     private Main m;
 
-    public PreferencesScreen(Main m2) {
-
+    public PreferencesScreen(TabbedPane p,String n,Main m2) {
+        super(p,n);
         this.m = m2;
 
         this.setLayout(new GridBagLayout());
