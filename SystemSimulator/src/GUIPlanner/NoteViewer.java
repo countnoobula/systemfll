@@ -1,6 +1,7 @@
 package GUIPlanner;
 
 import MainClasses.Main;
+import MainClasses.SystemProject;
 import PlannerSystem.PlannerNoteData;
 import ProgramGUI.GUIComponents.Buttons.SmallRoundedButton;
 import ProgramGUI.GUIComponents.Panes.GenericSystemPanel;
@@ -97,7 +98,7 @@ public class NoteViewer extends GenericSystemPanel {
                     tempNote.setX((int) Math.random() * 300);
                     tempNote.setY((int) Math.random() * 300);
 
-                    m.getPlanDatabase().addPlannerNote(tempNote);
+                    m.getSystemProject().getPlannerDatabase(SystemProject.currentPlanner).addPlannerNote(tempNote);
                     notes.add(new PlannerNote(nv, tempNote, new Color((int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255), 200), new Color((int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255), (int) Math.round(Math.random() * 255), 200)));
                     mainCanvas.resetComponents();
                 }
@@ -105,7 +106,7 @@ public class NoteViewer extends GenericSystemPanel {
             bt2.addActionListener(new ActionListener() {
 
                 public void actionPerformed(ActionEvent e) {
-                    m.getPlanDatabase().clearNotes();
+                    m.getSystemProject().getPlannerDatabase(SystemProject.currentPlanner).clearNotes();
                     notes.clear();
                     mainCanvas.resetComponents();
                 }
@@ -146,7 +147,7 @@ public class NoteViewer extends GenericSystemPanel {
 
         public void resetComponents() {
             this.removeAll();
-            for (int i = 0; i < m.getPlanDatabase().getAmountOfPlannerNotes();
+            for (int i = 0; i < m.getSystemProject().getPlannerDatabase(SystemProject.currentPlanner).getAmountOfPlannerNotes();
                     i++) {
 
                 this.add(notes.get(i));

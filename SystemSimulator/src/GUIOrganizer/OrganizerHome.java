@@ -16,7 +16,7 @@ public class OrganizerHome extends TabbedPane{
         this.m = m2;
         String names[] = {"Project Manager","Parts Database"};
         this.panel_1 = new PartsDBScreen(this,names[0]);
-        this.panel_2 = new ProjectManagerScreen(this,names[1]);
+        this.panel_2 = new ProjectManagerScreen(this,names[1],m);
         
         //add components
         this.add(names[0], panel_2);

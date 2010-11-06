@@ -1,20 +1,38 @@
 package SystemObjects;
+
+import java.awt.Rectangle;
+import java.io.Serializable;
+import java.text.DateFormat;
+import java.util.Date;
+
 /**
  * This is the building block for all objects which can be used in the Object Manager.
  * It contains information which all objects will inherit such as author information and
  * inventory data
  */
-public abstract class SystemObject {
+public abstract class SystemObject implements Serializable {
     
     //Data used for the object indexing
-    private int ID = 0;
+    private int ID;
+    private static int total;
+    private String type;
     private String title = "System Object";
     private String description = "A generic Object";
-    
+    private Rectangle rect;
     //Author Data
     private String author = "Anonoymous";
     private String email = "-";
     private String creationDate = "";
+
+    public SystemObject(String type){
+        total++;
+        ID = total;
+        //computes the exact date of creation
+        Date now = new Date();
+        DateFormat df = DateFormat.getDateInstance();
+        this.creationDate = df.format(now);
+    }
+
 
     /**
      * Sets the ID object

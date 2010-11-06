@@ -14,14 +14,19 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JEditorPane;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.parser.ParserDelegator;
 import java.util.ArrayList;
 import java.io.File;
+import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JTree;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.tree.*;
 import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
@@ -41,8 +46,10 @@ public class HelpScreen extends GenericSystemPanel {
 
         this.panel_1 = new SystemTreeViewer();
         this.panel_2 = new HTMLViewer();
+        this.panel_1.setVisible(false);
 
         this.panel_1.setPreferredSize(new Dimension(250, 0));
+        this.panel_1.setMinimumSize(new Dimension(250, 0));
 
         File f = new File("public_html");
         //File f = new File("http://voidblog.com");
@@ -140,7 +147,28 @@ public class HelpScreen extends GenericSystemPanel {
 
         private HTMLViewer() {
             this.setEditorKit(kit);
+            this.setEditable(false);
+            this.addHyperlinkListener(new HyperlinkListener() {
 
+                public void hyperlinkUpdate(HyperlinkEvent ev) {
+                    if (ev.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                        try {
+                            setPage(ev.getURL());
+                        } catch (IOException ex) {
+                            System.out.println("could not load the HTML page in the help system");
+                        }
+                    }
+                }
+            });
+            //this.doLoadCommand("Help/index.html");
+            
+                URL url = getClass().getResource("/Help/index.html");
+            try {
+                this.setPage(url);
+            } catch (IOException ex) {
+                Logger.getLogger(HelpScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             
 
         }
 

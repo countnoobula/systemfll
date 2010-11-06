@@ -27,6 +27,7 @@ public class SectionBottomPanel extends JPanel {
     public SectionBottomPanel(Main m2) {
         this.m = m2;
         this.setPreferredSize(new Dimension(0, 25));
+        this.setMinimumSize(new Dimension(0, 25));
 
         gp1 = new GradientPaint(0, 0, new Color(51, 51, 51), 0, 25, new Color(0, 0, 0));
 

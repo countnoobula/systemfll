@@ -71,8 +71,8 @@ public class VisualLogicGL extends GenericSystemPanel {
     //some interesting variables
     SystemSmallTool tools[] = new SystemSmallTool[7];
 
-    public VisualLogicGL(TabbedPane p,String n,Main m2) {
-        super(p,n);
+    public VisualLogicGL(TabbedPane p, String n, Main m2) {
+        super(p, n);
         this.m = m2;
         GLProfile.initSingleton();
         GLProfile glp = GLProfile.getDefault();
@@ -259,7 +259,7 @@ public class VisualLogicGL extends GenericSystemPanel {
             gl.glEnable(GL2.GL_BLEND);
 
             gl.glEnable(GL2.GL_LINE_SMOOTH);
-            gl.glClearColor(0.9f, 0.9f, 0.9f, 0.0f);
+            gl.glClearColor(0.2f, 0.2f, 0.2f, 0.0f);
 
         }
 
@@ -269,9 +269,9 @@ public class VisualLogicGL extends GenericSystemPanel {
         public void display(GLAutoDrawable glad) {
             GL2 gl = glad.getGL().getGL2();
             gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-            gl.glColor3d(0.8, 0.8, 0.8);
+            gl.glColor3d(0.25, 0.25, 0.25);
 
-            for (int i = 0; i < canvas.getWidth(); i += 20) {
+            for (int i = 0; i < canvas.getWidth(); i += 25) {
 
                 gl.glBegin(GL2.GL_LINES);
                 gl.glVertex2d(i, 0);
@@ -283,7 +283,14 @@ public class VisualLogicGL extends GenericSystemPanel {
                 gl.glVertex2d(canvas.getWidth(), i);
                 gl.glEnd();
             }
-
+            gl.glBegin(GL2.GL_POLYGON);
+            gl.glColor3d(0.1, 0.1, 0.1);
+            gl.glVertex2d(0, 0);
+            gl.glVertex2d(canvas.getWidth(), 0);
+            gl.glColor4d(0.1, 0.1, 0.1, 0.0f);
+            gl.glVertex2d(canvas.getWidth(), 30);
+            gl.glVertex2d(0, 30);
+            gl.glEnd();
 
 
 
@@ -299,6 +306,8 @@ public class VisualLogicGL extends GenericSystemPanel {
             for (int i = 0; i < m.getEngineDepo().getLogicEngine().getBlockArraySize(); i++) {
                 m.getEngineDepo().getLogicEngine().getBlock(i).drawGL(gl);
             }
+            gl.glColor3d(0.0, 0.75, 1.0);
+            gl.glLineWidth(1.5f);
             //draw all the data links
             for (int i = 0; i < m.getEngineDepo().getLogicEngine().getDataLinkSize(); i++) {
                 m.getEngineDepo().getLogicEngine().getDataLink(i).drawGL(gl);
@@ -341,6 +350,7 @@ public class VisualLogicGL extends GenericSystemPanel {
                 }
             }
 
+            
 
             //end the graphics stuffs
             gl.glFlush();
@@ -798,7 +808,6 @@ public class VisualLogicGL extends GenericSystemPanel {
     public void setDrawer(LogicBlocksDrawer drawer) {
         this.drawer = drawer;
     }
-
 
     public static void setCanvas(LogicCanvas canvas) {
         VisualLogicGL.canvas = canvas;

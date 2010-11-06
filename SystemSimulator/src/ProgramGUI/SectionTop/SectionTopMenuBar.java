@@ -153,7 +153,7 @@ public class SectionTopMenuBar extends JPanel {
 
 
         gp1 = new GradientPaint(0, 5, new Color(51, 51, 51), 0, 25, new Color(0, 0, 0));
-        gp2 = new GradientPaint(0, 5, new Color(251, 251, 251, 60), 0, 25, new Color(200, 200, 200, 60));
+        gp2 = new GradientPaint(0, 5, new Color(251, 251, 251, 30), 0, 25, new Color(200, 200, 200, 30));
         gp3 = new GradientPaint(0, 5, new Color(40, 40, 40), 0, 25, new Color(0, 0, 0));
         gp4 = new GradientPaint(0, 8, new Color(0, 192, 255), 0, 25, new Color(0, 142, 200));
         gp5 = new GradientPaint(0, 8, new Color(0, 142, 205), 0, 25, new Color(0, 100, 150));

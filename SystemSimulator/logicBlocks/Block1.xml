@@ -12,10 +12,8 @@
     <!-- This is information about the block and what it does -->
     <information>
         <title>RCX Start</title>
-        <description>
-            This is the start of an RCX program which is run through
-            the Lejos operating system. Use this to start a program off
-        </description>
+        <description>This is the start of an RCX program which is run through
+the Lejos operating system. Use this to start a program off.</description>
         <type>start</type>
     </information>
 

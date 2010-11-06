@@ -57,7 +57,9 @@
 
             <description>begins the for loop</description>
 
-            <code>for(int i = #1#;i &lt; #2#;i+=#3#){</code>
+            <code>
+				
+				for(int i = #1#;i &lt; #2#;i+=#3#){</code>
 
             <rectangle>
                 <x>40</x>

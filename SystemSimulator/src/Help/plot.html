@@ -1,0 +1,105 @@
+<!--
+This is the Help function for AutoPilot
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <style type="text/css">
+            body{
+                background-color:#b2b2b2;
+                background-image: url("images/back.png");
+                background-repeat: repeat-x}
+            p{font-family: Arial;
+              padding-left: 10px}
+            H2{font-family: Arial;
+               padding-left: 10px}
+            H3{font-family: Arial;
+               padding-left: 10px}
+            H4{font-family: Arial;
+               padding-left: 10px}
+            a{font-family: Arial;
+			   padding-left: 10px;
+			   text-decoration:none;
+			   font-weight: bold;}
+            #back{background-image: url("images/title2.gif");
+               background-color: black;
+               background-repeat: no-repeat;
+               padding-left:5px;}
+        	a:link {color: #424242;
+			   text-decoration: none;}
+			a:visited {text-decoration: none;
+			   color: #92981F;}
+</style>
+        <title>Plotting Window Help</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    </head>
+    <body>
+        <table width="100%" cellpadding="0px" cellspacing="0px" border="0px">
+            <tr bgcolor="black">
+                <td><img src="images/title.gif"></td>
+            </tr>
+        </table>
+        <table id="back" width="100%" cellpadding="0px" cellspacing="0px" border="0px">
+            <tr bgcolor="black">
+                <td id="back"><font face="Arial"><a href="index.html">Contents</a> :: <a href="http://robotics.voidblog.com/forum/" target="_blank">Online Forum</a></font></td>
+            </tr>
+        </table>
+        <h2>The Plotting Window</h2>
+        <p>
+            The plotting window looks like the picture below and is the 2D orienteering system for AutoPilot.
+       It allows you to choose a starting location and then plot the course of your robot.        </p>
+        <p><img src="images/plottingwindow.png" alt="The Plotting Window" width="460" height="292" border="0"></p>
+<h3>The canvas</h3>
+<p>
+            This is the coloured area and is where your robots journey takes place. It is where you can draw, plot
+        and tell your robot where to go.        </p>
+        <h3>How to use the plotting window</h3>
+    <p>To use the plotting window, click once on the canvas to choose where you want to start from. Then, every click you make after that (on the canvas) will be recorded as a point. These points are where the robot will go to. Autopilot automatically calculates the distance and turns involved. Use the grid and measurements to work out how far you want it to go, or use the<a href="input.html"> Input Window</a>.</p>
+        <h3>Removing points</h3>
+        <blockquote>
+          <table width="100%" border="0" cellspacing="1" cellpadding="2">
+            <tr>
+              <td width="250"><h4>Remove</h4></td>
+              <td width="207" align="center"><p><em>This function is not yet available.</em></p></td>
+              <td><p>This removes any one of the points that you choose after you have selected this.</p></td>
+            </tr>
+            <tr>
+              <td width="250"><h4>Clear Area</h4></td>
+              <td width="207" align="center"><p><img src="images/clear.PNG" width="76" height="33" alt="Clear Image"></p></td>
+              <td><p>This clears the entire canvas with all the points.</p></td>
+            </tr>
+          </table>
+    </blockquote>
+<h3>The guidelines</h3>
+    <p>These are the options at the top of the plotting area. These can also be found under the map tools menu.</p>
+        <p><img src="images/guidelines.PNG" alt="Guidelines" width="324" height="28" border="0"></p>
+        <blockquote>
+          <table width="100%" border="0" cellspacing="1" cellpadding="2">
+            <tr>
+              <td width="250"> <h4>Add start lines</h4></td>
+              <td width="207" align="center"><img src="images/startlines.PNG" width="137" height="120" alt="Start lines"></td>
+              <td><p>This helps you find where your starting point is and also keeps your working accurate and straight.</p></td>
+            </tr>
+            <tr>
+              <td width="250"><h4>Add grid</h4></td>
+              <td width="207" align="center"><img src="images/grid.PNG" width="207" height="97" alt="Grid"></td>
+              <td><p>This is the green grid you see in the on the canvas.</p></td>
+            </tr>
+            <tr>
+              <td width="250"><h4>Add count</h4></td>
+              <td width="207" align="center"><p><img src="images/count.PNG" width="112" height="94" alt="Count"></p></td>
+              <td><p>This is the number next to the points on the canvas that tells you how many things the robot has done up to and including itself. If you want to know why it counts in even numbers (I didn't know either and had to ask Dylan), it's because it includes the turns that it calculates itself and doesn't number.</p></td>
+            </tr>
+            <tr>
+              <td width="250"><h4>x;y</h4></td>
+              <td width="207" align="center"><p><img src="images/x;y.PNG" width="49" height="40" alt="x;y"></p></td>
+              <td><p>This is the option that puts the exact co-ordinates of your mouse cursor next to it.</p></td>
+            </tr>
+          </table>
+</blockquote>
+        <h3>Canvas Movement</h3>
+    <p>This is the 4 arrows in the top left corner of the canvas. These functions move your canvas around. The button in the centre moves the canvas so that your starting point is centre on the screen.</p>
+        <p><img src="images/arrows.PNG" width="72" height="96" alt="Arrows"></p>
+        <p>&nbsp;</p>
+    </body>
+</html>

@@ -3,18 +3,20 @@ package DataSystem;
 import java.io.Serializable;
 
 import PlannerSystem.PlannerNoteData;
+import SystemObjects.SystemObject;
 
 import java.util.ArrayList;
 
 /**
  * The database for all the planner objects
  */
-public class PlannerDatabase implements Serializable{
+public class PlannerDatabase extends SystemObject implements Serializable{
 
     //stores the sticky notes
     ArrayList<PlannerNoteData> panels;
 
     public PlannerDatabase() {
+        super("Note Collection");
         this.panels = new ArrayList<PlannerNoteData>(0);
     }
 

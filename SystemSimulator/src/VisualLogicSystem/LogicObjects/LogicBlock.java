@@ -2,10 +2,7 @@ package VisualLogicSystem.LogicObjects;
 
 //imports
 import ProgramGUI.GUIComponents.BlockVariablePane;
-import ProgramGUI.GUIComponents.Buttons.NullButton;
 import VisualLogicSystem.DataBlockSystem.DataObject;
-import VisualLogicSystem.LogicBlockAddition;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -25,11 +22,10 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 import javax.media.opengl.GL2;
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.plaf.basic.BasicButtonUI;
 
-public class LogicBlock implements Cloneable,Serializable {
+public class LogicBlock implements Cloneable, Serializable {
 
     //methods are public for the XML utilites
     public Paint gp1, gp2, gp3, gp4, gp5;
@@ -52,13 +48,13 @@ public class LogicBlock implements Cloneable,Serializable {
     public Rectangle rectUp, rectBot;
     public String imports[];
     public BufferedImage bi2;
+    public String title;
+    public String description;
 
     public LogicBlock() {
 
 
         bounds = new Rectangle();
-
-
         //create the data objects
         nodes = new ArrayList<LogicLink>(0);
         data = new ArrayList<DataObject>(0);
@@ -76,33 +72,53 @@ public class LogicBlock implements Cloneable,Serializable {
 
 
     }
-     /**
+
+
+    /**
      * Draws the Block in OpenGL
      * @param gl the GL context
      */
     public void drawGL(GL2 gl) {
 
-        gl.glRasterPos2i(getX(), getY() + height + 1);
+        gl.glBegin(GL2.GL_POLYGON);
+
+        gl.glColor4d(0.1, 0.1, 0.1, 0.0);
+
+
+        gl.glColor4d(0.1, 0.1, 0.1, 0.6);
+        gl.glVertex2d(getX() + width, getY() + 4);
+        gl.glVertex2d(getX() + width, getY() + height);
+        gl.glVertex2d(getX() + 4, getY() + height);
+        gl.glVertex2d(getX() + 4, getY() + height + 4);
+        gl.glVertex2d(getX() + width, getY() + height + 4);
+        gl.glVertex2d(getX() + width+3, getY() + height + 3);
+        gl.glVertex2d(getX() + width + 4, getY() + height);
+        gl.glVertex2d(getX() + width + 4, getY() + 4);
+
+        gl.glEnd();
+
+        gl.glRasterPos2i(getX(), getY() + height);
         gl.glDrawPixels(width, height, GL2.GL_RGBA, GL2.GL_UNSIGNED_BYTE, dest);
+
 
         if (rectUp.getWidth() > 2) {
             //draw input blocks
-            gl.glColor3d(0.2, 0.2, 0.2);
+            gl.glColor3d(0.1, 0.1, 0.1);
             gl.glBegin(GL2.GL_POLYGON);
             gl.glVertex2d(rectUp.getX(), rectUp.getY());
             gl.glVertex2d(rectUp.getX() + rectUp.getWidth(), rectUp.getY());
-            gl.glColor3d(0.4, 0.4, 0.4);
+
             gl.glVertex2d(rectUp.getX() + rectUp.getWidth(), rectUp.getY() + rectUp.getHeight());
             gl.glVertex2d(rectUp.getX(), rectUp.getY() + rectUp.getHeight());
             gl.glEnd();
         }
         if (rectBot.getWidth() > 2) {
             //draw output blocks
-            gl.glColor3d(0.4, 0.4, 0.4);
+            gl.glColor3d(0.1, 0.1, 0.1);
             gl.glBegin(GL2.GL_POLYGON);
             gl.glVertex2d(rectBot.getX(), rectBot.getY());
             gl.glVertex2d(rectBot.getX() + rectBot.getWidth(), rectBot.getY());
-            gl.glColor3d(0.2, 0.2, 0.2);
+
             gl.glVertex2d(rectBot.getX() + rectBot.getWidth(), rectBot.getY() + rectBot.getHeight());
             gl.glVertex2d(rectBot.getX(), rectBot.getY() + rectBot.getHeight());
             gl.glEnd();
@@ -111,10 +127,12 @@ public class LogicBlock implements Cloneable,Serializable {
 
         for (int i = 0; i < getVariablePointsSize(); i++) {
             //drawFlashingblocks
-            gl.glColor3d(0.0, 0.75, 1.0);
+            
             gl.glBegin(GL2.GL_POLYGON);
             Rectangle rect = getVariableConnectRect(i);
+            gl.glColor3d(0.0, 0.4, 1.0);
             gl.glVertex2d(rect.getX(), rect.getY());
+            gl.glColor3d(0.0, 0.75, 1.0);
             gl.glVertex2d(rect.getX() + rect.getWidth(), rect.getY());
             gl.glVertex2d(rect.getX() + rect.getWidth(), rect.getY() + rect.getHeight());
             gl.glVertex2d(rect.getX(), rect.getY() + rect.getHeight());
@@ -149,6 +167,7 @@ public class LogicBlock implements Cloneable,Serializable {
         }
     }
     //!-------- The button class --------------
+
     private class LogicButtonUI extends BasicButtonUI {
 
         @Override
@@ -157,23 +176,19 @@ public class LogicBlock implements Cloneable,Serializable {
         }
     }
 
-    public JButton getButton() {
+    public Image getButton() {
 
         bi2 = new BufferedImage(60, 60, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g23 = bi2.createGraphics();
         AffineTransform gt = new AffineTransform();
         gt.translate(0, height);
 
+
         gt.scale(1, -1d);
         g23.transform(gt);
         g23.drawImage(bi, 0, 0, null);
-        NullButton temp = new NullButton("");
 
-        temp.setUI(new LogicButtonUI());
-        temp.setOpaque(false);
-        temp.setPreferredSize(new Dimension(width, height));
-        temp.addActionListener(new LogicBlockAddition(this));
-        return temp;
+        return bi2;
     }
 
     public void addConnectionPoint(ConnectionPoint cp) {
@@ -379,6 +394,23 @@ public class LogicBlock implements Cloneable,Serializable {
     public void setImage(Image i) {
         g2d.drawImage(i, 0, 0, null);
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 
     @Override
     @SuppressWarnings("unchecked")

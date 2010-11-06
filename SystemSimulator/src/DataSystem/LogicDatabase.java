@@ -1,6 +1,7 @@
 
 package DataSystem;
 
+import SystemObjects.SystemObject;
 import VisualLogicSystem.DataBlockSystem.DataBlock;
 import VisualLogicSystem.DataBlockSystem.DataLink;
 import VisualLogicSystem.LogicObjects.LogicBlock;
@@ -12,16 +13,16 @@ import java.util.ArrayList;
  *
  * @author dylan
  */
-public class LogicDatabase implements Serializable  {
+public class LogicDatabase extends SystemObject implements Serializable{
 
     //variables
-    public static ArrayList<LogicBlock> blocks;
-    public static ArrayList<LogicLink> links;
-    public static ArrayList<DataBlock> dataBlocks;
-    public static ArrayList<DataLink> dataLinks;
+    public ArrayList<LogicBlock> blocks;
+    public ArrayList<LogicLink> links;
+    public ArrayList<DataBlock> dataBlocks;
+    public ArrayList<DataLink> dataLinks;
 
     public LogicDatabase(){
-
+        super("Visual Logic Diagram");
          //create new instances
         this.blocks = new ArrayList<LogicBlock>();
         this.links = new ArrayList<LogicLink>();

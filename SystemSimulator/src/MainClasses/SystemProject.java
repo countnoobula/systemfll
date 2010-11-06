@@ -2,9 +2,9 @@ package MainClasses;
 
 import DataSystem.LogicDatabase;
 import java.io.Serializable;
-import DataSystem.ObjectDatabase;
 import DataSystem.PlannerDatabase;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class SystemProject implements Serializable {
@@ -13,13 +13,13 @@ public class SystemProject implements Serializable {
     private String projectAuthor;
     private String projectDate;
     private double saveVersion;
-
-    private ObjectDatabase objectDatabase;
-    private PlannerDatabase plannerDatabase;
-    private LogicDatabase logicDatabase;
+    private ArrayList<PlannerDatabase> plannerDatabase;
+    private ArrayList<LogicDatabase> logicDatabase;
+    public static int currentPlanner = 0;
+    public static int currentLogic = 0;
 
     /**
-     * Create a new System project with the following paramaters:
+     * Create a new System project with the following parameters:
      * @param name
      * The name of the project
      * @param author
@@ -34,14 +34,16 @@ public class SystemProject implements Serializable {
         Date now = new Date();
         DateFormat df = DateFormat.getDateInstance();
         this.projectDate = df.format(now);
-        
+
         //a checker for checking what version of the program this is compatable with
         saveVersion = SystemInformation.saveVersion;
 
         //Create the databases
-        this.objectDatabase = new ObjectDatabase();
-        this.plannerDatabase = new PlannerDatabase();
-        this.logicDatabase = new LogicDatabase();
+        this.plannerDatabase = new ArrayList<PlannerDatabase>(0);
+        this.logicDatabase = new ArrayList<LogicDatabase>(0);
+
+        this.plannerDatabase.add(new PlannerDatabase());
+        this.logicDatabase.add(new LogicDatabase());
     }
 
     /**
@@ -82,24 +84,25 @@ public class SystemProject implements Serializable {
         return projectDate;
     }
 
-    public ObjectDatabase getObjectDatabase() {
-        return objectDatabase;
-    }
-
-    public PlannerDatabase getPlannerDatabase() {
-        return plannerDatabase;
+    public PlannerDatabase getPlannerDatabase(int id) {
+        return plannerDatabase.get(id);
     }
 
     public double getSaveVersion() {
         return saveVersion;
     }
 
-    public LogicDatabase getLogicDatabase() {
-        return logicDatabase;
-    }
-    public void updateData(EngineDepo depo){
-        
+    public LogicDatabase getLogicDatabase(int id) {
+        return logicDatabase.get(id);
     }
 
-    
+    public void updateData(EngineDepo depo) {
+
+    }
+    public int getVisualLogicSize(){
+        return this.logicDatabase.size();
+    }
+    public int getPlannerDatabaseSize(){
+        return this.plannerDatabase.size();
+    }
 }

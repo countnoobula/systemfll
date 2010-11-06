@@ -57,23 +57,14 @@ public class CodingScreen extends GenericSystemPanel {
                 int tabSpacing = 0;
                 String temp = "";
                 String line = "";
-
-
-
                 for (int i = 0; i < text.length(); i++) {
-
-
                     if (line.contains("}")) {
-
                         tabSpacing--;
                     }
                     if (line.contains("{")) {
                         tabSpacing++;
                     }
-
                     if (text.charAt(i) == '\n') {
-
-
                         String spacing = "";
                         for (int k = 0; k < tabSpacing; k++) {
                             spacing += "\t";
@@ -82,9 +73,6 @@ public class CodingScreen extends GenericSystemPanel {
                             spacing = spacing.replaceFirst("\t", "");
                         }
                         temp = temp + spacing + line + "\n";
-
-
-
                         line = "";
                     } else {
                         line += text.charAt(i);
@@ -92,9 +80,6 @@ public class CodingScreen extends GenericSystemPanel {
                     if (i == text.length() - 1) {
                         temp = temp + line + "\n";
                     }
-
-
-
                 }
                 edit.setText(temp);
             }

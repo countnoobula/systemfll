@@ -134,6 +134,8 @@ public class XMLUtilities {
                         temp.setImage(im);
                     }
                     temp.setType(type);
+                    temp.setTitle(title);
+                    temp.setDescription(description);
                     temp.setImports(importList);
 
 

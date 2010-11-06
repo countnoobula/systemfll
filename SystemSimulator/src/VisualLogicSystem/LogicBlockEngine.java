@@ -3,7 +3,6 @@ package VisualLogicSystem;
 import VisualLogicSystem.LogicObjects.LogicLink;
 import VisualLogicSystem.LogicObjects.CodeBlock;
 import VisualLogicSystem.LogicObjects.LogicBlock;
-import DataSystem.LogicDatabase;
 import MainClasses.Main;
 import MainClasses.SystemProject;
 import VisualLogicSystem.DataBlockSystem.DataBlock;
@@ -25,18 +24,18 @@ public class LogicBlockEngine {
     public LogicBlockEngine(Main m) {
 
         //create new instances
-        this.blocks = m.getSystemProject().getLogicDatabase().getBlocks();
-        this.links =  m.getSystemProject().getLogicDatabase().getLinks();
-        this.dataBlocks = m.getSystemProject().getLogicDatabase().getDataBlocks();
-        this.dataLinks =  m.getSystemProject().getLogicDatabase().getDataLinks();
+        this.blocks = m.getSystemProject().getLogicDatabase(SystemProject.currentPlanner).getBlocks();
+        this.links =  m.getSystemProject().getLogicDatabase(SystemProject.currentPlanner).getLinks();
+        this.dataBlocks = m.getSystemProject().getLogicDatabase(SystemProject.currentPlanner).getDataBlocks();
+        this.dataLinks =  m.getSystemProject().getLogicDatabase(SystemProject.currentPlanner).getDataLinks();
 
     }
     public void updateData(SystemProject pro){
          //create new instances
-        this.blocks = pro.getLogicDatabase().getBlocks();
-        this.links =  pro.getLogicDatabase().getLinks();
-        this.dataBlocks = pro.getLogicDatabase().getDataBlocks();
-        this.dataLinks =  pro.getLogicDatabase().getDataLinks();
+        this.blocks = pro.getLogicDatabase(SystemProject.currentPlanner).getBlocks();
+        this.links =  pro.getLogicDatabase(SystemProject.currentPlanner).getLinks();
+        this.dataBlocks = pro.getLogicDatabase(SystemProject.currentPlanner).getDataBlocks();
+        this.dataLinks =  pro.getLogicDatabase(SystemProject.currentPlanner).getDataLinks();
     }
 
     public ArrayList<CodeBlock> compile() {

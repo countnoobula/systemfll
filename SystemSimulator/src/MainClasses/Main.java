@@ -90,10 +90,6 @@ public class Main {
         return guiEngine;
     }
 
-    public PlannerDatabase getPlanDatabase() {
-        return systemProject.getPlannerDatabase();
-    }
-
     public Preferences getPrefs() {
         return prefs;
     }

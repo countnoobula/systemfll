@@ -1,7 +1,7 @@
 package SystemObjects;
 
 /**
- * This is a database object, which holds generic databse data for use in large databases and projects.
+ * This is a database object, which holds generic database data for use in large databases and projects.
  * @author Dylan Vorster
  * 
  */
@@ -14,6 +14,11 @@ public class DatabaseObject extends SystemObject {
     //Database Information
     private static String partCategory = "Generic Part";
     private static int quantity = 1;
+
+    public DatabaseObject() {
+        super("Database Object");
+    }
+
 
     /**
      * Sets the Databse ID
