@@ -43,6 +43,9 @@ public class SystemProject implements Serializable {
         this.logicDatabase = new ArrayList<LogicDatabase>(0);
 
         this.plannerDatabase.add(new PlannerDatabase());
+        this.plannerDatabase.add(new PlannerDatabase());
+        this.logicDatabase.add(new LogicDatabase());
+        this.logicDatabase.add(new LogicDatabase());
         this.logicDatabase.add(new LogicDatabase());
     }
 

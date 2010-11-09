@@ -33,9 +33,14 @@ public class Loader {
                 String temp = sc.nextLine();
                 if (temp.startsWith("v")) {
                     String verts[] = temp.substring(2).split(" ");
-                    tempObject.addVertex(new Vertex(Float.parseFloat(verts[0]),
+
+                    if(!verts[0].equals("")){
+                        System.out.println("verts: "+verts[0]);
+                     tempObject.addVertex(new Vertex(Float.parseFloat(verts[0]),
                             Float.parseFloat(verts[1]),
                             Float.parseFloat(verts[2])));
+                    }
+                    
                 } else if (temp.startsWith("f")) {
                     String pols[] = temp.substring(2).split(" ");
                     Polygon pol = new Polygon();

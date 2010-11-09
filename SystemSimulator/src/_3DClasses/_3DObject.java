@@ -199,7 +199,8 @@ public class _3DObject {
      * The GL2 context (must be passed down from the higher context)
      */
     public void generateGLList(GL2 gl) {
-        gl.glGenLists(1);
+        list= gl.glGenLists(1);
+        
         gl.glNewList(list, GL2.GL_COMPILE);
         for (int i = 0; i < polygons.size(); i++) {
 
