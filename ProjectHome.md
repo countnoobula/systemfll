@@ -1,0 +1,3 @@
+We are creating an advanced robotics simulation program which is written entirely in the JAVA 1.6 + 1.7 programming language. The simulator will support robotic development from start. This project has come about after an urgent global request was made for a program which has no bounds and offers any user of any age group the ability to program, design and simulate any type of robotic device.
+
+Kapow!
